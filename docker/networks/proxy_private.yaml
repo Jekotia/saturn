@@ -1,0 +1,4 @@
+networks:
+  proxy_private:
+    name: bootstrap_proxy_private
+    external: true
