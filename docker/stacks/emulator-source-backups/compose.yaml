@@ -1,0 +1,40 @@
+include:
+  - ../../networks/proxy_private.yaml
+
+services:
+  emulator-source-backups:
+    image: docker.gitea.com/gitea:1.23.5@sha256:5e55d8fd0622cf70425e4bb874f07f1b340fb53782901a2cc66da1a8b0f1de23
+    container_name: emulator-source-backups
+    restart: unless-stopped
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - GITEA__repository__DEFAULT_BRANCH=master
+      - GITEA__repository__DEFAULT_MIRROR_REPO_UNITS=repo.code,repo.wiki,repo.projects
+      - GITEA__repository__DISABLE_HTTP_GIT=true
+      - GITEA__repository__DISABLE_DOWNLOAD_SOURCE_ARCHIVES=true
+      - GITEA__server__DISABLE_SSH=true
+    #    ports:
+    #      - "222:22"
+    networks:
+      - proxy_private
+    volumes:
+      - esb.data.data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.esb.entrypoints: websecure
+      traefik.http.routers.esb.rule: Host(`${ESB_URL_PREFIX-:esb.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.esb.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.esb.service: esb
+      traefik.http.services.esb.loadbalancer.server.port: 3000
+volumes:
+  esb.data.data:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=10.0.0.10,nolock,soft,rw
+      device: :/mnt/storage/application_data/emulator-source-backups/data
