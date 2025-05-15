@@ -1,0 +1,21 @@
+[[stack]]
+name = "code-server"
+tags = ["dev"]
+[stack.config]
+server = "hyperion"
+links = ["https://dev.jekotia.net"]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/code-server/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+TIMEZONE=[[TIMEZONE]]
+
+CODESERVER_URL_PREFIX=dev.
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+"""

@@ -1,0 +1,48 @@
+include:
+  - ../../networks/proxy_private.yaml
+
+services:
+  # https://hub.docker.com/r/linuxserver/code-server
+  code-server:
+    image: linuxserver/code-server
+    container_name: code-server
+    restart: always
+    environment:
+      #https://mods.linuxserver.io/?mod=code-server
+      # - DOCKER_MODS=linuxserver/mods:code-server-docker|linuxserver/mods:code-server-shellcheck
+      # - DOCKER_MODS=linuxserver/mods:code-server-powershell|linuxserver/mods:code-server-shellcheck
+      # - DOCKER_MODS=linuxserver/mods:code-server-shellcheck
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE}
+      # - PASSWORD=${_SECRETS_CODESERVER_PASSWORD} #optional
+      # - HASHED_PASSWORD=${_SECRETS_CODESERVER_HASHED_PASSWORD} #optional
+      # - SUDO_PASSWORD=password #optional
+      # - SUDO_PASSWORD_HASH=password #optional
+      - PROXY_DOMAIN=${CODESERVER_URL_PREFIX:-code-server.}${NETWORK_DOMAIN} #optional
+      - DEFAULT_WORKSPACE=/srv
+      # - DEFAULT_WORKSPACE=/srv/hyperion
+    volumes:
+      - /srv/application_data/code-server/config:/config
+      # - code-server.workspace.dockerfiles:/srv/Dockerfiles
+      - /srv/enceladus:/srv/enceladus
+      - /srv/hyperion:/srv/hyperion
+      - /srv/telesto:/srv/telesto
+      - /srv/saturn:/srv/saturn
+      # - /srv/ref:/srv/ref
+      - /home/jekotia/.zsh:/srv/zsh
+
+
+      # - /home/jekotia/ssh/id_jameli:/config/.ssh/id_rsa #ssh key for GitHub integration
+      # - /var/run/docker.sock:/var/run/docker.sock #Provide access to the host docker daemon
+    networks:
+      - proxy_private
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.code-server.entrypoints: websecure
+      traefik.http.routers.code-server.rule: Host(`${CODESERVER_URL_PREFIX:-code-server.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.code-server.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.code-server.service: code-server
+      traefik.http.services.code-server.loadbalancer.server.port: 8443
