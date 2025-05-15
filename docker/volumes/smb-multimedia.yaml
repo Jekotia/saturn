@@ -1,0 +1,6 @@
+volumes:
+  smb.multimedia:
+    driver_opts:
+      type: cifs
+      o: username=${MULTIMEDIA_USER},password=${MULTIMEDIA_PASS},uid=1000,gid=1000
+      device: //${MULTIMEDIA_HOST}/multimedia

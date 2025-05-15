@@ -1,0 +1,48 @@
+include:
+  - ../../networks/proxy_private.yaml
+  - ../../volumes/smb-multimedia.yaml
+  
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:v1.2.0@sha256:5e6bcbb595c4e857540577135e0f8b3ffc2e97c23d6e0ddc7df183de5bfdd442
+    container_name: homepage
+    restart: always
+    networks:
+      - proxy_private
+      - homepage.dockerproxy
+    volumes:
+      - /srv/application_data/homepage/config:/app/config # Make sure your local config directory exists
+      - /srv/application_data/homepage/icons:/app/public/icons
+      - smb.multimedia:/multimedia:ro
+    environment:
+    # Specify your user ID and group ID. You can find this by running `id -u` and `id -g`
+      PUID: ${UID}
+      PGID: ${GID}
+      HOMEPAGE_ALLOWED_HOSTS: saturn.jekotia.net
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.homepage.entrypoints: websecure
+      traefik.http.routers.homepage.rule: Host(`${HOMEPAGE_URL_PREFIX:-homepage.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.homepage.tls.certresolver: dns-cloudflare
+      traefik.http.routers.homepage.tls: "true"
+      # Frontend => Services
+      traefik.http.routers.homepage.service: homepage
+      traefik.http.services.homepage.loadbalancer.server.port: "3000"
+
+  homepage.dockerproxy:
+    image: ghcr.io/tecnativa/docker-socket-proxy:latest
+    container_name: homepage.dockerproxy
+    environment:
+      CONTAINERS: 1 # Allow access to viewing containers
+      POST: 0 # Disallow any POST operations (effectively read-only)
+    networks:
+      - homepage.dockerproxy
+    # ports:
+    #   - 2375:2375
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro # Mounted as read-only
+    restart: always
+
+networks:
+  homepage.dockerproxy:
