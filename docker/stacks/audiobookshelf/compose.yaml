@@ -1,0 +1,28 @@
+include:
+  - ../../networks/proxy_private.yaml
+  - ../../volumes/smb-multimedia.yaml
+
+services:
+  #-> https://github.com/advplyr/audiobookshelf
+  audiobookshelf:
+    image: ghcr.io/advplyr/audiobookshelf:2.20.0@sha256:106531342a5f150e0e3dcbb348f126a5c452ecc4274f162d31545194dbe4352a
+    container_name: audiobookshelf
+    restart: unless-stopped
+    user: 1000:1000
+    networks:
+      - proxy_private
+    volumes:
+      - smb.multimedia:/multimedia
+      #- ./audiobooks:/audiobooks
+      #- ./podcasts:/podcasts
+      - /srv/application_data/audiobookshelf/metadata:/metadata
+      - /srv/application_data/audiobookshelf/config:/config
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.audiobookshelf.entrypoints: websecure
+      traefik.http.routers.audiobookshelf.rule: Host(`${AUDIOBOOKSHELF_URL_PREFIX:-audiobookshelf.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.audiobookshelf.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.audiobookshelf.service: audiobookshelf
+      traefik.http.services.audiobookshelf.loadbalancer.server.port: 80
