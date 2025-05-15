@@ -1,0 +1,20 @@
+[[stack]]
+name = "bytestash"
+tags = ["dev"]
+[stack.config]
+server = "hyperion"
+links = ["https://bytestash.jekotia.net"]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/bytestash/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+
+BYTESTASH_JWT_SECRET=[[BYTESTASH_JWT_SECRET]]
+"""
