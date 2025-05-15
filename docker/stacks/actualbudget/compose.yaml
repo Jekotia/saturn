@@ -1,0 +1,38 @@
+include:
+  - ../../networks/proxy_private.yaml
+
+services:
+  actualbudget:
+    image: docker.io/actualbudget/actual-server:25.3.1@sha256:58fecd9088b73ffe402450f51eff488036cdc8ca570650be38ad2bbabbfe193b
+    container_name: actualbudget
+    restart: unless-stopped
+    networks:
+      - proxy_private
+    healthcheck:
+      # Enable health check for the instance
+      test:
+        - CMD-SHELL
+        - node src/scripts/health-check.js
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    volumes:
+      - /srv/application_data/actualbudget/data:/data
+    environment:
+      # Uncomment any of the lines below to set configuration options.
+      - ACTUAL_PORT=5006
+      # - ACTUAL_UPLOAD_FILE_SYNC_SIZE_LIMIT_MB=20
+      # - ACTUAL_UPLOAD_SYNC_ENCRYPTED_FILE_SYNC_SIZE_LIMIT_MB=50
+      # - ACTUAL_UPLOAD_FILE_SIZE_LIMIT_MB=20
+      # See all options and more details at https://actualbudget.github.io/docs/Installing/Configuration
+      # !! If you are not using any of these options, remove the 'environment:' tag entirely.
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.actualbudget.entrypoints: websecure
+      traefik.http.routers.actualbudget.rule: Host(`${ACTUALBUDGET_URL_PREFIX:-actualbudget.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.actualbudget.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.actualbudget.service: actualbudget
+      traefik.http.services.actualbudget.loadbalancer.server.port: 5006

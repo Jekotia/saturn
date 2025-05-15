@@ -1,0 +1,23 @@
+[[stack]]
+name = "actualbudget"
+tags = ["personal"]
+[stack.config]
+server = "hyperion"
+links = ["https://budget.jekotia.net"]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/actualbudget/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+ACTUALBUDGET_URL_PREFIX=budget.
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+
+#########-> DANGER ZONE <-#########
+UID=[[HYPERION_UID]]
+GID=[[HYPERION_GID]]
+"""
