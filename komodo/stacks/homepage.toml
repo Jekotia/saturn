@@ -1,5 +1,6 @@
 [[stack]]
 name = "homepage"
+tags = ["core"]
 [stack.config]
 server = "hyperion"
 links = ["https://saturn.jekotia.net"]
