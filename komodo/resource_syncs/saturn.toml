@@ -1,0 +1,9 @@
+[[resource_sync]]
+name = "saturn"
+[resource_sync.config]
+repo = "jekotia/saturn"
+branch = "master"
+git_account = "jekotia"
+webhook_enabled = false
+resource_path = ["komodo/"]
+delete = true

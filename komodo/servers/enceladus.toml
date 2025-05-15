@@ -1,0 +1,5 @@
+[[server]]
+name = "enceladus"
+[server.config]
+address = "https://enceladus.jekotia.net:8120"
+enabled = true

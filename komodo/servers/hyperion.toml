@@ -1,0 +1,5 @@
+[[server]]
+name = "hyperion"
+[server.config]
+address = "https://komodo.periphery:8120"
+enabled = true
