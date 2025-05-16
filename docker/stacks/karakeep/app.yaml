@@ -1,0 +1,26 @@
+services:
+  karakeep.app:
+    image: ghcr.io/karakeep-app/karakeep:0.24.1@sha256:e72341d7626b7f92ea9b4d5e1a671ae1b8b2f6d85873a5f482e836978b650f99
+    container_name: karakeep.app
+    restart: unless-stopped
+    networks:
+      - karakeep
+      - proxy_private
+    volumes:
+      - /srv/application_data/karakeep/app/data:/data
+    environment:
+      MEILI_ADDR: http://karakeep.meilisearch:7700
+      BROWSER_WEB_URL: http://karakeep.chrome:9222
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      # You almost never want to change the value of the DATA_DIR variable.
+      # If you want to mount a custom directory, change the volume mapping above instead.
+      DATA_DIR: /data # DON'T CHANGE THIS
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.karakeep.entrypoints: websecure
+      traefik.http.routers.karakeep.rule: Host(`${KARAKEEP_URL_PREFIX:-karakeep.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.karakeep.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.karakeep.service: karakeep
+      traefik.http.services.karakeep.loadbalancer.server.port: 3000

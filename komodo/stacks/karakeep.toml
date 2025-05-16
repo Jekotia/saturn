@@ -1,0 +1,27 @@
+[[stack]]
+name = "karakeep"
+tags = ["personal"]
+[stack.config]
+server = "hyperion"
+links = ["https://karakeep.jekotia.net"]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/karakeep/"
+file_paths = [
+  "compose.yaml",
+  "app.yaml",
+  "chrome.yaml",
+  "meilisearch.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+
+OPENAI_API_KEY=[[KARAKEEP_OPENAI_API_KEY]]
+
+NEXTAUTH_SECRET=[[KARAKEEP_NEXTAUTH_SECRET]]
+MEILI_MASTER_KEY=[[KARAKEEP_MEILI_MASTER_KEY]]
+NEXTAUTH_URL=http://localhost:3000
+"""

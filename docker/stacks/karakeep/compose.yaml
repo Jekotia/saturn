@@ -1,0 +1,8 @@
+include:
+  - app.yaml
+  - chrome.yaml
+  - meilisearch.yaml
+  - ../../networks/proxy_private.yaml
+
+networks:
+  karakeep:

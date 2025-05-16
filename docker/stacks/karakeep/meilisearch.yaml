@@ -1,0 +1,11 @@
+services:
+  karakeep.meilisearch:
+    image: getmeili/meilisearch:v1.11.1@sha256:2ab0c8bdf58b7305e48af7372c47d5638d51dc1bb3a59c8e2b07eca6fe7176e9
+    container_name: karakeep.meilisearch
+    restart: unless-stopped
+    environment:
+      MEILI_NO_ANALYTICS: "true"
+    networks:
+      - karakeep
+    volumes:
+      - /srv/application_data/karakeep/meilisearch/data:/meili_data
