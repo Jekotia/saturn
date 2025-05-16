@@ -14,8 +14,6 @@ file_paths = [
   "../../networks/proxy_private.yaml"
 ]
 environment = """
-TIMEZONE=[[TIMEZONE]]
-
 NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
 
 # You can find documentation for all the supported env variables at https://immich.app/docs/install/environment-variables
@@ -39,8 +37,4 @@ DB_PASSWORD=[[IMMICH_DB_PASSWORD]]
 ###################################################################################
 DB_USERNAME=immich
 DB_DATABASE_NAME=immich
-
-#########-> DANGER ZONE <-#########
-UID=[[HYPERION_UID]]
-GID=[[HYPERION_GID]]
 """
