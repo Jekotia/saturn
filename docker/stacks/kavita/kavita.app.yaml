@@ -1,0 +1,23 @@
+services:
+  #-> https://hub.docker.com/r/kizaing/kavita
+  kavita.app:
+    image: kizaing/kavita:0.7.5.8@sha256:5fb319d89199197a721579405f53a30bc15606100d355a55ca83ab55c00241dc
+    container_name: kavita.app
+    restart: unless-stopped
+    networks:
+      - proxy_private
+      - kavita
+    volumes:
+      - smb.multimedia:/multimedia
+      - /srv/application_data/kavita/app/config:/kavita/config
+    environment:
+      - TZ=${TIMEZONE}
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.kavita.entrypoints: websecure
+      traefik.http.routers.kavita.rule: Host(`${KAVITA_URL_PREFIX:-kavita.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.kavita.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.kavita.service: kavita
+      traefik.http.services.kavita.loadbalancer.server.port: 5000

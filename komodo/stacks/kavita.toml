@@ -1,0 +1,33 @@
+[[stack]]
+name = "kavita"
+tags = ["media-server"]
+[stack.config]
+server = "hyperion"
+links = ["https://kavita.jekotia.net"]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/kavita/"
+file_paths = [
+  "compose.yaml",
+  "kavita.app.yaml",
+  "kavita.email.yaml",
+  "../../networks/proxy_private.yaml",
+  "../../volumes/smb-multimedia.yaml"
+]
+environment = """
+TIMEZONE=[[TIMEZONE]]
+
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+
+KAVITA_MAIL_SMTP_HOST: [[KAVITA_MAIL_SMTP_HOST]]
+KAVITA_MAIL_SMTP_PORT: [[KAVITA_MAIL_SMTP_PORT]]
+KAVITA_MAIL_SMTP_USER: [[KAVITA_MAIL_SMTP_USER]]
+KAVITA_MAIL_SMTP_PASS: [[KAVITA_MAIL_SMTP_PASS]]
+KAVITA_MAIL_SEND_ADDR: [[KAVITA_MAIL_SEND_ADDR]]
+
+MULTIMEDIA_HOST=[[MULTIMEDIA_HOST]]
+MULTIMEDIA_USER=[[MULTIMEDIA_USER]]
+MULTIMEDIA_PASS=[[MULTIMEDIA_PASS]]
+"""

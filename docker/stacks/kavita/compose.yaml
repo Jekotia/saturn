@@ -1,0 +1,9 @@
+include:
+  - kavita.app.yaml
+  - kavita-email.yaml
+  - ../../networks/proxy_private.yaml
+  - ../../volumes/smb-multimedia.yaml
+
+networks:
+  kavita:
+  
