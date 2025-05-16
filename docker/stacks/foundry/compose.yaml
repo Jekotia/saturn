@@ -21,7 +21,7 @@ services:
       FOUNDRY_PROTOCOL: 4
       TIMEZONE: ${TIMEZONE}
     volumes:
-      - /srv/application_data/foundry/data:/data:rw
+      - /srv/application_data/foundry/app/data:/data:rw
       - foundry.data.container_cache:/application_data/container_cache
     networks:
       - proxy_private
@@ -39,4 +39,4 @@ volumes:
     driver_opts:
       type: nfs
       o: addr=10.0.0.10,nolock,soft,rw
-      device: :/mnt/storage/application_data/foundry/container_cache
+      device: :/mnt/storage/application_data/foundry/app/container_cache

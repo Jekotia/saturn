@@ -37,4 +37,4 @@ volumes:
     driver_opts:
       type: nfs
       o: addr=10.0.0.10,nolock,soft,rw
-      device: :/mnt/storage/application_data/emulator-source-backups/data
+      device: :/mnt/storage/application_data/emulator-source-backups/app/data

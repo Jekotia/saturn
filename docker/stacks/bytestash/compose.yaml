@@ -23,7 +23,7 @@ services:
       #      OIDC_CLIENT_SECRET: ""
       #      OIDC_SCOPES: ""
     volumes:
-      - /srv/application_data/bytestash/snippets:/data/snippets
+      - /srv/application_data/bytestash/app/snippets:/data/snippets
     networks:
       - proxy_private
     labels:

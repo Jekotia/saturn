@@ -15,8 +15,8 @@ services:
       - smb.multimedia:/multimedia
       #- ./audiobooks:/audiobooks
       #- ./podcasts:/podcasts
-      - /srv/application_data/audiobookshelf/metadata:/metadata
-      - /srv/application_data/audiobookshelf/config:/config
+      - /srv/application_data/audiobookshelf/app/metadata:/metadata
+      - /srv/application_data/audiobookshelf/app/config:/config
     labels:
       traefik.enable: "true"
       # Frontend => Router

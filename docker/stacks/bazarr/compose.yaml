@@ -11,7 +11,7 @@ services:
       - proxy_private
     volumes:
       - smb.multimedia:/multimedia
-      - /srv/application_data/bazarr/config:/config
+      - /srv/application_data/bazarr/app/config:/config
     environment:
       - PUID=1000
       - PGID=1000

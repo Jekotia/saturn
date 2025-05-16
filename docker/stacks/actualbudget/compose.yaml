@@ -18,7 +18,7 @@ services:
       retries: 3
       start_period: 20s
     volumes:
-      - /srv/application_data/actualbudget/data:/data
+      - /srv/application_data/actualbudget/app/data:/data
     environment:
       # Uncomment any of the lines below to set configuration options.
       - ACTUAL_PORT=5006
