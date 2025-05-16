@@ -26,7 +26,7 @@ services:
       traefik.enable: "true"
       # Frontend => Router
       traefik.http.routers.esb.entrypoints: websecure
-      traefik.http.routers.esb.rule: Host(`${ESB_URL_PREFIX-:esb.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.esb.rule: Host(`${ESB_URL_PREFIX:-esb.}${NETWORK_DOMAIN}`)
       traefik.http.routers.esb.tls.certresolver: dns-cloudflare
       # Frontend => Services
       traefik.http.routers.esb.service: esb
