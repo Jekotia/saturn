@@ -1,0 +1,42 @@
+include:
+  - ../../networks/proxy_private.yaml
+  
+services:
+  foundry:
+    container_name: foundry
+    image: felddy/foundryvtt:12.331.0@sha256:306930efe642caa5541add4e269127a3a9122e007496bb22b524f7d9bcc755fc
+    restart: unless-stopped
+    environment:
+      #FOUNDRY_VERSION=${_HYPERION_FOUNDRY_VERSION}
+      FOUNDRY_PASSWORD: ${FOUNDRY_PASSWORD}
+      FOUNDRY_USERNAME: ${FOUNDRY_USERNAME}
+      FOUNDRY_LICENSE_KEY: ${FOUNDRY_LICENSE_KEY}
+      FOUNDRY_ADMIN_KEY: ${FOUNDRY_ADMIN_KEY}
+      CONTAINER_CACHE: /application_data/container_cache
+      CONTAINER_PRESERVE_CONFIG: true
+      FOUNDRY_HOSTNAME: ${FOUNDRY_URL_PREFIX:-foundry.}${NETWORK_DOMAIN}
+      FOUNDRY_LOCAL_HOSTNAME: ${FOUNDRY_URL_PREFIX:-foundry.}${NETWORK_DOMAIN}
+      FOUNDRY_PROXY_PORT: 443
+      FOUNDRY_PROXY_SSL: true
+      FOUNDRY_PROTOCOL: 4
+      TIMEZONE: ${TIMEZONE}
+    volumes:
+      - /srv/application_data/foundry/data:/data:rw
+      - foundry.data.container_cache:/application_data/container_cache
+    networks:
+      - proxy_private
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.foundry.entrypoints: websecure
+      traefik.http.routers.foundry.rule: Host(`${FOUNDRY_URL_PREFIX:-foundry.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.foundry.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.foundry.service: foundry
+      traefik.http.services.foundry.loadbalancer.server.port: 30000
+volumes:
+  foundry.data.container_cache:
+    driver_opts:
+      type: nfs
+      o: addr=10.0.0.10,nolock,soft,rw
+      device: :/mnt/storage/application_data/foundry/container_cache
