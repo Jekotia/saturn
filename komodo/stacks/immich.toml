@@ -1,0 +1,46 @@
+[[stack]]
+name = "immich"
+tags = ["personal"]
+[stack.config]
+server = "hyperion"
+links = ["https://immich.jekotia.net"]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/immich/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+TIMEZONE=[[TIMEZONE]]
+
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+
+# You can find documentation for all the supported env variables at https://immich.app/docs/install/environment-variables
+
+# The location where your uploaded files are stored
+UPLOAD_LOCATION=/srv/application_data/immich/server/upload
+# The location where your database files are stored
+DB_DATA_LOCATION=/srv/application_data/immich/db/postgres
+
+# To set a timezone, uncomment the next line and change Etc/UTC to a TZ identifier from this list: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List
+TZ=[[TIMEZONE]]
+
+# The Immich version to use. You can pin this to a specific version like "v1.71.0"
+IMMICH_VERSION=v1.131.3
+
+# Connection secret for postgres. You should change it to a random password
+# Please use only the characters `A-Za-z0-9`, without special characters or spaces
+DB_PASSWORD=[[IMMICH_DB_PASSWORD]]
+
+# The values below this line do not need to be changed
+###################################################################################
+DB_USERNAME=immich
+DB_DATABASE_NAME=immich
+
+#########-> DANGER ZONE <-#########
+UID=[[HYPERION_UID]]
+GID=[[HYPERION_GID]]
+"""
