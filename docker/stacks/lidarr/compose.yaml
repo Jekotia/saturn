@@ -8,8 +8,6 @@ services:
     image: linuxserver/lidarr:2.9.6.4552-ls31@sha256:f6cfa621faf759bd7936473a28a05671f23ab3246ca932341ee5a20a887143ca
     container_name: lidarr
     restart: unless-stopped
-#    depends_on:
-#      - prowlarr
     networks:
       - proxy_private
     volumes:
