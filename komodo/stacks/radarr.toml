@@ -1,0 +1,27 @@
+[[stack]]
+name = "radarr"
+tags = ["media-management"]
+[stack.config]
+server = "hyperion"
+links = ["https://radarr.jekotia.net"]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/radarr/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml",
+  "../../volumes/smb-multimedia.yaml"
+]
+environment = """
+TIMEZONE=[[TIMEZONE]]
+
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+
+RADARR_DISCORD_WEBHOOK=https://discord.com/api/webhooks/1129554499288186943/3vT6Vac1BSLcSGS5ml0QsSlqOOwDjboNSOmuPF5slc9-nXE7WLdLHu-Ja1AUrqYjehHa
+
+MULTIMEDIA_HOST=[[MULTIMEDIA_HOST]]
+MULTIMEDIA_USER=[[MULTIMEDIA_USER]]
+MULTIMEDIA_PASS=[[MULTIMEDIA_PASS]]
+"""
