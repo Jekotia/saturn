@@ -1,0 +1,45 @@
+include:
+  - ../../networks/proxy_private.yaml
+  - ../../volumes/smb-multimedia.yaml
+
+services:
+  #-> https://hub.docker.com/r/linuxserver/lidarr/
+  lidarr:
+    image: linuxserver/lidarr:2.9.6.4552-ls31@sha256:f6cfa621faf759bd7936473a28a05671f23ab3246ca932341ee5a20a887143ca
+    container_name: lidarr
+    restart: unless-stopped
+    depends_on:
+      - prowlarr
+    networks:
+      - proxy_private
+    volumes:
+      - smb.multimedia:/multimedia
+      - /srv/application_data/lidarr/app/config:/config
+      - lidarr.data.Backups:/config/Backups
+      - lidarr.data.mediacover:/config/MediaCover
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE}
+      #?- UMASK_SET=022 #optional
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.lidarr.entrypoints: websecure
+      traefik.http.routers.lidarr.rule: Host(`${LIDARR_URL_PREFIX:-lidarr.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.lidarr.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.lidarr.service: lidarr
+      traefik.http.services.lidarr.loadbalancer.server.port: 8686
+
+volumes:
+  lidarr.data.Backups:
+    driver_opts:
+      type: nfs
+      o: addr=10.0.0.10,nolock,soft,rw
+      device: :/mnt/storage/application_data/lidarr/app/config/Backups
+  lidarr.data.mediacover:
+    driver_opts:
+      type: nfs
+      o: addr=10.0.0.10,nolock,soft,rw
+      device: :/mnt/storage/application_data/lidarr/app/config/MediaCover
