@@ -1,0 +1,40 @@
+include:
+  - ../../networks/proxy_private.yaml
+  
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:1.23.16-debian@sha256:431fee3be822b04861cf0e35daf4beef6b7cb37391c5f26c3ad6e12ce280fe18
+    container_name: uptime-kuma
+    restart: always
+    networks:
+      - proxy_private
+      - uptime-kuma.dockerproxy
+    volumes:
+      - /srv/application_data/uptime-kuma/app/data:/app/data
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.uptime-kuma.entrypoints: websecure
+      traefik.http.routers.uptime-kuma.rule: Host(`${UPTIME_KUMA_URL_PREFIX:-uptime.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.uptime-kuma.tls.certresolver: dns-cloudflare
+      traefik.http.routers.uptime-kuma.tls: "true"
+      # Frontend => Services
+      traefik.http.routers.uptime-kuma.service: uptime-kuma
+      traefik.http.services.uptime-kuma.loadbalancer.server.port: "3001"
+
+  uptime-kuma.dockerproxy:
+    image: ghcr.io/tecnativa/docker-socket-proxy:latest
+    container_name: uptime-kuma.dockerproxy
+    environment:
+      CONTAINERS: 1 # Allow access to viewing containers
+      POST: 0 # Disallow any POST operations (effectively read-only)
+    networks:
+      - uptime-kuma.dockerproxy
+    # ports:
+    #   - 2375:2375
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro # Mounted as read-only
+    restart: always
+
+networks:
+  uptime-kuma.dockerproxy:
