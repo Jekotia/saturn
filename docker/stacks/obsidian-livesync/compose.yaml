@@ -1,0 +1,27 @@
+include:
+  - ../../networks/proxy_private.yaml
+
+services:
+  obsidian-livesync:
+    tty: true
+    stdin_open: true
+    image: couchdb:3.4.3@sha256:61df6b12ad36146a1ac138e5d9ad31e473a3e622aeccab6664e174e100ec1276
+    container_name: obsidian-livesync
+    restart: unless-stopped
+    environment:
+      - COUCHDB_USER=${COUCHDB_USER}
+      - COUCHDB_PASSWORD=${COUCHDB_PASSWORD}
+    networks:
+      - proxy_private
+    volumes:
+      - /srv/application_data/obsidian-livesync/couchdb/data:/opt/couchdb/data
+      - /srv/application_data/obsidian-livesync/couchdb/etc:/opt/couchdb/etc/local.d
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.obsidian-livesync.entrypoints: websecure
+      traefik.http.routers.obsidian-livesync.rule: Host(`${OBSIDIAN_LIVESYNC_URL_PREFIX:-obsidian-livesync.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.obsidian-livesync.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.obsidian-livesync.service: obsidian-livesync
+      traefik.http.services.obsidian-livesync.loadbalancer.server.port: 5984
