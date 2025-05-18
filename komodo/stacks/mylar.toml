@@ -1,0 +1,25 @@
+[[stack]]
+name = "mylar"
+tags = ["media-management"]
+[stack.config]
+server = "hyperion"
+links = ["https://mylar.jekotia.net"]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/mylar/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml",
+  "../../volumes/smb-multimedia.yaml"
+]
+environment = """
+TIMEZONE=[[TIMEZONE]]
+
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+
+MULTIMEDIA_HOST=[[MULTIMEDIA_HOST]]
+MULTIMEDIA_USER=[[MULTIMEDIA_USER]]
+MULTIMEDIA_PASS=[[MULTIMEDIA_PASS]]
+"""

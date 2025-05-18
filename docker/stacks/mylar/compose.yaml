@@ -1,0 +1,28 @@
+include:
+  - ../../networks/proxy_private.yaml
+  - ../../volumes/smb-multimedia.yaml
+
+services:
+  #-> https://hub.docker.com/r/linuxserver/mylar3
+  mylar:
+    image: linuxserver/mylar3:version-v0.8.1.1@sha256:7f6f60f6c982167fa73db719cc248821ed61dfafa6dfade65bddefd905b679ab
+    container_name: mylar
+    restart: unless-stopped
+    networks:
+      - proxy_private
+    volumes:
+      - smb.multimedia:/multimedia
+      - /srv/application_data/mylar/app/config:/config
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE}
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.mylar.entrypoints: websecure
+      traefik.http.routers.mylar.rule: Host(`${MYLAR_URL_PREFIX:-mylar.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.mylar.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.mylar.service: mylar
+      traefik.http.services.mylar.loadbalancer.server.port: 8090
