@@ -1,0 +1,26 @@
+include:
+  - ../../networks/proxy_private.yaml
+
+services:
+  #-> https://hub.docker.com/r/linuxserver/grocy
+  grocy:
+    image: linuxserver/grocy:3.3.2@sha256:9885a1398f80b602a29eae68d7c84bf4c581d4a2c079d1868cc9e32926b9369d
+    container_name: grocy
+    restart: unless-stopped
+    networks:
+      - proxy_private
+    volumes:
+      - /srv/application_data/grocy/app/config:/config
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE}
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.grocy.entrypoints: websecure
+      traefik.http.routers.grocy.rule: Host(`${GROCY_URL_PREFIX:-grocy.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.grocy.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.grocy.service: grocy
+      traefik.http.services.grocy.loadbalancer.server.port: 80
