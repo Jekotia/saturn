@@ -1,0 +1,20 @@
+[[stack]]
+name = "prowlarr"
+tags = ["media-management"]
+[stack.config]
+server = "hyperion"
+links = ["https://prowlarr.jekotia.net"]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/prowlarr/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+TIMEZONE=[[TIMEZONE]]
+
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+"""
