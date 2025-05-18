@@ -1,0 +1,12 @@
+services:
+  # https://github.com/HenryQW/Awesome-TTRSS/blob/master/docker-compose.yml
+  ttrss.db:
+    image: postgres:12-alpine3.17@sha256:df0a1b5d2552cd2568193b07c5db0ae9b35e253d0bdd35b5c23b464e0b775d6a
+    container_name: ttrss.db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - /srv/hyperion/ttrss/db:/var/lib/postgresql/data
+    networks:
+      - ttrss
