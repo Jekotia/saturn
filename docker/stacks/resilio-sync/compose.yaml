@@ -32,5 +32,5 @@ volumes:
   smb.archive:
     driver_opts:
       type: cifs
-      o: username=${SMB_ARCHIVE_USER},password=${SMB_ARCHIVE_PASS},uid=${SMB_ARCHIVE_UID:-1000},gid=${SMB_ARCHIVE_GID:-1000}
+      o: username=${SMB_ARCHIVE_USER},password=${SMB_ARCHIVE_PASS},uid=1000,gid=1000
       device: //${SMB_ARCHIVE_HOST}/archive
