@@ -1,0 +1,27 @@
+services:
+  hbbs:
+    image: rustdesk/rustdesk-server:latest
+    container_name: hbbs
+    restart: unless-stopped
+    command: hbbs
+    volumes:
+      - /srv/application_data/rustdesk/hbbs/root:/root
+    network_mode: host
+    ports:
+      - 21115/tcp # NAT type test
+      - 21116/tcp # TCP hole punching and connection service
+      - 21116/udp # ID registration & heartbeat
+      - 21118/tcp # Web client support
+    depends_on:
+      - hbbr
+  hbbr:
+    image: rustdesk/rustdesk-server:latest
+    container_name: hbbr
+    restart: unless-stopped
+    command: hbbr
+    volumes:
+      - /srv/application_data/rustdesk/hbbr/root:/root
+    network_mode: host
+    ports:
+      - 21117/tcp # Relay services
+      - 21119/tcp # Web client support
