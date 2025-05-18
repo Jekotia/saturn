@@ -1,0 +1,36 @@
+include:
+  - ../../networks/proxy_private.yaml
+
+services:
+  #-> https://hub.docker.com/r/linuxserver/resilio-sync
+  resilio-sync:
+    image: linuxserver/resilio-sync:2.7.3@sha256:a6c055059e706277a5c82cba541063fa1f8471cda3c500a3e737ca17d087b95a
+    container_name: resilio-sync
+    restart: unless-stopped
+    networks:
+      - proxy_private
+    ports:
+      - 55555:55555 # sync port
+    volumes:
+      - /srv/application_data/resilio-sync/app/config:/config
+      - smb.archive:/sync/archive
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE}
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.resilio-sync.entrypoints: websecure
+      traefik.http.routers.resilio-sync.rule: Host(`${RESILIO_SYNC_URL_PREFIX:-resilio-sync.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.resilio-sync.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.resilio-sync.service: resilio-sync
+      traefik.http.services.resilio-sync.loadbalancer.server.port: 8888
+
+volumes:
+  smb.archive:
+    driver_opts:
+      type: cifs
+      o: username=${SMB_ARCHIVE_USER},password=${SMB_ARCHIVE_PASS},uid=${SMB_ARCHIVE_UID:-1000},gid=${SMB_ARCHIVE_GID:-1000}
+      device: //${SMB_ARCHIVE_HOST}/archive

@@ -1,0 +1,26 @@
+[[stack]]
+name = "resilio-sync"
+tags = ["backups"]
+[stack.config]
+server = "hyperion"
+links = ["https://resilio-sync.jekotia.net"]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/resilio-sync/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+TIMEZONE=[[TIMEZONE]]
+
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+
+SMB_ARCHIVE_HOST=[[RESILIO_SYNC_SMB_HOST]]
+SMB_ARCHIVE_USER=[[RESILIO_SYNC_SMB_USER]]
+SMB_ARCHIVE_PASS=[[RESILIO_SYNC_SMB_PASS]]
+SMB_ARCHIVE_UID=[[RESILIO_SYNC_SMB_UID]]
+SMB_ARCHIVE_GID=[[RESILIO_SYNC_SMB_GID]]
+"""
