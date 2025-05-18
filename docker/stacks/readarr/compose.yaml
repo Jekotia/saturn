@@ -1,0 +1,36 @@
+include:
+  - ../../networks/proxy_private.yaml
+  - ../../volumes/smb-multimedia.yaml
+
+services:
+  #-> https://hub.docker.com/r/linuxserver/readarr
+  readarr:
+    image: linuxserver/readarr:develop-0.4.10.2734-ls143@sha256:f7cdb1419ee861df7b9716e2c4cb7b321ff6431c31ced2bfbe2ed9e81d67efa9
+    container_name: readarr
+    restart: unless-stopped
+    networks:
+      - proxy_private
+    volumes:
+      - smb.multimedia:/multimedia
+      - /srv/application_data/readarr/app/config:/config
+      - readarr.data.mediacover:/config/MediaCover
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE}
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.readarr.entrypoints: websecure
+      traefik.http.routers.readarr.rule: Host(`${READARR_URL_PREFIX:-readarr.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.readarr.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.readarr.service: readarr
+      traefik.http.services.readarr.loadbalancer.server.port: 8787
+
+volumes:
+  readarr.data.mediacover:
+    driver_opts:
+      type: nfs
+      o: addr=10.0.0.10,nolock,soft,rw
+      device: :/mnt/storage/application_data/readarr/app/config/MediaCover
