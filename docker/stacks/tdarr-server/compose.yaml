@@ -1,0 +1,65 @@
+include:
+  - ../../networks/proxy_private.yaml
+  - ../../volumes/smb-multimedia.yaml
+
+services:
+  #-> ghcr.io/haveagitgat/tdarr
+  tdarr-server:
+    image: ghcr.io/haveagitgat/tdarr:2.35.02@sha256:3192636b8cee4156cfab4fdfa567fddd64763449460607285ccf9d2956bdef1c
+    container_name: tdarr-server
+    restart: unless-stopped
+    networks:
+      - proxy_private
+    ports:
+      #  - 8265:8265
+      - 8266:8266
+      - 8267:8267
+    volumes:
+      - smb.multimedia:/multimedia
+      - /srv/application_data/tdarr/app/server:/app/server
+      - tdarr.data.server.Tdarr.DB2.JobReports:/app/server/Tdarr/DB2/JobReports
+      - tdarr.data.server.Tdarr.DB2.WorkerVerdictHistoryJSONDB:/app/server/Tdarr/DB2/WorkerVerdictHistoryJSONDB
+      - tdarr.data.server.Tdarr.Backups:/app/server/Tdarr/Backups
+      - /srv/application_data/tdarr/app/configs:/app/configs
+      - /srv/application_data/tdarr/app/logs:/app/logs
+    environment:
+      - TZ=${TIMEZONE}
+      - PUID=1000
+      - PGID=1000
+      - UMASK_SET=002
+      - serverIP=${TDARR_SERVER_IP}
+      - serverPort=8266
+      - webUIPort=8265
+      - internalNode=true
+      - inContainer=true
+      - nodeName=${TDARR_NODE_NAME}
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.tdarr.entrypoints: websecure
+      traefik.http.routers.tdarr.rule: Host(`${TDARR_URL_PREFIX:-tdarr.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.tdarr.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.tdarr.service: tdarr
+      traefik.http.services.tdarr.loadbalancer.server.port: 8265
+    logging:
+      options:
+        max-size: 100m
+        max-file: "3"
+
+volumes:
+  tdarr.data.server.Tdarr.Backups:
+    driver_opts:
+      type: nfs
+      o: addr=10.0.0.10,nolock,soft,rw
+      device: :/mnt/storage/application_data/tdarr/server/Tdarr/Backups
+  tdarr.data.server.Tdarr.DB2.JobReports:
+    driver_opts:
+      type: nfs
+      o: addr=10.0.0.10,nolock,soft,rw
+      device: :/mnt/storage/application_data/tdarr/server/Tdarr/DB2/JobReports
+  tdarr.data.server.Tdarr.DB2.WorkerVerdictHistoryJSONDB:
+    driver_opts:
+      type: nfs
+      o: addr=10.0.0.10,nolock,soft,rw
+      device: :/mnt/storage/application_data/tdarr/server/Tdarr/DB2/WorkerVerdictHistoryJSONDB
