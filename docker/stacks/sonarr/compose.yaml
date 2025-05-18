@@ -1,0 +1,44 @@
+include:
+  - ../../networks/proxy_private.yaml
+  - ../../volumes/smb-multimedia.yaml
+
+services:
+  #-> https://hub.docker.com/r/linuxserver/sonarr
+  sonarr:
+    #    image: aront/sonarr  #for mp4_automator support
+    image: linuxserver/sonarr:4.0.13.2932-ls272@sha256:4dfedb2598dc6bd51c40f4ecea2631dbe367840678ab109cd968f821d81a5327
+    container_name: sonarr
+    restart: unless-stopped
+    networks:
+      - proxy_private
+    volumes:
+      - smb.multimedia:/multimedia
+      - /srv/application_data/sonarr/app/config:/config
+      - sonarr.data.mediacover:/config/MediaCover
+      #- $USERDIR/docker/shared/mp4_automator:/config_mp4_automator
+      - /srv/application_data/arr-discord-notifier/arr-discord-notifier.sh:/app/arr-discord-notifier.sh:ro
+    environment:
+      - DISCORD_WEBHOOK=${SONARR_DISCORD_WEBHOOK}
+      - AUTHOR_NAME=Sonarr
+      - DROP_FIELDS="rating,genres,cast,links,backdrop,release,overview,codecs"
+      - DOCKER_MODS=linuxserver/mods:universal-package-install
+      - INSTALL_PACKAGES=grep
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE}
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.sonarr.entrypoints: websecure
+      traefik.http.routers.sonarr.rule: Host(`${SONARR_URL_PREFIX:-sonarr.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.sonarr.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.sonarr.service: sonarr
+      traefik.http.services.sonarr.loadbalancer.server.port: 8989
+
+volumes:
+  sonarr.data.mediacover:
+    driver_opts:
+      type: nfs
+      o: addr=10.0.0.10,nolock,soft,rw
+      device: :/mnt/storage/application_data/sonarr/app/config/MediaCover
