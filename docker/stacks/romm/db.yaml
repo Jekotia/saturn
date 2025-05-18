@@ -1,0 +1,22 @@
+services:
+  romm.db:
+    # if you experience issues, try: linuxserver/mariadb:latest
+    image: mariadb:11.5.2@sha256:2d50fe0f77dac919396091e527e5e148a9de690e58f32875f113bef6506a17f5
+    container_name: romm.db
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=${ROMM_DB_ROOT_PASS} # Use a unique, secure password
+      - MYSQL_DATABASE=${ROMM_DB_NAME:-romm}
+      - MYSQL_USER=${ROMM_DB_USER:-romm}
+      - MYSQL_PASSWORD=${ROMM_DB_PASS}
+    volumes:
+      - /srv/application_data/romm/db/data:/var/lib/mysql
+    networks:
+      - romm
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      start_period: 30s
+      start_interval: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 5

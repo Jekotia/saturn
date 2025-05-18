@@ -1,0 +1,39 @@
+services:
+  romm.app:
+    image: rommapp/romm:3.8.3@sha256:2e46fcd1e6ba23e63889a642e82a4a4fbf8b560104029cd17edcefa672600676
+    container_name: romm.app
+    restart: unless-stopped
+    environment:
+      - DB_HOST=romm.db
+      - DB_NAME=${ROMM_DB_NAME:-romm} # Should match MYSQL_DATABASE in mariadb
+      - DB_USER=${ROMM_DB_USER:-romm} # Should match MYSQL_USER in mariadb
+      - DB_PASSWD=${ROMM_DB_PASS} # Should match MYSQL_PASSWORD in mariadb
+      - ROMM_AUTH_SECRET_KEY=${ROMM_AUTH_SECRET_KEY} # Generate a key with `openssl rand -hex 32`
+      - IGDB_CLIENT_ID=${IGDB_ID} # Generate an ID and SECRET in IGDB
+      - IGDB_CLIENT_SECRET=${IGDB_SECRET} # https://api-docs.igdb.com/#account-creation
+      - MOBYGAMES_API_KEY=${MOBYGAMES_API_KEY} # https://www.mobygames.com/info/api/
+      - STEAMGRIDDB_API_KEY=${STEAMGRID_API_KEY} # https://github.com/rommapp/romm/wiki/Generate-API-Keys#steamgriddb
+      - SCREENSCRAPER_USER=${SCREENSCRAPER_USER} # Use your ScreenScraper username and password
+      - SCREENSCRAPER_PASSWORD=${SCREENSCRAPER_PASSWORD} # https://docs.romm.app/latest/Getting-Started/Generate-API-Keys/#screenscraper
+    volumes:
+      - /srv/application_data/romm/app/resources:/romm/resources # Resources fetched from IGDB (covers, screenshots, etc.)
+      - /srv/application_data/romm/app/redis_data:/redis-data # Cached data for background tasks
+      - /srv/application_data/romm/app/library:/romm/library # Your game library
+      - /srv/application_data/romm/app/assets:/romm/assets # Uploaded saves, states, etc.
+      - /srv/application_data/romm/app/config:/romm/config # Path where config.yml is stored
+    depends_on:
+      romm.db:
+        condition: service_healthy
+        restart: true
+    networks:
+      - proxy_private
+      - romm
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.romm.entrypoints: websecure
+      traefik.http.routers.romm.rule: Host(`${ROMM_URL_PREFIX:-romm.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.romm.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.romm.service: romm
+      traefik.http.services.romm.loadbalancer.server.port: 8080
