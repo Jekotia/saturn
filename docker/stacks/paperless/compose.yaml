@@ -1,0 +1,10 @@
+include:
+  - app.yaml
+  - broker.yaml
+  - database.yaml
+  - gotenberg.yaml
+  - tika.yaml
+  - ../../networks/proxy_private.yaml
+
+networks:
+  paperless:

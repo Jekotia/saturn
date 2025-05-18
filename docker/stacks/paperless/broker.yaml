@@ -1,0 +1,9 @@
+services:
+  paperless.broker:
+    image: redis:7.0.10-alpine3.17@sha256:0859ed47321d2d26a3f53bca47b76fb7970ea2512ca3a379926dc965880e442e
+    container_name: paperless.broker
+    restart: unless-stopped
+    networks:
+      - paperless
+    volumes:
+      - /srv/application_data/paperless/broker/data:/data

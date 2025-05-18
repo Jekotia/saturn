@@ -1,0 +1,13 @@
+services:
+  paperless.db:
+    image: postgres:13.11-alpine3.18@sha256:e4bb33f1654eda60011429028303c7785c51af16949cd461cc55fb6074e2bf97
+    container_name: paperless.db
+    restart: unless-stopped
+    networks:
+      - paperless
+    volumes:
+      - /srv/application_data/paperless/db/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-paperless}
+      POSTGRES_USER: ${POSTGRES_USER:-paperless}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}

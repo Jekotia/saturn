@@ -1,0 +1,64 @@
+services:
+  paperless.app:
+    image: ghcr.io/paperless-ngx/paperless-ngx:2.14.7@sha256:2a6d9f6461ad7e8335f5b2123a173b9e6002fda209af8a66483b0c00629569ab
+    container_name: paperless.app
+    restart: unless-stopped
+    user: "1000"
+    depends_on:
+      - paperless.db
+      - paperless.broker
+      - paperless.gotenberg
+      - paperless.tika
+    networks:
+      - paperless
+      - proxy_private
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - -fs
+        - -S
+        - --max-time
+        - "2"
+        - http://localhost:8000
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - /srv/application_data/paperless/app/data:/usr/src/paperless/data
+      - app.data.media:/usr/src/paperless/media
+      - /srv/application_data/paperless/app/export:/usr/src/paperless/export
+      - app.data.consume:/usr/src/paperless/consume
+    environment:
+      PAPERLESS_REDIS: redis://paperless.broker:6379
+      PAPERLESS_DBHOST: paperless.db
+      PAPERLESS_TIKA_ENABLED: 1
+      PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://paperless.gotenberg:3000
+      PAPERLESS_TIKA_ENDPOINT: http://paperless.tika:9998
+      USERMAP_UID: 1000
+      USERMAP_GID: 1000
+      PAPERLESS_OCR_LANGUAGE: eng
+      PAPERLESS_URL: https://${PAPERLESS_URL_PREFIX:-paperless-ngx.}${NETWORK_DOMAIN}
+      PAPERLESS_TIME_ZONE: ${TIMEZONE}
+      PAPERLESS_CONSUMER_POLLING: 60
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.paperless.entrypoints: websecure
+      traefik.http.routers.paperless.rule: Host(`${PAPERLESS_URL_PREFIX:-paperless-ngx.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.paperless.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.paperless.service: paperless
+      traefik.http.services.paperless.loadbalancer.server.port: 8000
+
+volumes:
+  app.data.consume:
+    driver_opts:
+      type: cifs
+      o: username=${PAPERLESS_SMB_USER},password=${PAPERLESS_SMB_PASS},uid=1000,gid=1000
+      device: //${PAPERLESS_SMB_HOST}/documents-consume #/srv/hyperion/application_data/personal/paperless/app/consume
+  app.data.media:
+    driver_opts:
+      type: cifs
+      o: username=${PAPERLESS_SMB_USER},password=${PAPERLESS_SMB_PASS},uid=1000,gid=1000
+      device: //${PAPERLESS_SMB_HOST}/documents-storage #/srv/hyperion/application_data/personal/paperless/app/media
