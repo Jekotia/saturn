@@ -1,0 +1,27 @@
+include:
+  - ../../networks/proxy_private.yaml
+
+services:
+  #-> https://hub.docker.com/r/linuxserver/overseerr/
+  overseerr:
+    image: linuxserver/overseerr:1.33.2@sha256:4aa0e08b6b4f857194038c93b3cd7c243501006076d2bfbd2c750f15e7539821
+    container_name: overseerr
+    restart: unless-stopped
+    networks:
+      - proxy_private
+    volumes:
+      - /srv/application_data/overseerr/app/config:/config
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE}
+      #?- UMASK_SET=022 #optional
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.overseerr.entrypoints: websecure
+      traefik.http.routers.overseerr.rule: Host(`${OVERSEERR_URL_PREFIX:-overseerr.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.overseerr.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.overseerr.service: overseerr
+      traefik.http.services.overseerr.loadbalancer.server.port: 5055
