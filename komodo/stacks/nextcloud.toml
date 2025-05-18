@@ -1,0 +1,44 @@
+[[stack]]
+name = "nextcloud"
+tags = ["personal"]
+[stack.config]
+server = "hyperion"
+links = ["https://cloud.jekotia.net"]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/nextcloud/"
+file_paths = [
+  "compose.yaml",
+  "app.yaml",
+  "code.yaml",
+  "cron.yaml",
+  "database.yaml",
+  "redis.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+NEXTCLOUD_URL_PREFIX=cloud.
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+
+# SMTP
+SMTP_NAME=[[NEXTCLOUD_SMTP_NAME]]
+SMTP_PASSWORD=[[NEXTCLOUD_SMTP_PASSWORD]]
+SMTP_FROM_ADDRESS=[[NEXTCLOUD_SMTP_FROM_ADDRESS]]
+SMTP_DOMAIN=[[NETWORK_DOMAIN]]
+
+# NEXTCLOUD
+NEXTCLOUD_ADMIN_USER=[[NEXTCLOUD_ADMIN_USER]]
+NEXTCLOUD_ADMIN_PASS=[[NEXTCLOUD_ADMIN_PASS]]
+TRUSTED_PROXIES=[[NEXTCLOUD_TRUSTED_PROXIES]]
+REDIS_HOST_PASSWORD=[[NEXTCLOUD_REDIS_HOST_PASSWORD]]
+
+# DATABASE
+MYSQL_PASSWORD=[[NEXTCLOUD_MYSQL_PASSWORD]]
+MYSQL_ROOT_PASSWORD=[[NEXTCLOUD_MYSQL_ROOT_PASSWORD]]
+
+# COLLABORA OFFICE
+CODE_USERNAME=[[NEXTCLOUD_CODE_USERNAME]]
+CODE_PASSWORD=[[NEXTCLOUD_CODE_PASSWORD]]
+"""

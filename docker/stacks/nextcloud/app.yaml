@@ -1,0 +1,51 @@
+services:
+  nextcloud.app:
+    image: nextcloud:27-apache
+    container_name: nextcloud.app
+    restart: always
+    depends_on:
+      - nextcloud.db
+      - nextcloud.redis
+    volumes:
+      - /srv/application_data/nextcloud/app/web:/var/www/html
+      - app.data.storage:/storage
+#      - /srv/application_data/nextcloud/app/web/config:/var/www/html/config
+#      - /srv/application_data/nextcloud/app/web/custom_apps:/var/www/html/custom_apps
+#      - /srv/application_data/nextcloud/app/web/themes:/var/www/html/themes
+    environment:
+      SMTP_HOST: ${SMTP_HOST:-smtp.gmail.com}
+      SMTP_SECURE: ssl
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_AUTHTYPE: login
+      SMTP_NAME: ${SMTP_NAME}
+      SMTP_PASSWORD: ${SMTP_PASSWORD}
+      SMTP_FROM_ADDRESS: ${SMTP_FROM_ADDRESS}
+      SMTP_DOMAIN: ${SMTP_DOMAIN}
+      NEXTCLOUD_DATA_DIR: ${NEXTCLOUD_DATA_DIR:-/storage}
+      NEXTCLOUD_TRUSTED_DOMAINS: ${NEXTCLOUD_URL_PREFIX:-nextcloud.}${NETWORK_DOMAIN} nextcloud.app
+      TRUSTED_PROXIES: ${TRUSTED_PROXIES}
+      REDIS_HOST: nextcloud.redis
+      REDIS_HOST_PASSWORD: ${REDIS_HOST_PASSWORD}
+      NEXTCLOUD_ADMIN_USER: ${NEXTCLOUD_ADMIN_USER}
+      NEXTCLOUD_ADMIN_PASS: ${NEXTCLOUD_ADMIN_PASS}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-nextcloud}
+      MYSQL_USER: ${MYSQL_USER:-nextcloud}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_HOST: nextcloud.db:3306
+    networks:
+      - nextcloud
+      - office
+      - proxy_private
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.nextcloud.entrypoints: websecure
+      traefik.http.routers.nextcloud.rule: Host(`${NEXTCLOUD_URL_PREFIX:-nextcloud.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.nextcloud.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.nextcloud.service: nextcloud
+      traefik.http.services.nextcloud.loadbalancer.server.port: 80
+      # Frontend => dav middlewares
+      traefik.http.routers.nextcloud.middlewares: nextcloud-dav
+      traefik.http.middlewares.nextcloud-dav.replacepathregex.regex: ^/.well-known/ca(l|rd)dav
+      traefik.http.middlewares.nextcloud-dav.replacepathregex.replacement: /remote.php/dav/

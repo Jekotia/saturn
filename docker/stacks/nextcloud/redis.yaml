@@ -1,0 +1,9 @@
+services:
+  nextcloud.redis:
+    command: redis-server --requirepass ${REDIS_HOST_PASSWORD}
+    image: redis:7.0.10-alpine3.17
+    container_name: nextcloud.redis
+    restart: always
+    networks:
+      - nextcloud
+ 

@@ -1,0 +1,29 @@
+services:
+  nextcloud.code:
+    image: collabora/code
+    container_name: nextcloud.code
+    restart: always
+    environment:
+      extra_params: --o:ssl.enable=false --o:ssl.termination=true
+      username: ${CODE_USERNAME}
+      password: ${CODE_PASSWORD}
+      #domain: ${NEXTCLOUD_URL_PREFIX:-nextcloud.}${NETWORK_DOMAIN}
+      #server_name: ${CODE_OFFICE_URL_PREFIX:-office.}${NETWORK_DOMAIN}
+      aliasgroup1: https://${NEXTCLOUD_URL_PREFIX:-nextcloud.}${NETWORK_DOMAIN}:443
+      #aliasgroup1: https://${CODE_OFFICE_URL_PREFIX:-office.}${NETWORK_DOMAIN}:443,http://nextcloud.code:9980,http://${CODE_OFFICE_URL_PREFIX:-office.}${NETWORK_DOMAIN}:9980,https://${CODE_OFFICE_URL_PREFIX:-office.}${NETWORK_DOMAIN}:9980
+      #DONT_GEN_SSL_CERT: "true"
+    networks:
+      - proxy_private
+      - office
+      - nextcloud
+    volumes:
+      - /srv/application_data/nextcloud/code/data/etc/coolwsd/coolwsd.xml:/etc/coolwsd/coolwsd.xml
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.code-office.entrypoints: websecure
+      traefik.http.routers.code-office.rule: Host(`${CODE_OFFICE_URL_PREFIX:-office.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.code-office.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.code-office.service: code-office
+      traefik.http.services.code-office.loadbalancer.server.port: 9980

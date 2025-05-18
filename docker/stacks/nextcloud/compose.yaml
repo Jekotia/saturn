@@ -1,0 +1,19 @@
+# https://hub.docker.com/_/nextcloud/
+include:
+  - app.yaml
+  - code.yaml
+  - cron.yaml
+  - database.yaml
+  - redis.yaml
+  - ../../networks/proxy_private.yaml
+
+networks:
+  nextcloud:
+  office:
+
+volumes:
+  app.data.storage:
+    driver_opts:
+      type: nfs
+      o: addr=10.0.0.10,nolock,soft,rw
+      device: :/mnt/storage/application_data/nextcloud/app/storage
