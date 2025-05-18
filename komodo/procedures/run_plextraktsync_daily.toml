@@ -1,0 +1,13 @@
+[[procedure]]
+name = "run_plextraktsync_daily"
+config.webhook_enabled = false
+config.schedule_format = "Cron"
+config.schedule = "0 0 * * *"
+config.schedule_alert = false
+
+[[procedure.config.stage]]
+name = "Main"
+enabled = true
+executions = [
+  { execution.type = "DeployStack", execution.params.stack = "plextraktsync", execution.params.services = [], enabled = true }
+]
