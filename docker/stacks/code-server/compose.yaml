@@ -24,7 +24,7 @@ services:
       # - DEFAULT_WORKSPACE=/srv/hyperion
     volumes:
       - /srv/application_data/code-server/app/config:/config
-      # - code-server.workspace.dockerfiles:/srv/Dockerfiles
+      - /srv/Dockerfiles:/srv/Dockerfiles
       - /srv/enceladus:/srv/enceladus
       - /srv/hyperion:/srv/hyperion
       - /srv/telesto:/srv/telesto
