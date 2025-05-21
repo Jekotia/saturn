@@ -1,0 +1,21 @@
+include:
+  - ../../networks/proxy_private.yaml
+
+services:
+  github-pages:
+    image: ghcr.io/jekotia/github-pages:latest
+    container_name: github-pages
+    restart: unless-stopped
+    networks:
+      - proxy_private
+    volumes:
+      - /srv/jekotia.github.io:/site
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.github-pages.entrypoints: websecure
+      traefik.http.routers.github-pages.rule: Host(`${GITHUB_PAGES_URL_PREFIX:-github-pages.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.github-pages.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.github-pages.service: github-pages
+      traefik.http.services.github-pages.loadbalancer.server.port: 4000

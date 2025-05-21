@@ -1,0 +1,18 @@
+[[stack]]
+name = "github-pages"
+tags = ["dev"]
+[stack.config]
+server = "hyperion"
+links = ["https://github-pages.jekotia.net"]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/github-pages/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+"""
