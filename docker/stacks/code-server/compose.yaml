@@ -20,21 +20,13 @@ services:
       # - SUDO_PASSWORD=password #optional
       # - SUDO_PASSWORD_HASH=password #optional
       - PROXY_DOMAIN=${CODESERVER_URL_PREFIX:-code-server.}${NETWORK_DOMAIN} #optional
-      - DEFAULT_WORKSPACE=/srv
+      - DEFAULT_WORKSPACE=/srv/repositories
       # - DEFAULT_WORKSPACE=/srv/hyperion
     volumes:
       - /srv/application_data/code-server/app/config:/config
-      - /srv/Dockerfiles:/srv/Dockerfiles
-      - /srv/enceladus:/srv/enceladus
-      - /srv/hyperion:/srv/hyperion
-      - /srv/telesto:/srv/telesto
-      - /srv/saturn:/srv/saturn
-      # - /srv/ref:/srv/ref
+      - /srv/repositories:/srv/repositories
       - /home/jekotia/.zsh:/srv/zsh
-
-
       # - /home/jekotia/ssh/id_jameli:/config/.ssh/id_rsa #ssh key for GitHub integration
-      # - /var/run/docker.sock:/var/run/docker.sock #Provide access to the host docker daemon
     networks:
       - proxy_private
     labels:

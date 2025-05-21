@@ -17,17 +17,12 @@ services:
       - PGID=1000
       - TZ=${TIMEZONE}
       - PROXY_DOMAIN=${VSCODIUM_URL_PREFIX:-vscodium.}${NETWORK_DOMAIN} #optional
-      - DEFAULT_WORKSPACE=/srv
+      - DEFAULT_WORKSPACE=/srv/repositories
       - TITLE=vscodium
       - NODECOR=true
     volumes:
       - /srv/application_data/vscodium/app/config:/config
-      - /srv/Dockerfiles:/srv/Dockerfiles
-      - /srv/enceladus:/srv/enceladus
-      - /srv/hyperion:/srv/hyperion
-      - /srv/telesto:/srv/telesto
-      - /srv/saturn:/srv/saturn
-      # - /srv/ref:/srv/ref
+      - /srv/repositories:/srv/repositories
       - /home/jekotia/.zsh:/srv/zsh
       # - /home/jekotia/ssh/id_jameli:/config/.ssh/id_rsa #ssh key for GitHub integration
     networks:
