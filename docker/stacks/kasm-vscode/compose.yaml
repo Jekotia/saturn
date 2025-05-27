@@ -4,7 +4,7 @@ include:
 services:
   # https://hub.docker.com/r/kasmweb/vs-code
   kasm-vscode:
-    image: kasmweb/vs-code:latest
+    image: kasmweb/vs-code:1.16.0
     container_name: kasm-vscode
     restart: always
     cap_add:
@@ -14,13 +14,13 @@ services:
     shm_size: "1gb"
     environment:
       - VNC_PW=${VNC_PASSWORD}
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TIMEZONE}
-      - PROXY_DOMAIN=${KASM_VSCODE_URL_PREFIX:-kasm-vscode.}${NETWORK_DOMAIN} #optional
-      - DEFAULT_WORKSPACE=/srv/repositories
-      - TITLE=kasm-vscode
-      - NODECOR=true
+#      - PUID=1000
+#      - PGID=1000
+#      - TZ=${TIMEZONE}
+#      - PROXY_DOMAIN=${KASM_VSCODE_URL_PREFIX:-kasm-vscode.}${NETWORK_DOMAIN} #optional
+#      - DEFAULT_WORKSPACE=/srv/repositories
+#      - TITLE=kasm-vscode
+#      - NODECOR=true
     volumes:
       - /srv/application_data/kasm-vscode/app/config:/config
       - /srv/repositories:/srv/repositories
