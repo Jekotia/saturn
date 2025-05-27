@@ -36,4 +36,5 @@ services:
       traefik.http.routers.kasm-vscode.tls.certresolver: dns-cloudflare
       # Frontend => Services
       traefik.http.routers.kasm-vscode.service: kasm-vscode
+      traefik.http.services.kasm-vscode.loadbalancer.server.scheme: https
       traefik.http.services.kasm-vscode.loadbalancer.server.port: 6901
