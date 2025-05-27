@@ -1,0 +1,39 @@
+include:
+  - ../../networks/proxy_private.yaml
+
+services:
+  # https://hub.docker.com/r/kasmweb/vs-code
+  kasm-vscode:
+    image: kasmweb/vs-code:latest
+    container_name: kasm-vscode
+    restart: always
+    cap_add:
+      - IPC_LOCK
+    security_opt:
+      - seccomp:unconfined #optional
+    shm_size: "1gb"
+    environment:
+      - VNC_PW=${VNC_PASSWORD}
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE}
+      - PROXY_DOMAIN=${KASM_VSCODE_URL_PREFIX:-kasm-vscode.}${NETWORK_DOMAIN} #optional
+      - DEFAULT_WORKSPACE=/srv/repositories
+      - TITLE=kasm-vscode
+      - NODECOR=true
+    volumes:
+      - /srv/application_data/kasm-vscode/app/config:/config
+      - /srv/repositories:/srv/repositories
+      - /home/jekotia/.zsh:/srv/repositories/zsh
+      # - /home/jekotia/ssh/id_jameli:/config/.ssh/id_rsa #ssh key for GitHub integration
+    networks:
+      - proxy_private
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.kasm-vscode.entrypoints: websecure
+      traefik.http.routers.kasm-vscode.rule: Host(`${KASM_VSCODE_URL_PREFIX:-kasm-vscode.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.kasm-vscode.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.kasm-vscode.service: kasm-vscode
+      traefik.http.services.kasm-vscode.loadbalancer.server.port: 6901
