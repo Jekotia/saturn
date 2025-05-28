@@ -7,6 +7,6 @@ services:
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
-      - /srv/hyperion/ttrss/db:/var/lib/postgresql/data
+      - /srv/application_data/ttrss/db/data:/var/lib/postgresql/data
     networks:
       - ttrss
