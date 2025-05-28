@@ -1,6 +1,6 @@
 include:
-  - kavita.app.yaml
-  - kavita.email.yaml
+  - app.yaml
+  - email.yaml
   - ../../networks/proxy_private.yaml
   - ../../volumes/smb-multimedia.yaml
 
