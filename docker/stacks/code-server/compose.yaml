@@ -21,11 +21,10 @@ services:
       # - SUDO_PASSWORD_HASH=password #optional
       - PROXY_DOMAIN=${CODESERVER_URL_PREFIX:-code-server.}${NETWORK_DOMAIN} #optional
       - DEFAULT_WORKSPACE=/srv/repositories
-      # - DEFAULT_WORKSPACE=/srv/hyperion
     volumes:
       - /srv/application_data/code-server/app/config:/config
       - /srv/repositories:/srv/repositories
-      - /home/jekotia/.zsh:/srv/zsh
+      - /home/jekotia/.zsh:/srv/repositories/zsh
       # - /home/jekotia/ssh/id_jameli:/config/.ssh/id_rsa #ssh key for GitHub integration
     networks:
       - proxy_private
