@@ -1,0 +1,21 @@
+services:
+  komodo.mongo:
+    image: mongo:8.0.8-noble@sha256:8a98d6e55113e1d659bd20127df9c3cda3f5a5142506bf542cec2780b240faa9
+    container_name: komodo.mongo
+    labels:
+      komodo.skip: true # Prevent Komodo from stopping with StopAllContainers
+    command: --quiet --wiredTigerCacheSizeGB 0.25
+    restart: always
+    logging:
+      driver: ${COMPOSE_LOGGING_DRIVER:-local}
+    networks:
+      - komodo
+    volumes:
+      - /srv/application_data/bootstrap/komodo/mongo/data:/data/db
+      - /srv/application_data/bootstrap/komodo/mongo/config:/data/configdb
+    env_file:
+      - komodo.env
+      - komodo.secrets.env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${KOMODO_DB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${KOMODO_DB_PASSWORD}

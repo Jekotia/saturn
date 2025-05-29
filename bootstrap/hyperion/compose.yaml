@@ -1,0 +1,10 @@
+name: bootstrap
+include:
+  - komodo.core.yaml
+  - komodo.mongo.yaml
+  - komodo.periphery.yaml
+  - traefik.yaml
+
+networks:
+  proxy_private:
+  komodo:
