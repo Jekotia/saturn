@@ -11,8 +11,8 @@ webhook_enabled = false
 run_directory = "docker/stacks/kavita/"
 file_paths = [
   "compose.yaml",
-  "kavita.app.yaml",
-  "kavita.email.yaml",
+  "app.yaml",
+  "email.yaml",
   "../../networks/proxy_private.yaml",
   "../../volumes/smb-multimedia.yaml"
 ]
