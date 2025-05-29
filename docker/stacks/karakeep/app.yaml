@@ -17,7 +17,7 @@ services:
       DATA_DIR: /data # DON'T CHANGE THIS
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
       MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
-      NEXTAUTH_URL: ${NEXTAUTH_URL}
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3000}
     labels:
       traefik.enable: "true"
       # Frontend => Router
