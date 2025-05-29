@@ -14,5 +14,9 @@ file_paths = [
   "../../networks/proxy_private.yaml"
 ]
 environment = """
+# ESB_URL_PREFIX=
 NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+
+# UID=
+# GID=
 """

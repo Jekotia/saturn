@@ -17,6 +17,7 @@ file_paths = [
 environment = """
 TIMEZONE=[[TIMEZONE]]
 
+# RADARR_URL_PREFIX=
 NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
 
 RADARR_DISCORD_WEBHOOK=https://discord.com/api/webhooks/1129554499288186943/3vT6Vac1BSLcSGS5ml0QsSlqOOwDjboNSOmuPF5slc9-nXE7WLdLHu-Ja1AUrqYjehHa

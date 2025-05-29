@@ -15,6 +15,7 @@ file_paths = [
   "../../volumes/smb-multimedia.yaml"
 ]
 environment = """
+# MYLAR_URL_PREFIX=
 TIMEZONE=[[TIMEZONE]]
 
 NETWORK_DOMAIN=[[NETWORK_DOMAIN]]

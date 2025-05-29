@@ -17,6 +17,7 @@ file_paths = [
   "../../networks/proxy_private.yaml"
 ]
 environment = """
+# KARAKEEP_URL_PREFIX=
 NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
 
 OPENAI_API_KEY=[[KARAKEEP_OPENAI_API_KEY]]

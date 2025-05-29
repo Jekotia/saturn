@@ -16,9 +16,9 @@ services:
       - smb.multimedia:/multimedia:ro
     environment:
     # Specify your user ID and group ID. You can find this by running `id -u` and `id -g`
-      PUID: ${UID}
-      PGID: ${GID}
-      HOMEPAGE_ALLOWED_HOSTS: saturn.jekotia.net
+      PUID: ${UID:-1000}
+      PGID: ${GID:-1000}
+      HOMEPAGE_ALLOWED_HOSTS: ${HOMEPAGE_URL_PREFIX:-homepage.}${NETWORK_DOMAIN}
     labels:
       traefik.enable: "true"
       # Frontend => Router

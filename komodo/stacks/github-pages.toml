@@ -14,5 +14,6 @@ file_paths = [
   "../../networks/proxy_private.yaml"
 ]
 environment = """
+# GITHUB_PAGES_URL_PREFIX=
 NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
 """

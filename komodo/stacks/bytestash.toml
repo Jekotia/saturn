@@ -14,6 +14,7 @@ file_paths = [
   "../../networks/proxy_private.yaml"
 ]
 environment = """
+# BYTESTASH_URL_PREFIX=
 NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
 
 BYTESTASH_JWT_SECRET=[[BYTESTASH_JWT_SECRET]]

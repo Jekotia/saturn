@@ -17,6 +17,7 @@ file_paths = [
 environment = """
 TIMEZONE=[[TIMEZONE]]
 
+# SONARR_URL_PREFIX=
 NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
 
 SONARR_DISCORD_WEBHOOK=https://discord.com/api/webhooks/1129554718256005161/1yiJo0TSw3XYlpMLwu0yrPZX-NF7Z8qORkb127Ydw43__cJ5nk6ZccUOdT3uKtp_6iq1

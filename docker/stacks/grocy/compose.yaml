@@ -12,8 +12,8 @@ services:
     volumes:
       - /srv/application_data/grocy/app/config:/config
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=${UID:-1000}
+      - PGID=${GID:-1000}
       - TZ=${TIMEZONE}
     labels:
       traefik.enable: "true"

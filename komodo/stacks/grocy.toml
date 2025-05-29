@@ -16,5 +16,9 @@ file_paths = [
 environment = """
 TIMEZONE=[[TIMEZONE]]
 
+# GROCY_URL_PREFIX=
 NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+
+# UID=
+# GID=
 """

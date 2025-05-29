@@ -16,5 +16,6 @@ file_paths = [
 environment = """
 TIMEZONE=[[TIMEZONE]]
 
+# OVERSEERR_URL_PREFIX=
 NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
 """

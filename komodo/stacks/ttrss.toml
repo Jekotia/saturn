@@ -16,7 +16,10 @@ file_paths = [
   "../../networks/proxy_private.yaml"
 ]
 environment = """
+# TTRSS_URL_PREFIX=
 NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
 
+# DB_NAME=
+# DB_USER=
 POSTGRES_PASSWORD=[[TTRSS_POSTGRES_PASSWORD]]
 """

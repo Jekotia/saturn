@@ -12,8 +12,8 @@ services:
       # - DOCKER_MODS=linuxserver/mods:code-server-docker|linuxserver/mods:code-server-shellcheck
       # - DOCKER_MODS=linuxserver/mods:code-server-powershell|linuxserver/mods:code-server-shellcheck
       # - DOCKER_MODS=linuxserver/mods:code-server-shellcheck
-      - PUID=1000
-      - PGID=1000
+      - PUID=${UID:-1000}
+      - PGID=${GID:-1000}
       - TZ=${TIMEZONE}
       # - PASSWORD=${_SECRETS_CODESERVER_PASSWORD} #optional
       # - HASHED_PASSWORD=${_SECRETS_CODESERVER_HASHED_PASSWORD} #optional

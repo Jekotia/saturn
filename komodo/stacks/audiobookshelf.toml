@@ -15,6 +15,7 @@ file_paths = [
   "../../volumes/smb-multimedia.yaml"
 ]
 environment = """
+# AUDIOBOOKSHELF_URL_PREFIX=
 NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
 
 MULTIMEDIA_HOST=[[MULTIMEDIA_HOST]]
