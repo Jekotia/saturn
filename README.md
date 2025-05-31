@@ -66,7 +66,7 @@ This stack consists of Traefik & Komodo (Core, MongoDB, Periphery). This is inte
 ## bootstrap/enceladus/
 This stack consists of Komodo Periphery and a network definition to be used by Traefik once deployed to this node via Komodo. The network is defined here so that the full name is `bootstrap_proxy_private`, which is consistent with Hyperion's `bootstrap_proxy_private` and thus aids in container portability.
 
-This is intended to be deployed via TrueNAS SCALE's Custom App YAML feature. The repository **must** be cloned to `/mnt/storage/srv/enceladus/docker` or have paths updated in `compose.yaml`. The following must be configured for this secondary node prior to deployment:
+This is intended to be deployed via TrueNAS SCALE's Custom App YAML feature. The repository **must** be cloned to `/mnt/storage/srv/enceladus/docker` or have paths updated in `compose.yaml` **and** `$REPOSITORY_ROOT/komodo/stacks/core-enceladus.toml`. The following must be configured for this secondary node prior to deployment:
 - copy `bootstrap/enceladus/komodo.env.example` to `bootstrap/enceladus/komodo.env` and set the following values:
     - `TZ` to your appropriate timezone. Refer to https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List if unsure. Use the `TZ identifier` column.
     - `PERIPHERY_ROOT_DIRECTORY` to the location you wish Komodo Periphery to store its data on this node.

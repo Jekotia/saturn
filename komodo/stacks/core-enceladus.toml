@@ -15,6 +15,13 @@ file_paths = [
   "traefik.yaml",
   "../../networks/proxy_private.yaml"
 ]
+pre_deploy.path = "/mnt/storage/application_data/traefik/app"
+pre_deploy.command = """
+mkdir acme
+touch acme/acme.json
+chmod 600 acme/acme.json
+touch traefik.log
+"""
 environment = """
 TIMEZONE=[[TIMEZONE]]
 
