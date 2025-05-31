@@ -66,7 +66,7 @@ This stack consists of Traefik & Komodo (Core, MongoDB, Periphery). This is inte
 ## bootstrap/enceladus/
 This stack consists of Komodo Periphery and a network definition to be used by Traefik once deployed to this node via Komodo. The network is defined here so that the full name is `bootstrap_proxy_private`, which is consistent with Hyperion's `bootstrap_proxy_private` and thus aids in container portability.
 
-This is intended to be deployed via TrueNAS SCALE's Custom App YAML feature. The repository **must** be cloned to `/mnt/storage/srv/enceladus/docker` or have paths updated in `komodo.yaml`. The following must be configured for this secondary node prior to deployment:
+This is intended to be deployed via TrueNAS SCALE's Custom App YAML feature. The repository **must** be cloned to `/mnt/storage/srv/enceladus/docker` or have paths updated in `compose.yaml`. The following must be configured for this secondary node prior to deployment:
 - copy `bootstrap/enceladus/komodo.env.example` to `bootstrap/enceladus/komodo.env` and set the following values:
     - `TZ` to your appropriate timezone. Refer to https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List if unsure. Use the `TZ identifier` column.
     - `PERIPHERY_ROOT_DIRECTORY` to the location you wish Komodo Periphery to store its data on this node.
@@ -74,5 +74,9 @@ This is intended to be deployed via TrueNAS SCALE's Custom App YAML feature. The
 - copy `bootstrap/enceladus/komodo.secrets.env.example` to `bootstrap/enceladus/komodo.secrets.env` and set the following values:
     - `KOMODO_PASSKEY` to the same value used when configuring Hyperion
 
+In order to deploy this node on TrueNAS, the contents of `compose.yaml` must be copy-pasted into the Custom App YAML UI. After doing so, the network `bootstrap_proxy_private` must be manually created from the shell as TrueNAS will prefix the network name with `ix-`, breaking this particular consistency across nodes that is utilised to simplify moving services. The command to do so is `docker network create -d bridge --scope local bootstrap_proxy_private`.
+
+If deploying outside of TrueNAS, this stack can be deployed using Docker Compose, and no additional steps are necessary.
+
 # Limitations
-    - As of writing, Komodo does not support "default-to-a-predetermined-value-if-undefined" behaviour for variables, unlike Docker Compose. This means that, in a Komodo stacks' Environment section, I will not be defining variables I do not use. Instead, they will be commented out so that it's clear what changes can be made purely from the environment file.
+- As of writing, Komodo does not support "default-to-a-predetermined-value-if-undefined" behaviour for variables, unlike Docker Compose. This means that, in a Komodo stacks' Environment section, I will not be defining variables I do not use. Instead, they will be commented out so that it's clear what changes can be made purely from the environment file.

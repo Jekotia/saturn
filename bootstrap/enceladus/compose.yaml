@@ -11,7 +11,7 @@ services:
     logging:
       driver: ${COMPOSE_LOGGING_DRIVER:-local}
     networks:
-    - komodo
+    - proxy_private
     ports:
     - 8120:8120
     restart: always
@@ -22,4 +22,3 @@ services:
 
 networks:
   proxy_private:
-  komodo:
