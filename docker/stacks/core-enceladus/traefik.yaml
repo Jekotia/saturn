@@ -26,7 +26,13 @@ services:
       # Ignore certificate errors between traefik and services it is proxying.
       # This is safe when only proxying other containers.
       - --serversTransport.insecureSkipVerify=true
-
+      # Entrypoints\Public
+#      - --entrypoints.publicweb=true
+#      - --entrypoints.publicweb.address=:8080
+#      - --entrypoints.publicweb.http.redirections.entrypoint.to=publicsecure
+#      - --entrypoints.publicweb.http.redirections.entrypoint.scheme=https
+#      - --entryPoints.publicsecure=true
+#      - --entryPoints.publicsecure.address=:8443
         # Allow these IPs to set the X-Forwarded-* headers - Cloudflare IPs: https://www.cloudflare.com/ips/
 #      - --entrypoints.websecure.forwardedHeaders.trustedIPs=173.245.48.0/20,103.21.244.0/22,103.22.200.0/22,103.31.4.0/22,141.101.64.0/18,108.162.192.0/18,190.93.240.0/20,188.114.96.0/20,197.234.240.0/22,198.41.128.0/17,162.158.0.0/15,104.16.0.0/12,172.64.0.0/13,131.0.72.0/22
 
@@ -64,6 +70,8 @@ services:
     networks:
       - proxy_private
       - traefik.dockerproxy
+    security_opt:
+      - no-new-privileges:true
     ports:
       # https://github.com/compose-spec/compose-spec/blob/main/spec.md#long-syntax-3      
       - name: web-secured
@@ -91,11 +99,12 @@ services:
       PUID: ${TRAEFIK_UID:-1000}
       PGID: ${TRAEFIK_GID:-1000}
     labels:
+      komodo.skip: # Prevent Komodo from stopping with StopAllContainers
       ### HTTP Routers
       traefik.enable: "true"
       # Enable the Traefik dashboard
       traefik.http.routers.dashboard.entrypoints: websecure
-      traefik.http.routers.dashboard.rule: Host(`${TRAEFIK_URL_PREFIX:-traefik.enceladus.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.dashboard.rule: Host(`${TRAEFIK_URL_PREFIX:-testy.}${NETWORK_DOMAIN}`)
       traefik.http.routers.dashboard.service: api@internal
       traefik.http.routers.dashboard.tls: "true"
       traefik.http.routers.dashboard.tls.certresolver: dns-cloudflare # Comment out this line after first run of traefik to force the use of wildcard certs
@@ -103,8 +112,8 @@ services:
       ### Broad certs
       traefik.http.routers.dashboard.tls.domains[0].main: ${NETWORK_DOMAIN}
       traefik.http.routers.dashboard.tls.domains[0].sans: '*.${NETWORK_DOMAIN}'
-      traefik.http.routers.dashboard.tls.domains[1].main: enceladus.${NETWORK_DOMAIN} # Pulls main cert for second domain
-      traefik.http.routers.dashboard.tls.domains[1].sans: '*.enceladus.${NETWORK_DOMAIN}' # Pulls wildcard cert for second domain
+      #traefik.http.routers.dashboard.tls.domains[1].main: enceladus.jekotia.net # Pulls main cert for second domain
+      #traefik.http.routers.dashboard.tls.domains[1].sans: *.$DOMAIN # Pulls wildcard cert for second domain
 
       ## Middlewares
 #      traefik.http.routers.dashboard.middlewares: traefik-headers,middlewares-rate-limit@file #,chain-oauth@file #,middlewares-rate-limit@file,rate-limit@file,oauth@file
@@ -114,10 +123,10 @@ services:
 #      traefik.http.middlewares.traefik-headers.headers.accesscontrolalloworiginlist: https://${NETWORK_DOMAIN}
 #      traefik.http.middlewares.traefik-headers.headers.accesscontrolmaxage: 100
 #      traefik.http.middlewares.traefik-headers.headers.addvaryheader: "true"
-#      traefik.http.middlewares.traefik-headers.headers.allowedhosts: ${TRAEFIK_URL_PREFIX:-traefik.enceladus.}${NETWORK_DOMAIN} #:443
+#      traefik.http.middlewares.traefik-headers.headers.allowedhosts: ${TRAEFIK_URL_PREFIX:-traefik.}${NETWORK_DOMAIN} #:443
 #      traefik.http.middlewares.traefik-headers.headers.hostsproxyheaders: X-Forwarded-Host
 #      traefik.http.middlewares.traefik-headers.headers.sslredirect: "true"
-#      traefik.http.middlewares.traefik-headers.headers.sslhost: ${TRAEFIK_URL_PREFIX:-traefik.enceladus.}${NETWORK_DOMAIN} #:443
+#      traefik.http.middlewares.traefik-headers.headers.sslhost: ${TRAEFIK_URL_PREFIX:-traefik.}${NETWORK_DOMAIN} #:443
 #      traefik.http.middlewares.traefik-headers.headers.sslforcehost: "true"
 #      traefik.http.middlewares.traefik-headers.headers.sslproxyheaders.X-Forwarded-Proto: https
 #      traefik.http.middlewares.traefik-headers.headers.stsseconds: '63072000'
