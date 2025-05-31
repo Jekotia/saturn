@@ -70,8 +70,6 @@ services:
     networks:
       - proxy_private
       - traefik.dockerproxy
-    security_opt:
-      - no-new-privileges:true
     ports:
       # https://github.com/compose-spec/compose-spec/blob/main/spec.md#long-syntax-3      
       - name: web-secured
