@@ -1,5 +1,5 @@
 [[stack]]
-name = "core-enceladus-"
+name = "core-enceladus"
 tags = ["enceladus"]
 [stack.config]
 server = "enceladus"
