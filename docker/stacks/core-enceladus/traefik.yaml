@@ -66,7 +66,7 @@ services:
       - --certificatesResolvers.dns-cloudflare.acme.storage=/acme/acme.json
       - --certificatesResolvers.dns-cloudflare.acme.dnsChallenge.provider=cloudflare
       #-> TEMP: Staging
-      - --certificatesResolvers.dns-cloudflare.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory # LetsEncrypt Staging Server - uncomment when testing
+      # - --certificatesResolvers.dns-cloudflare.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory # LetsEncrypt Staging Server - uncomment when testing
     networks:
       - proxy_private
       - traefik.dockerproxy
