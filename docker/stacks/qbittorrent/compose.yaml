@@ -1,6 +1,5 @@
 include:
   - ../../networks/proxy_private.yaml
-  - ../../volumes/smb-multimedia.yaml
   
 services:
   #-> https://hub.docker.com/r/linuxserver/qbittorrent
@@ -14,7 +13,7 @@ services:
     - 6881:6881
     - 6881:6881/udp
     volumes:
-    - smb.multimedia:/multimedia
+    - /mnt/storage/multimedia:/multimedia
     - /mnt/storage/application_data/qbittorrent/app/config:/config
     environment:
     - PUID=${UID:-568}

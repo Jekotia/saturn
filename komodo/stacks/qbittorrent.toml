@@ -11,16 +11,11 @@ webhook_enabled = false
 run_directory = "docker/stacks/qbittorrent/"
 file_paths = [
   "compose.yaml",
-  "../../networks/proxy_private.yaml",
-  "../../volumes/smb-multimedia.yaml"
+  "../../networks/proxy_private.yaml"
 ]
 environment = """
 # QBITTORRENT_URL_PREFIX=
 NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
-
-MULTIMEDIA_HOST=[[MULTIMEDIA_HOST]]
-MULTIMEDIA_USER=[[MULTIMEDIA_USER]]
-MULTIMEDIA_PASS=[[MULTIMEDIA_PASS]]
 
 # UID=
 # GID=
