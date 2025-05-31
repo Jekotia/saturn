@@ -1,0 +1,33 @@
+include:
+  - ../../networks/proxy_private.yaml
+  - ../../volumes/smb-multimedia.yaml
+  
+services:
+  #-> https://hub.docker.com/r/linuxserver/qbittorrent
+  qbittorrent:
+    image: linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    restart: unless-stopped
+    networks:
+    - proxy_private
+    ports:
+    - 6881:6881
+    - 6881:6881/udp
+    volumes:
+    - smb.multimedia:/multimedia
+    - /mnt/storage/application_data/qbittorrent/app/config:/config
+    environment:
+    - PUID=${UID:-568}
+    - PGID=${GID:-568}
+    - TZ=America/Toronto
+    - WEBUI_PORT=8080
+    #?- UMASK_SET=022
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.qbittorrent.entrypoints: websecure
+      traefik.http.routers.qbittorrent.rule: Host(`${QBITTORRENT_URL_PREFIX:-qbittorrent.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.qbittorrent.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.qbittorrent.service: qbittorrent
+      traefik.http.services.qbittorrent.loadbalancer.server.port: 8080
