@@ -103,8 +103,8 @@ services:
       ### Broad certs
       traefik.http.routers.dashboard.tls.domains[0].main: ${NETWORK_DOMAIN}
       traefik.http.routers.dashboard.tls.domains[0].sans: '*.${NETWORK_DOMAIN}'
-      #traefik.http.routers.dashboard.tls.domains[1].main: enceladus.jekotia.net # Pulls main cert for second domain
-      #traefik.http.routers.dashboard.tls.domains[1].sans: *.$DOMAIN # Pulls wildcard cert for second domain
+      traefik.http.routers.dashboard.tls.domains[1].main: enceladus.${NETWORK_DOMAIN} # Pulls main cert for second domain
+      traefik.http.routers.dashboard.tls.domains[1].sans: '*.enceladus.${NETWORK_DOMAIN}' # Pulls wildcard cert for second domain
 
       ## Middlewares
 #      traefik.http.routers.dashboard.middlewares: traefik-headers,middlewares-rate-limit@file #,chain-oauth@file #,middlewares-rate-limit@file,rate-limit@file,oauth@file
