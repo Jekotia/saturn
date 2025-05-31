@@ -102,7 +102,7 @@ services:
       traefik.enable: "true"
       # Enable the Traefik dashboard
       traefik.http.routers.dashboard.entrypoints: websecure
-      traefik.http.routers.dashboard.rule: Host(`${TRAEFIK_URL_PREFIX:-testy.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.dashboard.rule: Host(`${TRAEFIK_URL_PREFIX:-traefik.enceladus.}${NETWORK_DOMAIN}`)
       traefik.http.routers.dashboard.service: api@internal
       traefik.http.routers.dashboard.tls: "true"
       traefik.http.routers.dashboard.tls.certresolver: dns-cloudflare # Comment out this line after first run of traefik to force the use of wildcard certs
