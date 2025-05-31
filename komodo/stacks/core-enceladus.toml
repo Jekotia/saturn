@@ -3,7 +3,7 @@ name = "core-enceladus"
 tags = ["enceladus"]
 [stack.config]
 server = "enceladus"
-links = ["https://traefik.enceladus.jekotia.net"]
+links = ["https://testy.jekotia.net"]
 git_account = "jekotia"
 repo = "jekotia/saturn"
 branch = "master"
