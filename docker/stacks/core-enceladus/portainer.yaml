@@ -1,0 +1,11 @@
+services:
+  #-> https://hub.docker.com/r/portainer/agent/
+  portainer_agent:
+    container_name: portainer_agent
+    image: portainer/agent:latest
+    restart: always
+    ports:
+      - "9001:9001"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /mnt/.ix-apps/docker/volumes:/var/lib/docker/volume

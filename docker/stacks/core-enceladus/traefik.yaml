@@ -1,0 +1,151 @@
+# Traefik - Reverse Proxy
+# Touch (create empty files) traefik.log and acme/acme.json. Set acme.json permissions to 600. 
+# touch $USERDIR/docker/traefik/acme/acme.json
+# chmod 600 $USERDIR/docker/traefik/acme/acme.json
+# touch $USERDIR/docker/traefik/traefik.log
+services:
+  #-> https://hub.docker.com/_/traefik/
+  traefik:
+    container_name: traefik
+    image: traefik:v2.10@sha256:6341b98aec5ec8969b99e9730f4c5b22cca3103d42b6bbe4b7a3c910758fe565
+    restart: always
+    depends_on:
+      - traefik.dockerproxy
+    command: # CLI arguments
+      - --global.checkNewVersion=true
+      - --global.sendAnonymousUsage=true
+
+      # Entrypoints\Internal
+      - --entrypoints.web=true
+      - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entrypoint.to=websecure
+      - --entrypoints.web.http.redirections.entrypoint.scheme=https
+      - --entryPoints.websecure=true
+      - --entryPoints.websecure.address=:443
+
+      # Ignore certificate errors between traefik and services it is proxying.
+      # This is safe when only proxying other containers.
+      - --serversTransport.insecureSkipVerify=true
+
+        # Allow these IPs to set the X-Forwarded-* headers - Cloudflare IPs: https://www.cloudflare.com/ips/
+#      - --entrypoints.websecure.forwardedHeaders.trustedIPs=173.245.48.0/20,103.21.244.0/22,103.22.200.0/22,103.31.4.0/22,141.101.64.0/18,108.162.192.0/18,190.93.240.0/20,188.114.96.0/20,197.234.240.0/22,198.41.128.0/17,162.158.0.0/15,104.16.0.0/12,172.64.0.0/13,131.0.72.0/22
+
+      # Dashboard
+      - --api.dashboard=true
+
+      # Logging
+      - --log=true
+      - --log.level=DEBUG # (Default: error) DEBUG, INFO, WARN, ERROR, FATAL, PANIC
+      - --accessLog=true
+      - --accessLog.filePath=/var/log/docker/traefik.log
+      - --accessLog.bufferingSize=100 # Configuring a buffer of 100 lines
+      - --accessLog.filters.statusCodes=400-499
+
+      # Providers
+      - --providers.docker=true
+#      - --providers.docker.endpoint=unix:///var/run/docker.sock
+      - --providers.docker.endpoint=tcp://traefik.dockerproxy:2375
+      - --providers.docker.defaultrule=Host(`{{ index .Labels "com.docker.compose.service" }}.${NETWORK_DOMAIN}`)
+      - --providers.docker.exposedByDefault=false
+      - --providers.docker.network=bootstrap_proxy_private
+      - --providers.docker.swarmMode=false
+      - --providers.file=true
+      - --providers.file.directory=/rules # Load dynamic configuration from one or more .toml or .yml files in a directory.
+      #- --providers.file.filename=/etc/traefik/rules.toml
+      #- --providers.file.filename=/path/to/file # Load dynamic configuration from a file.
+      - --providers.file.watch=true # Only works on top level files in the rules folder
+
+      # TLS
+      - --certificatesResolvers.dns-cloudflare.acme.email=${SECRETS_CLOUDFLARE_EMAIL}
+      - --certificatesResolvers.dns-cloudflare.acme.storage=/acme/acme.json
+      - --certificatesResolvers.dns-cloudflare.acme.dnsChallenge.provider=cloudflare
+      #-> TEMP: Staging
+      - --certificatesResolvers.dns-cloudflare.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory # LetsEncrypt Staging Server - uncomment when testing
+    networks:
+      - proxy_private
+      - traefik.dockerproxy
+    ports:
+      # https://github.com/compose-spec/compose-spec/blob/main/spec.md#long-syntax-3      
+      - name: web-secured
+        target: 443
+        host_ip: 10.0.0.21
+        published: 443
+        protocol: tcp
+        app_protocol: https
+        mode: host
+      - name: web
+        target: 80
+        host_ip: 10.0.0.21
+        published: 80
+        protocol: tcp
+        app_protocol: http
+        mode: host    
+
+    volumes:
+      - /mnt/storage/application_data/traefik/acme:/acme:rw # cert location - you must touch this file and change perms to 600 when creating
+      - /mnt/storage/application_data/traefik/rules:/rules:ro  # file provider directory
+      - /mnt/storage/application_data/traefik/traefik.log:/var/log/docker/traefik.log:rw # for fail2ban - make sure to touch file before starting container
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      CF_DNS_API_TOKEN: ${SECRETS_CLOUDFLARE_API_KEY}
+      PUID: ${TRAEFIK_UID:-1000}
+      PGID: ${TRAEFIK_GID:-1000}
+    labels:
+      ### HTTP Routers
+      traefik.enable: "true"
+      # Enable the Traefik dashboard
+      traefik.http.routers.dashboard.entrypoints: websecure
+      traefik.http.routers.dashboard.rule: Host(`${TRAEFIK_URL_PREFIX:-traefik.enceladus.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.dashboard.service: api@internal
+      traefik.http.routers.dashboard.tls: "true"
+      traefik.http.routers.dashboard.tls.certresolver: dns-cloudflare # Comment out this line after first run of traefik to force the use of wildcard certs
+
+      ### Broad certs
+      traefik.http.routers.dashboard.tls.domains[0].main: ${NETWORK_DOMAIN}
+      traefik.http.routers.dashboard.tls.domains[0].sans: '*.${NETWORK_DOMAIN}'
+      #traefik.http.routers.dashboard.tls.domains[1].main: enceladus.jekotia.net # Pulls main cert for second domain
+      #traefik.http.routers.dashboard.tls.domains[1].sans: *.$DOMAIN # Pulls wildcard cert for second domain
+
+      ## Middlewares
+#      traefik.http.routers.dashboard.middlewares: traefik-headers,middlewares-rate-limit@file #,chain-oauth@file #,middlewares-rate-limit@file,rate-limit@file,oauth@file
+      #TODO#traefik.http.routers.api.middlewares: authelia@docker
+
+#      traefik.http.middlewares.traefik-headers.headers.accesscontrolallowmethods: GET, OPTIONS, PUT
+#      traefik.http.middlewares.traefik-headers.headers.accesscontrolalloworiginlist: https://${NETWORK_DOMAIN}
+#      traefik.http.middlewares.traefik-headers.headers.accesscontrolmaxage: 100
+#      traefik.http.middlewares.traefik-headers.headers.addvaryheader: "true"
+#      traefik.http.middlewares.traefik-headers.headers.allowedhosts: ${TRAEFIK_URL_PREFIX:-traefik.enceladus.}${NETWORK_DOMAIN} #:443
+#      traefik.http.middlewares.traefik-headers.headers.hostsproxyheaders: X-Forwarded-Host
+#      traefik.http.middlewares.traefik-headers.headers.sslredirect: "true"
+#      traefik.http.middlewares.traefik-headers.headers.sslhost: ${TRAEFIK_URL_PREFIX:-traefik.enceladus.}${NETWORK_DOMAIN} #:443
+#      traefik.http.middlewares.traefik-headers.headers.sslforcehost: "true"
+#      traefik.http.middlewares.traefik-headers.headers.sslproxyheaders.X-Forwarded-Proto: https
+#      traefik.http.middlewares.traefik-headers.headers.stsseconds: '63072000'
+#      traefik.http.middlewares.traefik-headers.headers.stsincludesubdomains: "true"
+#      traefik.http.middlewares.traefik-headers.headers.stspreload: "true"
+#      traefik.http.middlewares.traefik-headers.headers.forcestsheader: "true"
+#      traefik.http.middlewares.traefik-headers.headers.framedeny: "true"
+#_?      traefik.http.middlewares.traefik-headers.headers.customframeoptionsvalue: SAMEORIGIN # This option overrides FrameDeny
+#      traefik.http.middlewares.traefik-headers.headers.contenttypenosniff: "true"
+#      traefik.http.middlewares.traefik-headers.headers.browserxssfilter: "true"
+#_?      traefik.http.middlewares.traefik-headers.headers.contentsecuritypolicy: frame-ancestors 'none'; object-src 'none'; base-uri 'none';
+#      traefik.http.middlewares.traefik-headers.headers.referrerpolicy: same-origin
+#      traefik.http.middlewares.traefik-headers.headers.featurepolicy: camera 'none'; geolocation 'none'; microphone 'none'; payment 'none'; usb 'none'; vr 'none';
+#      traefik.http.middlewares.traefik-headers.headers.customresponseheaders.X-Robots-Tag: none,noarchive,nosnippet,notranslate,noimageindex,
+
+  traefik.dockerproxy:
+    image: ghcr.io/tecnativa/docker-socket-proxy:latest
+    container_name: traefik.dockerproxy
+    environment:
+      CONTAINERS: 1 # Allow access to viewing containers
+      POST: 0 # Disallow any POST operations (effectively read-only)
+    networks:
+      - traefik.dockerproxy
+    # ports:
+    #   - 2375:2375
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro # Mounted as read-only
+    restart: always
+
+networks:
+  traefik.dockerproxy:
