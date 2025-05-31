@@ -18,7 +18,7 @@ services:
     volumes:
     - /var/run/docker.sock:/var/run/docker.sock
     - /proc:/proc
-    - /mnt/storage/application_data/komodo/periphery/data:/mnt/storage/application_data/komodo/periphery/data
+    - ${PERIPHERY_ROOT_DIRECTORY:-/etc/komodo}:${PERIPHERY_ROOT_DIRECTORY:-/etc/komodo}
 
 networks:
   proxy_private:
