@@ -1,7 +1,6 @@
-docker/stacks/bootstrap/.env
+bootstrap/enceladus/komodo.env
+bootstrap/enceladus/komodo.secrets.env
 
 bootstrap/hyperion/.env
+bootstrap/hyperion/komodo.env
 bootstrap/hyperion/komodo.secrets.env
-
-bootstrap/enceladus/komodo.env
-

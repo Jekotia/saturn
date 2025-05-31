@@ -3,7 +3,9 @@ services:
   komodo.periphery:
     image: ghcr.io/moghtech/komodo-periphery:1.17.3@sha256:54c939465ce8307f0c687f0a97ca590ced05bb614e8934bdbc319f64673ba34f
     container_name: komodo.periphery
-    env_file: /mnt/storage/srv/enceladus/docker/komodo.env
+    env_file:
+      - /mnt/storage/srv/saturn/bootstrap/enceladus/komodo.env
+      - /mnt/storage/srv/saturn/bootstrap/enceladus/komodo.secrets.env
     labels:
       komodo.skip:
     logging:
