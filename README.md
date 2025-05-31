@@ -63,6 +63,11 @@ This stack consists of Traefik & Komodo (Core, MongoDB, Periphery). This is inte
     - `KOMODO_WEBHOOK_SECRET` to a secure, randomly generated string. This is what's used to authenticate webhooks. 
     - `KOMODO_JWT_SECRET` to a secure, randomly generated string.
 
+Additionally, under `/srv/application_data/bootstrap/traefik` you much touch (create empty files) `traefik.log` and `acme/acme.json`, and set `acme/acme.json` permissions to 600. The commands for this are:
+        - `mkdir acme`
+        - `touch acme/acme.json traefik.log`
+        - `chmod 600 $USERDIR/docker/traefik/acme/acme.json`
+
 ## bootstrap/enceladus/
 This stack consists of Komodo Periphery and a network definition to be used by Traefik once deployed to this node via Komodo. The network is defined here so that the full name is `bootstrap_proxy_private`, which is consistent with Hyperion's `bootstrap_proxy_private` and thus aids in container portability.
 
@@ -77,6 +82,14 @@ This is intended to be deployed via TrueNAS SCALE's Custom App YAML feature. The
 In order to deploy this node on TrueNAS, the contents of `compose.yaml` must be copy-pasted into the Custom App YAML UI. After doing so, the network `bootstrap_proxy_private` must be manually created from the shell as TrueNAS will prefix the network name with `ix-`, breaking this particular consistency across nodes that is utilised to simplify moving services. The command to do so is `docker network create -d bridge --scope local bootstrap_proxy_private`.
 
 If deploying outside of TrueNAS, this stack can be deployed using Docker Compose, and no additional steps are necessary.
+
+# Deploying Stacks from Komodo
+The following stacks have additional requirements, and should be read prior to deploying the stack for the first time.
+- core-enceladus
+    - Under `/mnt/storage/application_data/traefik/app` you much touch (create empty files) `traefik.log` and `acme/acme.json`, and set `acme/acme.json` permissions to 600. The commands for this are:
+        - `mkdir acme`
+        - `touch acme/acme.json traefik.log`
+        - `chmod 600 $USERDIR/docker/traefik/acme/acme.json`
 
 # Limitations
 - As of writing, Komodo does not support "default-to-a-predetermined-value-if-undefined" behaviour for variables, unlike Docker Compose. This means that, in a Komodo stacks' Environment section, I will not be defining variables I do not use. Instead, they will be commented out so that it's clear what changes can be made purely from the environment file.
