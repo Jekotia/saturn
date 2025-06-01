@@ -13,7 +13,7 @@ services:
     environment:
     - "ND_DATAFOLDER=/data"
     - "ND_MUSICFOLDER=/music"
-    - "ND_BASEURL=${NAVIDROME_URL_PREFIX:-navidrome.}${NETWORK_DOMAIN}"
+    - "ND_BASEURL=https://${NAVIDROME_URL_PREFIX:-navidrome.}${NETWORK_DOMAIN}"
     volumes:
     - "/mnt/storage/application_data/navidrome/app/data:/data"
     - "/mnt/storage/multimedia/music:/music:ro"
