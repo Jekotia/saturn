@@ -1,0 +1,39 @@
+include:
+  - ../../networks/proxy_private.yaml
+  
+services:
+  #-> https://hub.docker.com/r/linuxserver/qbittorrent
+  plexms:
+    image: lscr.io/linuxserver/plex:version-1.41.7.9823-59f304c16
+    container_name: plexms
+    restart: unless-stopped
+    networks:
+    - proxy_private
+    ports:
+    - 1900:1900/udp # Plex DLNA Server
+    - 5353:5353/udp # older Bonjour/Avahi network discovery
+    - 8324:8324 # controlling Plex for Roku via Plex Companion
+    - 32410:32410/udp # current GDM network discovery
+    - 32412:32412/udp # current GDM network discovery
+    - 32413:32413/udp # current GDM network discovery
+    - 32414:32414/udp # current GDM network discovery
+    - 32469:32469 # access to the Plex DLNA Server
+    - 32400:32400 # Web UI, separately exposed for port forwarding
+    volumes:
+    - /mnt/storage/multimedia:/multimedia
+    - /mnt/storage/application_data/plexms/app/config:/config
+    environment:
+    - PUID=${UID:-568}
+    - PGID=${GID:-1001}
+    - TZ=${TIMEZONE}
+    - VERSION=version-1.41.7.9823-59f304c16
+    #?- UMASK_SET=022
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.plexms.entrypoints: websecure
+      traefik.http.routers.plexms.rule: Host(`${PLEXMS_URL_PREFIX:-plex.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.plexms.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.plexms.service: plexms
+      traefik.http.services.plexms.loadbalancer.server.port: 32400
