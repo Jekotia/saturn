@@ -16,8 +16,8 @@ services:
     - /mnt/storage/multimedia:/multimedia
     - /mnt/storage/application_data/qbittorrent/app/config:/config
     environment:
-    - PUID=${UID:-568}
-    - PGID=${GID:-568}
+    - PUID=${UID:-1000}
+    - PGID=${GID:-1000}
     - TZ=America/Toronto
     - WEBUI_PORT=8080
     #?- UMASK_SET=022
