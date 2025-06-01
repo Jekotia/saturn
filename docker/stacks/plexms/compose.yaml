@@ -18,12 +18,12 @@ services:
       protocol: udp
       mode: host
     # - 5353:5353/udp # older Bonjour/Avahi network discovery
-    - name: older Bonjour/Avahi network discovery
-      target: 5353
-      host_ip: 10.0.0.21
-      published: 5353
-      protocol: udp
-      mode: host
+    # - name: older Bonjour/Avahi network discovery
+    #   target: 5353
+    #   host_ip: 10.0.0.21
+    #   published: 5353
+    #   protocol: udp
+    #   mode: host
     # - 8324:8324 # controlling Plex for Roku via Plex Companion
     - name: controlling Plex for Roku via Plex Companion
       target: 8324
