@@ -21,4 +21,4 @@ services:
       ## Must be the same inside and outside the container,
       ## or docker will get confused. See https://github.com/moghtech/komodo/discussions/180.
       ## Default: /etc/komodo.
-      - ${PERIPHERY_ROOT_DIRECTORY:-/etc/komodo}:${PERIPHERY_ROOT_DIRECTORY:-/etc/komodo}
+      - /srv/application_data/bootstrap/komodo/periphery/etc:/srv/application_data/bootstrap/komodo/periphery/etc
