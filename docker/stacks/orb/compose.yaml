@@ -1,0 +1,13 @@
+services:
+  orb:
+    image: orbforge/orb:latest
+    container_name: orb # Optional: Give the container a specific name
+    network_mode: host # Optional: alternatively you can use 'bridge' mode and map ports :7443 and :5353
+    volumes:
+      - /srv/application_data/orb/app/data:/root/.config/orb # Persists Orb configuration
+    # Optional: Limit resources if needed
+    # deploy:
+    #   resources:
+    #     limits:
+    #       memory: 512m
+    restart: always # Ensures Orb restarts if it stops or on system reboot
