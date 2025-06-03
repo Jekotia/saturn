@@ -1,0 +1,24 @@
+services:
+  logforge.frontend:
+    image: madanb13/logforge-frontend:latest@sha256:ccaf62ebec73cdbe6b1070359c95898e7b4a0fbfb03445b1f1d10dfb5032b24d
+    container_name: logforge.frontend
+    environment:
+      VITE_BACKEND_SERVICE_HOST: "http://logforge.backend"
+      VITE_BACKEND_SERVICE_PORT: "${BACKEND_SERVICE_PORT:-8000}"
+      VITE_EXPOSED_BACKEND_PORT: "${EXPOSED_BACKEND_PORT:-8000}"
+      VITE_NOTIFIER_PORT: "${NOTIFIER_WEB_PORT:-8085}"
+    ports:
+      - "${EXPOSED_FRONTEND_PORT:-3000}:${FRONTEND_SERVICE_PORT:-3000}"
+    networks:
+      - logforge
+    depends_on:
+      - logforge.backend
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.logforge.entrypoints: websecure
+      traefik.http.routers.logforge.rule: Host(`${LOGFORGE_URL_PREFIX:-logforge.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.logforge.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.logforge.service: logforge
+      traefik.http.services.logforge.loadbalancer.server.port: 3000

@@ -1,0 +1,16 @@
+include:
+  - ../../networks/proxy_private.yaml
+
+services:
+  logforge.notifier:
+    image: madanb13/logforge-notifier:latest@sha256:8f9f55ea14de57ca79b9e2e4548df4d23e31c16dca4e1c062a1c1b7a066bd1ff
+    container_name: logforge.notifier
+    ports:
+      - "${NOTIFIER_PLAIN_PORT:-8083}:8083"
+      - "${NOTIFIER_WEB_PORT:-8085}:8085"
+    volumes:
+      - /srv/application_data/logforge/notifier/data:/app/data
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - logforge
+    restart: unless-stopped

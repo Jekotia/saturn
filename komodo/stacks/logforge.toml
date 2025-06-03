@@ -1,0 +1,29 @@
+[[stack]]
+name = "audiobookshelf"
+tags = ["media-server"]
+[stack.config]
+server = "hyperion"
+links = ["https://audiobookshelf.jekotia.net"]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/audiobookshelf/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml",
+  "../../volumes/smb-multimedia.yaml"
+]
+environment = """
+# LOGFORGE_URL_PREFIX=
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+
+# EXPOSED_BACKEND_PORT=
+# BACKEND_SERVICE_PORT=
+
+# EXPOSED_FRONTEND_PORT=
+# FRONTEND_SERVICE_PORT=
+
+# NOTIFIER_PLAIN_PORT=
+# NOTIFIER_WEB_PORT=
+"""
