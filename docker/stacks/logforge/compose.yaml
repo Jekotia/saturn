@@ -1,4 +1,7 @@
 include:
+  - backend.yaml
+  - frontend.yaml
+  - notifier.yaml
   - ../../networks/proxy_private.yaml
 
 networks:
