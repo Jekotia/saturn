@@ -1,6 +1,6 @@
 [[stack]]
 name = "logforge"
-tags = ["media-server"]
+tags = ["management"]
 [stack.config]
 server = "hyperion"
 links = ["https://logforge.jekotia.net"]
@@ -11,8 +11,7 @@ webhook_enabled = false
 run_directory = "docker/stacks/logforge/"
 file_paths = [
   "compose.yaml",
-  "../../networks/proxy_private.yaml",
-  "../../volumes/smb-multimedia.yaml"
+  "../../networks/proxy_private.yaml"
 ]
 environment = """
 # LOGFORGE_URL_PREFIX=
