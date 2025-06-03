@@ -1,14 +1,14 @@
 [[stack]]
-name = "audiobookshelf"
+name = "logforge"
 tags = ["media-server"]
 [stack.config]
 server = "hyperion"
-links = ["https://audiobookshelf.jekotia.net"]
+links = ["https://logforge.jekotia.net"]
 git_account = "jekotia"
 repo = "jekotia/saturn"
 branch = "master"
 webhook_enabled = false
-run_directory = "docker/stacks/audiobookshelf/"
+run_directory = "docker/stacks/logforge/"
 file_paths = [
   "compose.yaml",
   "../../networks/proxy_private.yaml",
