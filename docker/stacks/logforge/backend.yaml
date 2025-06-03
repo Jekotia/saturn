@@ -7,7 +7,7 @@ services:
     container_name: logforge.backend
     environment:
       PORT: "${BACKEND_SERVICE_PORT:-8000}"
-      NOTIFIER_SERVICE_CONTAINER_NAME: "logforge.notifier"
+      NOTIFIER_SERVICE_CONTAINER_NAME: "${NOTIFIER_SERVICE_CONTAINER_NAME:-logforge.notifier}"
       NOTIFIER_PLAIN_PORT: "${NOTIFIER_PLAIN_PORT:-8083}"
     networks:
       - logforge
