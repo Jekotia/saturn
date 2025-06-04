@@ -11,6 +11,9 @@ webhook_enabled = false
 run_directory = "docker/stacks/logforge/"
 file_paths = [
   "compose.yaml",
+  "backend.yaml",
+  "frontend.yaml",
+  "notifier.yaml",
   "../../networks/proxy_private.yaml"
 ]
 environment = """

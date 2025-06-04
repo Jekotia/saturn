@@ -1,6 +1,3 @@
-include:
-  - ../../networks/proxy_private.yaml
-
 services:
   logforge.backend:
     image: madanb13/logforge-backend:latest@sha256:c349b0386d5dbb891c8dd0efb970762035de02bf16180932db0028d8d51967b8
