@@ -1,0 +1,29 @@
+include:
+  - ../../networks/proxy_private.yaml
+
+services:
+  #-> https://docs.stirlingpdf.com/Installation/Docker%20Install/
+  stirlingpdf:
+    image: docker.stirlingpdf.com/stirlingtools/stirling-pdf:latest
+    container_name: stirlingpdf
+    restart: unless-stopped
+    environment:
+      - DOCKER_ENABLE_SECURITY=${DOCKER_ENABLE_SECURITY:-false}
+      - LANGS=${LANGS:-en_GB}
+    networks:
+      - proxy_private
+    volumes:
+      - /srv/application_data/stirlingpdf/app/trainingData:/usr/share/tessdata # Required for extra OCR languages
+      - /srv/application_data/stirlingpdf/app/extraConfigs:/configs
+      - /srv/application_data/stirlingpdf/app/customFiles:/customFiles/
+      - /srv/application_data/stirlingpdf/app/logs:/logs/
+      - /srv/application_data/stirlingpdf/app/pipeline:/pipeline/
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.stirlingpdf.entrypoints: websecure
+      traefik.http.routers.stirlingpdf.rule: Host(`${STIRLINGPDF_URL_PREFIX:-stirlingpdf.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.stirlingpdf.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.stirlingpdf.service: stirlingpdf
+      traefik.http.services.stirlingpdf.loadbalancer.server.port: 8080
