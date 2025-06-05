@@ -1,7 +1,31 @@
 include:
-  - app.yaml
-  - docker-socket-proxy.yaml
   - ../../networks/proxy_private.yaml
   
-networks:
-  internal:
+#-> https://github.com/amir20/dozzle
+services:
+  dozzle:
+    image: amir20/dozzle:latest
+    container_name: dozzle
+    restart: always
+    # environment:
+    #   DOZZLE_LEVEL: trace
+    networks:
+      - proxy_private
+      - internal
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    healthcheck:
+      test: [ "CMD", "/dozzle", "healthcheck" ]
+      interval: 3s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.dozzle.entrypoints: websecure
+      traefik.http.routers.dozzle.rule: Host(`${DOZZLE_URL_PREFIX:-dozzle.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.dozzle.tls: "true"
+      # Frontend => Services
+      traefik.http.routers.dozzle.service: dozzle
+      traefik.http.services.dozzle.loadbalancer.server.port: "8080"
