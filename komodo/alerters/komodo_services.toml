@@ -1,0 +1,10 @@
+[[alerter]]
+name = "komodo_services"
+[alerter.config]
+enabled = true
+endpoint.type = "Ntfy"
+endpoint.params.url = "https://ntfy.jekotia.net/komodo_services"
+alert_types = [
+  "StackStateChange",
+  "ContainerStateChange"
+]

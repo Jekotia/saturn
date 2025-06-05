@@ -1,0 +1,13 @@
+[[alerter]]
+name = "komodo_servers"
+[alerter.config]
+enabled = true
+endpoint.type = "Ntfy"
+endpoint.params.url = "https://ntfy.jekotia.net/komodo_servers"
+alert_types = [
+  "ServerUnreachable",
+  "ServerCpu",
+  "ServerMem",
+  "ServerDisk",
+  "ResourceSyncPendingUpdates"
+]
