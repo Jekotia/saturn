@@ -1,6 +1,6 @@
 services:
   komodo.core:
-    image: ghcr.io/moghtech/komodo-core:1.17.5@sha256:3294c9317492c65799b45120ccde4def8a054281f91d70293f694b14579b726f
+    image: ghcr.io/moghtech/komodo-core:1.18.0@sha256:b65ee6d2af592841e610aee19951995ac89fd2046db451b77ccbf82506f19f41
     container_name: komodo.core
     labels:
       komodo.skip: # Prevent Komodo from stopping with StopAllContainers
