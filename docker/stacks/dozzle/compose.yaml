@@ -1,0 +1,7 @@
+include:
+  - app.yaml
+  - docker-socket-proxy.yaml
+  - ../../networks/proxy_private.yaml
+  
+networks:
+  internal:
