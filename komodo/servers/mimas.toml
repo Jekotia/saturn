@@ -2,4 +2,4 @@
 name = "mimas"
 [server.config]
 address = "https://mimas.jekotia.net:8120"
-enabled = true
+enabled = false
