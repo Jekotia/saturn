@@ -2,7 +2,7 @@ services:
   plextraktsync:
     image: ghcr.io/taxel/plextraktsync:0.34.7@sha256:e9c651d2ec00b56ef53357e5c08d1553cbed40037d0811a767cfe57b4191b2ab
     container_name: plextraktsync
-    restart: never
+    restart: no
     command: sync
     environment:
       - PUID=1000
