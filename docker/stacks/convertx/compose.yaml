@@ -4,7 +4,7 @@ include:
 services:
   #-> https://hub.docker.com/r/linuxserver/grocy
   convertx:
-    image: ghcr.io/c4illin/convertx:@sha256:346589f154332997329fdc888417d4b24c49cc9140eab80e637a68cfbdd8041b
+    image: ghcr.io/c4illin/convertx:v0.14.1@sha256:346589f154332997329fdc888417d4b24c49cc9140eab80e637a68cfbdd8041b
     container_name: convertx
     restart: unless-stopped
     networks:
