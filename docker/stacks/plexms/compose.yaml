@@ -14,61 +14,61 @@ services:
     # - 1900:1900/udp # Plex DLNA Server
     - name: Plex DLNA Server
       target: 1900
-      host_ip: 10.0.0.21
+      host_ip: ${PLEX_IP:-10.0.0.21}
       published: 1900
       protocol: udp
       mode: host
     # - 5353:5353/udp # older Bonjour/Avahi network discovery
     # - name: older Bonjour/Avahi network discovery
     #   target: 5353
-    #   host_ip: 10.0.0.21
+    #   host_ip: ${PLEX_IP:-10.0.0.21}
     #   published: 5353
     #   protocol: udp
     #   mode: host
     # - 8324:8324 # controlling Plex for Roku via Plex Companion
     - name: controlling Plex for Roku via Plex Companion
       target: 8324
-      host_ip: 10.0.0.21
+      host_ip: ${PLEX_IP:-10.0.0.21}
       published: 8324
       mode: host
     # - 32410:32410/udp # current GDM network discovery
     - name: current GDM network discovery
       target: 32410
-      host_ip: 10.0.0.21
+      host_ip: ${PLEX_IP:-10.0.0.21}
       published: 32410
       protocol: udp
       mode: host
     # - 32412:32412/udp # current GDM network discovery
     - name: current GDM network discovery
       target: 32412
-      host_ip: 10.0.0.21
+      host_ip: ${PLEX_IP:-10.0.0.21}
       published: 32412
       protocol: udp
       mode: host
     # - 32413:32413/udp # current GDM network discovery
     - name: current GDM network discovery
       target: 32413
-      host_ip: 10.0.0.21
+      host_ip: ${PLEX_IP:-10.0.0.21}
       published: 32413
       protocol: udp
       mode: host
     # - 32414:32414/udp # current GDM network discovery
     - name: current GDM network discovery
       target: 32414
-      host_ip: 10.0.0.21
+      host_ip: ${PLEX_IP:-10.0.0.21}
       published: 32414
       protocol: udp
       mode: host
     # - 32469:32469 # access to the Plex DLNA Server
     - name: access to the Plex DLNA Server
       target: 32469
-      host_ip: 10.0.0.21
+      host_ip: ${PLEX_IP:-10.0.0.21}
       published: 32469
       mode: host
     # - 32400:32400 # Web UI, separately exposed for port forwarding
     - name: Web UI, separately exposed for port forwarding
       target: 32400
-      host_ip: 10.0.0.21
+      host_ip: ${PLEX_IP:-10.0.0.21}
       published: 32400
       mode: host
     volumes:
@@ -79,6 +79,7 @@ services:
     - PLEX_GID=${GID:-1001}
     - TZ=${TIMEZONE}
     - VERSION=version-1.41.7.9823-59f304c16
+    - ADVERTISE_IP=${PLEX_IP:-10.0.0.21}
     #?- UMASK_SET=022
     labels:
       traefik.enable: "true"
