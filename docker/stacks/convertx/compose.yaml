@@ -1,0 +1,23 @@
+include:
+  - ../../networks/proxy_private.yaml
+
+services:
+  #-> https://hub.docker.com/r/linuxserver/grocy
+  convertx:
+    image: ghcr.io/c4illin/convertx:@sha256:346589f154332997329fdc888417d4b24c49cc9140eab80e637a68cfbdd8041b
+    container_name: convertx
+    restart: unless-stopped
+    networks:
+      - proxy_private
+    volumes:
+      - /srv/application_data/convertx/app/data:/app/data
+    # environment:
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.convertx.entrypoints: websecure
+      traefik.http.routers.convertx.rule: Host(`${CONVERTX_URL_PREFIX:-convertx.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.convertx.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.convertx.service: convertx
+      traefik.http.services.convertx.loadbalancer.server.port: 3000
