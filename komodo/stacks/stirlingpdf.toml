@@ -1,6 +1,6 @@
 [[stack]]
 name = "stirlingpdf"
-tags = ["tools"]
+tags = ["utilities"]
 [stack.config]
 server = "hyperion"
 links = ["https://stirlingpdf.jekotia.net"]
