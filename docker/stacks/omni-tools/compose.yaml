@@ -1,0 +1,20 @@
+include:
+  - ../../networks/proxy_private.yaml
+
+#-> https://github.com/iib0011/omni-tools
+services:
+  omni-tools:
+    image: iib0011/omni-tools:latest
+    container_name: omni-tools
+    restart: unless-stopped
+    networks:
+      - proxy_private
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.omni-tools.entrypoints: websecure
+      traefik.http.routers.omni-tools.rule: Host(`${OMNITOOLS_URL_PREFIX:-omni-tools.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.omni-tools.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.omni-tools.service: omni-tools
+      traefik.http.services.omni-tools.loadbalancer.server.port: 80
