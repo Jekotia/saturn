@@ -18,7 +18,7 @@ services:
     #   published: 1900
     #   protocol: udp
     #   mode: host
-    - 5353:5353/udp # older Bonjour/Avahi network discovery
+    # - 5353:5353/udp # older Bonjour/Avahi network discovery
     # - name: older Bonjour/Avahi network discovery
     #   target: 5353
     #   host_ip: ${PLEX_IP:-10.0.0.21}
