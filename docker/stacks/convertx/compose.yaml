@@ -11,7 +11,9 @@ services:
       - proxy_private
     volumes:
       - /srv/application_data/convertx/app/data:/app/data
-    # environment:
+    environment:
+      ALLOW_UNAUTHENTICATED: true
+      AUTO_DELETE_EVERY_N_HOURS: 48
     labels:
       traefik.enable: "true"
       # Frontend => Router
