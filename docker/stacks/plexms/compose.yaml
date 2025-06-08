@@ -4,8 +4,7 @@ include:
 services:
   #-> https://hub.docker.com/r/linuxserver/qbittorrent
   plexms:
-    image: plexinc/pms-docker
-    #lscr.io/linuxserver/plex:version-1.41.7.9823-59f304c16
+    image: lscr.io/linuxserver/plex:${VERSION}
     container_name: plexms
     restart: unless-stopped
     networks:
@@ -75,11 +74,11 @@ services:
     - /mnt/storage/multimedia:/multimedia
     - /mnt/storage/application_data/plexms/app/config:/config
     environment:
-      PLEX_UID: ${UID:-568}
-      PLEX_GID: ${GID:-1001}
+      PUID: ${UID:-568}
+      PGID: ${GID:-1001}
       TZ: ${TIMEZONE}
       ADVERTISE_IP: http://${PLEX_IP:-10.0.0.21}:32400/
-    # - VERSION=version-1.41.7.9823-59f304c16
+      VERSION: ${VERSION}
     #?- UMASK_SET=022
     labels:
       traefik.enable: "true"
