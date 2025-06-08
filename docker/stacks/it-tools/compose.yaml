@@ -1,0 +1,20 @@
+include:
+  - ../../networks/proxy_private.yaml
+
+#-> https://github.com/CorentinTh/it-tools
+services:
+  it-tools:
+    image: corentinth/it-tools:latest
+    container_name: it-tools
+    restart: unless-stopped
+    networks:
+      - proxy_private
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.it-tools.entrypoints: websecure
+      traefik.http.routers.it-tools.rule: Host(`${ITTOOLS_URL_PREFIX:-it-tools.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.it-tools.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.it-tools.service: it-tools
+      traefik.http.services.it-tools.loadbalancer.server.port: 80
