@@ -78,7 +78,7 @@ services:
       PLEX_UID: ${UID:-568}
       PLEX_GID: ${GID:-1001}
       TZ: ${TIMEZONE}
-      #ADVERTISE_IP: http://10.0.0.10:32400/
+      ADVERTISE_IP: http://10.0.0.21:32400/
     # - VERSION=version-1.41.7.9823-59f304c16
     #- ADVERTISE_IP=${PLEX_IP:-10.0.0.21}
     #?- UMASK_SET=022
