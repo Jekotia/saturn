@@ -78,16 +78,15 @@ services:
       PLEX_UID: ${UID:-568}
       PLEX_GID: ${GID:-1001}
       TZ: ${TIMEZONE}
-      ADVERTISE_IP: http://10.0.0.21:32400/
+      ADVERTISE_IP: http://${PLEX_IP:-10.0.0.21}:32400/
     # - VERSION=version-1.41.7.9823-59f304c16
-    #- ADVERTISE_IP=${PLEX_IP:-10.0.0.21}
     #?- UMASK_SET=022
-    # labels:
-    #   traefik.enable: "true"
-    #   # Frontend => Router
-    #   traefik.http.routers.plexms.entrypoints: websecure
-    #   traefik.http.routers.plexms.rule: Host(`${PLEXMS_URL_PREFIX:-plex.}${NETWORK_DOMAIN}`)
-    #   traefik.http.routers.plexms.tls.certresolver: dns-cloudflare
-    #   # Frontend => Services
-    #   traefik.http.routers.plexms.service: plexms
-    #   traefik.http.services.plexms.loadbalancer.server.port: 32400
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.plexms.entrypoints: websecure
+      traefik.http.routers.plexms.rule: Host(`${PLEXMS_URL_PREFIX:-plex.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.plexms.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.plexms.service: plexms
+      traefik.http.services.plexms.loadbalancer.server.port: 32400
