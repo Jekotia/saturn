@@ -4,7 +4,7 @@ include:
 services:
   # https://hub.docker.com/r/linuxserver/vscodium
   vscodium:
-    image: lscr.io/linuxserver/vscodium:latest
+    image: ghcr.io/linuxserver/vscodium:latest
     container_name: vscodium
     restart: always
     cap_add:
