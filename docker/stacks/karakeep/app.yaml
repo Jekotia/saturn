@@ -11,7 +11,15 @@ services:
     environment:
       MEILI_ADDR: http://karakeep.meilisearch:7700
       BROWSER_WEB_URL: http://karakeep.chrome:9222
-      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      #OPENAI_API_KEY: ${OPENAI_API_KEY}
+
+      OLLAMA_BASE_URL: http://draewyn.saturn.jekotia.net:11434
+      # Make sure to pull the models in ollama first. Example models:
+      INFERENCE_TEXT_MODEL: gemma3
+      INFERENCE_IMAGE_MODEL: llava
+      # If the model you're using doesn't support structured output, you also need:
+      # INFERENCE_OUTPUT_SCHEMA=plain
+
       # You almost never want to change the value of the DATA_DIR variable.
       # If you want to mount a custom directory, change the volume mapping above instead.
       DATA_DIR: /data # DON'T CHANGE THIS

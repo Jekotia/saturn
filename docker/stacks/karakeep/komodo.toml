@@ -3,7 +3,11 @@ name = "karakeep"
 tags = ["personal"]
 [stack.config]
 server = "hyperion"
-links = ["https://karakeep.jekotia.net"]
+links = [
+  "https://karakeep.jekotia.net",
+  "https://github.com/karakeep-app/karakeep",
+  "https://github.com/karakeep-app/karakeep/pkgs/container/karakeep"
+]
 git_account = "jekotia"
 repo = "jekotia/saturn"
 branch = "master"
@@ -20,7 +24,7 @@ environment = """
 # KARAKEEP_URL_PREFIX=
 NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
 
-OPENAI_API_KEY=[[KARAKEEP_OPENAI_API_KEY]]
+# OPENAI_API_KEY=[[KARAKEEP_OPENAI_API_KEY]]
 
 NEXTAUTH_SECRET=[[KARAKEEP_NEXTAUTH_SECRET]]
 MEILI_MASTER_KEY=[[KARAKEEP_MEILI_MASTER_KEY]]
