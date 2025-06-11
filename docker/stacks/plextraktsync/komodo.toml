@@ -1,0 +1,18 @@
+[[stack]]
+name = "plextraktsync"
+tags = ["media-server"]
+[stack.config]
+server = "hyperion"
+links = [
+    "https://github.com/Taxel/PlexTraktSync",
+    "https://github.com/Taxel/PlexTraktSync/pkgs/container/plextraktsync"
+]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/plextraktsync/"
+file_paths = ["compose.yaml"]
+environment = """
+TIMEZONE=[[TIMEZONE]]
+"""

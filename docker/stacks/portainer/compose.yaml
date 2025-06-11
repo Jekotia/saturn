@@ -2,7 +2,6 @@ include:
   - ../../networks/proxy_private.yaml
 
 services:
-  #-> https://hub.docker.com/r/portainer/portainer/
   portainer:
     container_name: portainer
     image: portainer/portainer-ee:2.27.3@sha256:b9b25f060845a821808d0bd158460239311a0fddc4eebfe4ad08ab364c2f6c23

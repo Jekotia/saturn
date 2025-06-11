@@ -5,5 +5,8 @@ repo = "jekotia/saturn"
 branch = "master"
 git_account = "jekotia"
 webhook_enabled = false
-resource_path = ["komodo/"]
+resource_path = [
+  "docker/stacks/",
+  "komodo/"
+]
 delete = true

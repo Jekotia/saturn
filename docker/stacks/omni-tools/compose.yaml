@@ -1,7 +1,6 @@
 include:
   - ../../networks/proxy_private.yaml
 
-#-> https://github.com/iib0011/omni-tools
 services:
   omni-tools:
     image: iib0011/omni-tools:latest

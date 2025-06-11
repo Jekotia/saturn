@@ -1,0 +1,26 @@
+[[stack]]
+name = "obsidian-livesync"
+tags = ["personal"]
+[stack.config]
+server = "hyperion"
+links = [
+  "https://obsidian-livesync.jekotia.net",
+  "https://www.reddit.com/r/selfhosted/comments/1eo7knj/guide_obsidian_with_free_selfhosted_instant_sync/",
+  "https://hub.docker.com/_/couchdb"
+]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/obsidian-livesync/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+# OBSIDIAN_LIVESYNC_URL_PREFIX=
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+
+COUCHDB_USER=[[OBSIDIAN_LIVESYNC_COUCHDB_USER]]
+COUCHDB_PASSWORD=[[OBSIDIAN_LIVESYNC_COUCHDB_PASSWORD]]
+"""

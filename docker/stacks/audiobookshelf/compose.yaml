@@ -3,7 +3,6 @@ include:
   - ../../volumes/smb-multimedia.yaml
 
 services:
-  #-> https://github.com/advplyr/audiobookshelf
   audiobookshelf:
     image: ghcr.io/advplyr/audiobookshelf:2.20.0@sha256:106531342a5f150e0e3dcbb348f126a5c452ecc4274f162d31545194dbe4352a
     container_name: audiobookshelf

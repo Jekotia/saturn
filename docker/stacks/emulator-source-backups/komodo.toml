@@ -1,0 +1,26 @@
+[[stack]]
+name = "emulator-source-backups"
+tags = ["backups"]
+[stack.config]
+server = "hyperion"
+links = [
+  "https://esb.jekotia.net",
+  "https://docs.gitea.com/category/installation",
+  "https://hub.docker.com/r/gitea/gitea"
+]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/emulator-source-backups/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+# ESB_URL_PREFIX=
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+
+# UID=
+# GID=
+"""

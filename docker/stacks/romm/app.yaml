@@ -1,6 +1,6 @@
 services:
   romm.app:
-    image: rommapp/romm:3.8.3@sha256:2e46fcd1e6ba23e63889a642e82a4a4fbf8b560104029cd17edcefa672600676
+    image: ghcr.io/rommapp/romm:3.8.3@sha256:2e46fcd1e6ba23e63889a642e82a4a4fbf8b560104029cd17edcefa672600676
     container_name: romm.app
     restart: unless-stopped
     environment:

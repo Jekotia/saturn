@@ -1,0 +1,33 @@
+[[stack]]
+name = "core-enceladus"
+tags = ["enceladus"]
+[stack.config]
+server = "enceladus"
+links = [
+  "https://traefik.enceladus.jekotia.net",
+  "https://hub.docker.com/r/portainer/agent/",
+  "https://hub.docker.com/_/traefik/"
+]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/core-enceladus/"
+file_paths = [
+  "compose.yaml",
+  "portainer.yaml",
+  "traefik.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+TIMEZONE=[[TIMEZONE]]
+
+# TRAEFIK_URL_PREFIX=
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+
+SECRETS_CLOUDFLARE_API_KEY=[[ENCELADUS_TRAEFIK_CLOUDFLARE_API_TOKEN]]
+SECRETS_CLOUDFLARE_EMAIL=[[SECRETS_CLOUDFLARE_EMAIL]]
+
+# TRAEFIK_UID=
+# TRAEFIK_GID=
+"""

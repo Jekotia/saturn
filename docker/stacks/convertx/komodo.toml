@@ -1,0 +1,23 @@
+[[stack]]
+name = "convertx"
+tags = ["utilities"]
+[stack.config]
+server = "hyperion"
+links = [
+  "https://convertx.jekotia.net",
+  "https://github.com/C4illin/ConvertX",
+  "https://github.com/C4illin/ConvertX/pkgs/container/convertx"
+]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/convertx/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+# CONVERTX_URL_PREFIX=
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+"""

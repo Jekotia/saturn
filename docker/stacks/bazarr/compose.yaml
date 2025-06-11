@@ -4,7 +4,7 @@ include:
 
 services:
   bazarr:
-    image: linuxserver/bazarr:v1.5.1-ls293@sha256:6e901cc2a12f9ec96fab0162a7d8a4dcbf9353f2357470ef59ebb48bc005ce82
+    image: ghcr.io/linuxserver/bazarr:v1.5.1-ls293@sha256:6e901cc2a12f9ec96fab0162a7d8a4dcbf9353f2357470ef59ebb48bc005ce82
     container_name: bazarr
     restart: unless-stopped
     networks:

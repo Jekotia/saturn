@@ -4,7 +4,6 @@
 # chmod 600 $USERDIR/docker/traefik/acme/acme.json
 # touch $USERDIR/docker/traefik/traefik.log
 services:
-  #-> https://hub.docker.com/_/traefik/
   traefik:
     container_name: traefik
     image: traefik:v2.10@sha256:6341b98aec5ec8969b99e9730f4c5b22cca3103d42b6bbe4b7a3c910758fe565

@@ -2,9 +2,8 @@ include:
   - ../../networks/proxy_private.yaml
   
 services:
-  #-> https://hub.docker.com/r/linuxserver/qbittorrent
   plexms:
-    image: lscr.io/linuxserver/plex:${VERSION}
+    image: ghcr.io/linuxserver/plex:${VERSION}
     container_name: plexms
     restart: unless-stopped
     networks:

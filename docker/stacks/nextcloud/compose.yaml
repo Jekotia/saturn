@@ -1,4 +1,3 @@
-# https://hub.docker.com/_/nextcloud/
 include:
   - app.yaml
   - code.yaml

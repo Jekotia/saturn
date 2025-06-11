@@ -1,0 +1,23 @@
+[[stack]]
+name = "it-tools"
+tags = ["utilities"]
+[stack.config]
+server = "hyperion"
+links = [
+  "https://it-tools.jekotia.net",
+  "https://github.com/CorentinTh/it-tools",
+  "https://hub.docker.com/r/corentinth/it-tools"
+]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/it-tools/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+# ITTOOLS_URL_PREFIX=
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+"""

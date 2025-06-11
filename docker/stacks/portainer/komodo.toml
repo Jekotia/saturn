@@ -1,0 +1,25 @@
+[[stack]]
+name = "portainer"
+tags = ["core"]
+[stack.config]
+server = "hyperion"
+links = [
+  "https://portainer.jekotia.net",
+  "https://github.com/portainer/portainer",
+  "https://hub.docker.com/r/portainer/portainer"
+]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/portainer/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+TIMEZONE=[[TIMEZONE]]
+
+# PORTAINER_URL_PREFIX=
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+"""

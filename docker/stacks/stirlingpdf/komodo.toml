@@ -1,0 +1,26 @@
+[[stack]]
+name = "stirlingpdf"
+tags = ["utilities"]
+[stack.config]
+server = "hyperion"
+links = [
+  "https://stirlingpdf.jekotia.net",
+  "https://github.com/Stirling-Tools/Stirling-PDF",
+  "https://github.com/Stirling-Tools/Stirling-PDF/pkgs/container/stirling-pdf"
+]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/stirlingpdf/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+# STIRLINGPDF_URL_PREFIX=
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+
+# DOCKER_ENABLE_SECURITY=
+# LANGS=
+"""

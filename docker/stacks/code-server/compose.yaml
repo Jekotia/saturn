@@ -2,9 +2,8 @@ include:
   - ../../networks/proxy_private.yaml
 
 services:
-  # https://hub.docker.com/r/linuxserver/code-server
   code-server:
-    image: linuxserver/code-server
+    image: ghcr.io/linuxserver/code-server
     container_name: code-server
     restart: always
     environment:

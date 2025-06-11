@@ -1,0 +1,31 @@
+[[stack]]
+name = "plexms"
+tags = ["media-server"]
+[stack.config]
+server = "enceladus"
+links = [
+  "https://plex.jekotia.net",
+  "https://github.com/linuxserver/docker-plex",
+  "https://github.com/linuxserver/docker-plex/pkgs/container/plex"
+]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/plexms/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+TIMEZONE=[[TIMEZONE]]
+
+# PLEXMS_URL_PREFIX=
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+
+# PLEX_IP=
+VERSION=version-1.41.7.9823-59f304c16
+
+# UID=
+# GID=
+"""

@@ -2,9 +2,8 @@ include:
   - ../../networks/proxy_private.yaml
 
 services:
-  #-> https://hub.docker.com/r/linuxserver/overseerr/
   overseerr:
-    image: linuxserver/overseerr:1.33.2@sha256:4aa0e08b6b4f857194038c93b3cd7c243501006076d2bfbd2c750f15e7539821
+    image: ghcr.io/linuxserver/overseerr:1.33.2@sha256:4aa0e08b6b4f857194038c93b3cd7c243501006076d2bfbd2c750f15e7539821
     container_name: overseerr
     restart: unless-stopped
     networks:

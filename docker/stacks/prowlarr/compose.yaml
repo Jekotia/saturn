@@ -2,9 +2,8 @@ include:
   - ../../networks/proxy_private.yaml
 
 services:
-  #-> https://hub.docker.com/r/linuxserver/prowlarr/
   prowlarr:
-    image: linuxserver/prowlarr:1.31.2.4975-ls107@sha256:761f73534a01aec4bf72a1396e9b9fda3f01632948b3fa31985982d26120a330
+    image: ghcr.io/linuxserver/prowlarr:1.31.2.4975-ls107@sha256:761f73534a01aec4bf72a1396e9b9fda3f01632948b3fa31985982d26120a330
     container_name: prowlarr
     restart: unless-stopped
     networks:

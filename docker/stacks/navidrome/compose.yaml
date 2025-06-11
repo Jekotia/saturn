@@ -2,9 +2,8 @@ include:
   - ../../networks/proxy_private.yaml
 
 services:
-  #-> https://hub.docker.com/r/deluan/navidrome
   navidrome:
-    image: deluan/navidrome:0.56.1@sha256:d8dcacba4cf48b4caa81f231f20ebba719e642b0f86a46b1b5c24bb4f27edddc
+    image: ghcr.io/navidrome/navidrome:0.56.1@sha256:d8dcacba4cf48b4caa81f231f20ebba719e642b0f86a46b1b5c24bb4f27edddc
     container_name: navidrome
     restart: unless-stopped
     user: ${UID:-568}:${GID:-1001} # should be owner of volumes

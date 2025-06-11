@@ -1,3 +1,7 @@
+# Ignore in-development stacks
+docker/stacks/_*/
+
+# Ignore user-created files
 bootstrap/enceladus/komodo.env
 bootstrap/enceladus/komodo.secrets.env
 
