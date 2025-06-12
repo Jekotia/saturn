@@ -3,7 +3,7 @@ include:
 
 services:
   grocy:
-    image: ghcr.io/linuxserver/grocy:3.3.2@sha256:9885a1398f80b602a29eae68d7c84bf4c581d4a2c079d1868cc9e32926b9369d
+    image: ghcr.io/linuxserver/grocy:v4.5.0-ls293@sha256:ba512dd15c7ec8f3bf432c599710f4c05c6fe420963a298d410a078a4e6dd466
     container_name: grocy
     restart: unless-stopped
     networks:
@@ -15,6 +15,7 @@ services:
       - PGID=${GID:-1000}
       - TZ=${TIMEZONE}
     labels:
+      diun.enable: "true"
       traefik.enable: "true"
       # Frontend => Router
       traefik.http.routers.grocy.entrypoints: websecure
