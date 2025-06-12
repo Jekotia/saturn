@@ -3,7 +3,7 @@ include:
 
 services:
   bytestash:
-    image: ghcr.io/jordan-dalby/bytestash:latest
+    image: ghcr.io/jordan-dalby/bytestash:1.5.8@sha256:f57d694a727bfbe1daf72acd3d98620b2ff9b1e4f4aafbacc5cda89c31da3512
     container_name: bytestash
     restart: always
     environment:
@@ -27,6 +27,7 @@ services:
     networks:
       - proxy_private
     labels:
+      diun.enable: "true"
       traefik.enable: "true"
       # Frontend => Router
       traefik.http.routers.bytestash.entrypoints: websecure
