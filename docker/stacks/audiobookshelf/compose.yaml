@@ -4,7 +4,7 @@ include:
 
 services:
   audiobookshelf:
-    image: ghcr.io/advplyr/audiobookshelf:2.20.0@sha256:106531342a5f150e0e3dcbb348f126a5c452ecc4274f162d31545194dbe4352a
+    image: ghcr.io/advplyr/audiobookshelf:2.24.0@sha256:4e3ea23c551706c6d7934e2b48e9c4015a60ef5d70f965d3f4e5b68d59ef6c95
     container_name: audiobookshelf
     restart: unless-stopped
     user: 1000:1000
@@ -17,6 +17,7 @@ services:
       - /srv/application_data/audiobookshelf/app/metadata:/metadata
       - /srv/application_data/audiobookshelf/app/config:/config
     labels:
+      diun.enable: "true"
       traefik.enable: "true"
       # Frontend => Router
       traefik.http.routers.audiobookshelf.entrypoints: websecure
