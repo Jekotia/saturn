@@ -19,7 +19,7 @@ services:
       # DIUN_NOTIF_NTFY_TAGS: 
       DIUN_DEFAULTS_WATCHREPO: true
       DIUN_DEFAULTS_NOTIFYON: new,update
-      DIUN_DEFAULTS_EXCLUDETAGS: dev
+      DIUN_DEFAULTS_EXCLUDETAGS: .*arm64.*;dev
     labels:
       diun.enable: "true"
     restart: always
