@@ -1,5 +1,5 @@
 defaults:
-  exclude_tags:
+  excludeTags:
     - ^arm64.*
     - ^sha.*
     - ^edge.*
