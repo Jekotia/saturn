@@ -1,6 +1,6 @@
 services:
   diun:
-    image: ghcr.io/crazymax/diun:latest
+    image: ghcr.io/crazy-max/diun:latest
     command: serve
     volumes:
       - /srv/application_data/diun/app/data:/data
