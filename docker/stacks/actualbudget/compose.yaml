@@ -29,7 +29,6 @@ services:
       # !! If you are not using any of these options, remove the 'environment:' tag entirely.
     labels:
       diun.enable: "true"
-      diun.exclude_tags: ^sha.*$
       traefik.enable: "true"
       # Frontend => Router
       traefik.http.routers.actualbudget.entrypoints: websecure
