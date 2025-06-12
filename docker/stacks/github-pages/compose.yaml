@@ -11,6 +11,7 @@ services:
     volumes:
       - /srv/jekotia.github.io:/site
     labels:
+      diun.enable: "true"
       traefik.enable: "true"
       # Frontend => Router
       traefik.http.routers.github-pages.entrypoints: websecure
