@@ -24,6 +24,6 @@ services:
 
       DIUN_DEFAULTS_WATCHREPO: true
       DIUN_DEFAULTS_NOTIFYON: new,update
-    labels:
-      diun.enable: "true"
+    # labels:
+    #   diun.enable: "true"
     restart: always
