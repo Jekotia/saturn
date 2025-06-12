@@ -4,9 +4,11 @@ services:
     command: serve
     volumes:
       - /srv/application_data/diun/app/data:/data
+      - ./config/diun.yaml:/data/diun.yaml
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       TZ: ${TIMEZONE}
+      CONFIG: /data/diun.yaml
       DIUN_WATCH_WORKERS: 20
       DIUN_WATCH_SCHEDULE: 0 */6 * * *
       DIUN_WATCH_JITTER: 30s
@@ -22,7 +24,6 @@ services:
 
       DIUN_DEFAULTS_WATCHREPO: true
       DIUN_DEFAULTS_NOTIFYON: new,update
-      DIUN_DEFAULTS_EXCLUDETAGS: ^arm64.*$;^sha.*$;^edge.*$;^nightly.*$
     labels:
       diun.enable: "true"
     restart: always

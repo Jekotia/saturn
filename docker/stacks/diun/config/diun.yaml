@@ -1,0 +1,6 @@
+defaults:
+  exclude_tags:
+    - ^arm64.*
+    - ^sha.*
+    - ^edge.*
+    - ^nightly.*
