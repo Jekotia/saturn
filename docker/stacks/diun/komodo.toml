@@ -14,6 +14,8 @@ webhook_enabled = false
 run_directory = "docker/stacks/diun/"
 file_paths = ["compose.yaml"]
 environment = """
+TIMEZONE=[[TIMEZONE]]
+
 # NTFY_URL_PREFIX=
 NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
 """
