@@ -1,0 +1,19 @@
+[[stack]]
+name = "diun"
+tags = ["core"]
+[stack.config]
+server = "hyperion"
+links = [
+    "https://github.com/crazy-max/diun",
+    "https://github.com/crazy-max/diun/pkgs/container/diun"
+]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/diun/"
+file_paths = ["compose.yaml"]
+environment = """
+# NTFY_URL_PREFIX=
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+"""

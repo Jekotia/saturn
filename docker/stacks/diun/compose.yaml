@@ -1,0 +1,25 @@
+services:
+  diun:
+    image: ghcr.io/crazymax/diun:latest
+    command: serve
+    volumes:
+      - /srv/application_data/diun/app/data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      TZ: ${TIMEZONE}
+      DIUN_WATCH_WORKERS: 20
+      DIUN_WATCH_SCHEDULE: 0 */6 * * *
+      DIUN_WATCH_JITTER: 30s
+      DIUN_PROVIDERS_DOCKER: true
+      DIUN_NOTIF_NTFY_ENDPOINT: ${NTFY_URL_PREFIX:-ntfy.}${NETWORK_DOMAIN}
+      # DIUN_NOTIF_NTFY_TOKEN: 
+      # DIUN_NOTIF_NTFY_TOKENFILE: 
+      DIUN_NOTIF_NTFY_TOPIC: diun
+      DIUN_NOTIF_NTFY_PRIORITY: 1
+      # DIUN_NOTIF_NTFY_TAGS: 
+      DIUN_DEFAULTS_WATCHREPO: true
+      DIUN_DEFAULTS_NOTIFYON: new,update
+      DIUN_DEFAULTS_EXCLUDETAGS: dev
+    labels:
+      diun.enable: "true"
+    restart: always

@@ -27,6 +27,7 @@ services:
       - PGID=1000
       - TZ=${TIMEZONE}
     labels:
+      diun.enable: "true"
       traefik.enable: "true"
       # Frontend => Router
       traefik.http.routers.radarr.entrypoints: websecure
