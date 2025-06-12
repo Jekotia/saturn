@@ -8,6 +8,8 @@ links = [
   "https://github.com/C4illin/ConvertX",
   "https://github.com/C4illin/ConvertX/pkgs/container/convertx"
 ]
+poll_for_updates = true
+auto_update = true
 git_account = "jekotia"
 repo = "jekotia/saturn"
 branch = "master"

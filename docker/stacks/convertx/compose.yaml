@@ -3,7 +3,7 @@ include:
 
 services:
   convertx:
-    image: ghcr.io/c4illin/convertx:v0.14.1@sha256:346589f154332997329fdc888417d4b24c49cc9140eab80e637a68cfbdd8041b
+    image: ghcr.io/c4illin/convertx:latest
     container_name: convertx
     restart: unless-stopped
     networks:
@@ -14,6 +14,7 @@ services:
       ALLOW_UNAUTHENTICATED: true
       AUTO_DELETE_EVERY_N_HOURS: 48
     labels:
+      # diun.enable: "true"
       traefik.enable: "true"
       # Frontend => Router
       traefik.http.routers.convertx.entrypoints: websecure
