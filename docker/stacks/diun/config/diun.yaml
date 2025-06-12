@@ -1,6 +1,7 @@
 defaults:
   excludeTags:
     - ^arm64.*
-    - ^sha.*
+    - ^development.*
     - ^edge.*
     - ^nightly.*
+    - ^sha.*

@@ -4,7 +4,7 @@ include:
 
 services:
   bazarr:
-    image: ghcr.io/linuxserver/bazarr:v1.5.1-ls293@sha256:6e901cc2a12f9ec96fab0162a7d8a4dcbf9353f2357470ef59ebb48bc005ce82
+    image: ghcr.io/linuxserver/bazarr:v1.5.2-ls307@sha256:a92ba81b9405942d0b5c01e2707ba8fb99ab059dd800d1dc0e8f52f62ddf74dd
     container_name: bazarr
     restart: unless-stopped
     networks:
@@ -17,6 +17,7 @@ services:
       - PGID=${GID:-1000}
       - TZ=${TIMEZONE}
     labels:
+      diun.enable: "true"
       traefik.enable: "true"
       # Frontend => Router
       traefik.http.routers.bazarr.entrypoints: websecure
