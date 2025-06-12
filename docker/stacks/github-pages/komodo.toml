@@ -3,7 +3,13 @@ name = "github-pages"
 tags = ["dev"]
 [stack.config]
 server = "hyperion"
-links = ["https://github-pages.jekotia.net"]
+links = [
+  "https://github-pages.jekotia.net",
+  "https://github.com/jekotia/Dockerfiles",
+  "https://github.com/jekotia/Dockerfiles/pkgs/container/github-pages"
+]
+poll_for_updates = true
+auto_update = true
 git_account = "jekotia"
 repo = "jekotia/saturn"
 branch = "master"
