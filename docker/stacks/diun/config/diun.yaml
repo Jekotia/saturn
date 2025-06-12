@@ -1,8 +1,12 @@
 defaults:
   excludeTags:
     - ^arm64.*
+    - ^dependabot-.*
+    - ^develop$
     - ^development.*
-    - ^edge.*
+    - ^edge$
+    - ^fix-issue-.*
+    - ^nightly$
     - ^nightly.*
     - .*nightly$
     - .*nightly-rootless$

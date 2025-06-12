@@ -4,7 +4,7 @@ include:
 services:
   foundry:
     container_name: foundry
-    image: ghcr.io/felddy/foundryvtt:12.331.0@sha256:306930efe642caa5541add4e269127a3a9122e007496bb22b524f7d9bcc755fc
+    image: ghcr.io/felddy/foundryvtt:13.345.0@sha256:ed6bcd56557cc147bd8a6eceea6f56399183032249cdf959961b042ad2260c72
     restart: unless-stopped
     environment:
       #FOUNDRY_VERSION=${_HYPERION_FOUNDRY_VERSION}
@@ -26,6 +26,7 @@ services:
     networks:
       - proxy_private
     labels:
+      diun.enable: "true"
       traefik.enable: "true"
       # Frontend => Router
       traefik.http.routers.foundry.entrypoints: websecure
