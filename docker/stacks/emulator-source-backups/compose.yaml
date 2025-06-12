@@ -3,7 +3,7 @@ include:
 
 services:
   emulator-source-backups:
-    image: gitea/gitea:1.23.5@sha256:5e55d8fd0622cf70425e4bb874f07f1b340fb53782901a2cc66da1a8b0f1de23
+    image: gitea/gitea:1.24.0@sha256:724d420b64da6582b9ac8298856e4791e8a46307f31265cb2630ed0b058073ab
     container_name: emulator-source-backups
     restart: unless-stopped
     environment:
@@ -23,6 +23,7 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     labels:
+      diun.enable: "true"
       traefik.enable: "true"
       # Frontend => Router
       traefik.http.routers.esb.entrypoints: websecure

@@ -4,5 +4,7 @@ defaults:
     - ^development.*
     - ^edge.*
     - ^nightly.*
+    - .*nightly$
+    - .*nightly-rootless$
     - ^pr-.*
     - ^sha.*
