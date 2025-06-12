@@ -8,6 +8,8 @@ links = [
   "https://github.com/linuxserver/docker-code-server",
   "https://github.com/linuxserver/docker-code-server/pkgs/container/code-server"
 ]
+poll_for_updates = true
+auto_update = true
 git_account = "jekotia"
 repo = "jekotia/saturn"
 branch = "master"

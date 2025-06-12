@@ -28,6 +28,7 @@ services:
     networks:
       - proxy_private
     labels:
+      # diun.enable: "true"
       traefik.enable: "true"
       # Frontend => Router
       traefik.http.routers.code-server.entrypoints: websecure
