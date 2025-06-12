@@ -3,7 +3,7 @@ include:
 
 services:
   actualbudget:
-    image: ghcr.io/actualbudget/actual:25.3.1@sha256:58fecd9088b73ffe402450f51eff488036cdc8ca570650be38ad2bbabbfe193b
+    image: ghcr.io/actualbudget/actual:25.6.1@sha256:cb23c488bb517550dea10f42ae9a69c2e746fc2736b068e8c4cc2a224641222f
     container_name: actualbudget
     restart: unless-stopped
     networks:
@@ -28,6 +28,8 @@ services:
       # See all options and more details at https://actualbudget.github.io/docs/Installing/Configuration
       # !! If you are not using any of these options, remove the 'environment:' tag entirely.
     labels:
+      diun.enable: "true"
+      diun.exclude_tags: ^sha.*$
       traefik.enable: "true"
       # Frontend => Router
       traefik.http.routers.actualbudget.entrypoints: websecure
