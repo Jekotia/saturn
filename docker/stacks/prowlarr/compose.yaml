@@ -3,7 +3,7 @@ include:
 
 services:
   prowlarr:
-    image: ghcr.io/linuxserver/prowlarr:1.31.2.4975-ls107@sha256:761f73534a01aec4bf72a1396e9b9fda3f01632948b3fa31985982d26120a330
+    image: ghcr.io/linuxserver/prowlarr:1.37.0.5076-ls120@sha256:b058be8a4e083e0cba238f03759994617a559abe0c89e5ed66454b44395da6a9
     container_name: prowlarr
     restart: unless-stopped
     networks:
@@ -15,6 +15,7 @@ services:
       - PGID=1000
       - TZ=${TIMEZONE}
     labels:
+      diun.enable: "true"
       traefik.enable: "true"
       # Frontend => Router
       traefik.http.routers.prowlarr.entrypoints: websecure
