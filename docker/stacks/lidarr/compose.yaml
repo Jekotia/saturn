@@ -4,7 +4,7 @@ include:
 
 services:
   lidarr:
-    image: ghcr.io/linuxserver/lidarr:2.9.6.4552-ls31@sha256:f6cfa621faf759bd7936473a28a05671f23ab3246ca932341ee5a20a887143ca
+    image: ghcr.io/linuxserver/lidarr:2.12.4.4658-ls45@sha256:71fe6d5702691c6ac8961b9b1042fdea1ff833a49c82c5e165346fa88999a48a
     container_name: lidarr
     restart: unless-stopped
     networks:
@@ -20,6 +20,7 @@ services:
       - TZ=${TIMEZONE}
       #?- UMASK_SET=022 #optional
     labels:
+      diun.enable: "true"
       traefik.enable: "true"
       # Frontend => Router
       traefik.http.routers.lidarr.entrypoints: websecure

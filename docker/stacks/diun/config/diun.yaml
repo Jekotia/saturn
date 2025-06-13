@@ -4,6 +4,8 @@ defaults:
     - .*arm64$
     - ^dependabot-.*
     - ^develop$
+    - ^develop.*
+    - .*develop$
     - ^development.*
     - ^edge$
     - ^fix-issue-.*
