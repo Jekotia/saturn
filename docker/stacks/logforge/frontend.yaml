@@ -15,6 +15,7 @@ services:
     depends_on:
       - logforge.backend
     labels:
+      diun.enable: "true"
       traefik.enable: "true"
       # Frontend => Router
       traefik.http.routers.logforge.entrypoints: websecure
