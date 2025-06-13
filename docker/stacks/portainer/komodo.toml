@@ -8,6 +8,8 @@ links = [
   "https://github.com/portainer/portainer",
   "https://hub.docker.com/r/portainer/portainer"
 ]
+poll_for_updates = true
+auto_update = true
 git_account = "jekotia"
 repo = "jekotia/saturn"
 branch = "master"

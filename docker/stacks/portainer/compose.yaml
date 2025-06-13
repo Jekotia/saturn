@@ -4,44 +4,22 @@ include:
 services:
   portainer:
     container_name: portainer
-    image: portainer/portainer-ee:2.27.3@sha256:b9b25f060845a821808d0bd158460239311a0fddc4eebfe4ad08ab364c2f6c23
+    image: portainer/portainer-ee:latest
     restart: always
     command: -H unix:///var/run/docker.sock
     networks:
       - proxy_private
-    #   - portainer.dockerproxy
-    # security_opt:
-    #   - no-new-privileges:true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /srv/application_data/portainer/app/data:/data # Change to local directory if you want to save/transfer config locally
     environment:
       TZ: ${TIMEZONE}
     labels:
-      - "traefik.enable=true"
+      traefik.enable: "true"
       # Frontend => Router
-      - "traefik.http.routers.portainer.entrypoints=websecure"
-      - "traefik.http.routers.portainer.rule=Host(`${PORTAINER_URL_PREFIX:-portainer.}${NETWORK_DOMAIN}`)"
-      - "traefik.http.routers.portainer.tls=true"
-      # Frontend => Middlewares
-#      - "traefik.http.routers.portainer.middlewares=chain-oauth@file"
+      traefik.http.routers.portainer.entrypoints: websecure
+      traefik.http.routers.portainer.rule: Host(`${PORTAINER_URL_PREFIX:-portainer.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.portainer.tls: "true"
       # Frontend => Services
-      - "traefik.http.routers.portainer.service=portainer"
-      - "traefik.http.services.portainer.loadbalancer.server.port=9000"
-
-  # portainer.dockerproxy:
-  #   image: ghcr.io/tecnativa/docker-socket-proxy:latest
-  #   container_name: portainer.dockerproxy
-  #   environment:
-  #     CONTAINERS: 1 # Allow access to viewing containers
-  #     POST: 0 # Disallow any POST operations (effectively read-only)
-  #   networks:
-  #     - portainer.dockerproxy
-    # ports:
-    #   - 2375:2375
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock:ro # Mounted as read-only
-  #   restart: always
-
-# networks:
-#   portainer.dockerproxy:
+      traefik.http.routers.portainer.service: portainer
+      traefik.http.services.portainer.loadbalancer.server.port: 9000

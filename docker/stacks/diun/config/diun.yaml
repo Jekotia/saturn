@@ -1,6 +1,9 @@
 defaults:
   excludeTags:
+    - ^alpine-sts$
     - ^arm64.*
+    - .*-arm-.*
+    - .*-arm64-.*
     - .*arm64$
     - .*armv6$
     - .*armv7$
@@ -19,5 +22,9 @@ defaults:
     - ^nightly.*
     - .*nightly$
     - .*nightly-rootless$
+    - .*-ppc64le$
+    - .*-ppc64le-.*
     - ^pr-.*
     - ^sha.*
+    - ^sts$
+    - .*-windows.*
