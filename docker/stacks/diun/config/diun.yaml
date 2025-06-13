@@ -1,6 +1,7 @@
 defaults:
   excludeTags:
     - ^arm64.*
+    - .*arm64$
     - ^dependabot-.*
     - ^develop$
     - ^development.*
