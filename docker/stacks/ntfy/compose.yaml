@@ -1,6 +1,6 @@
 include:
   - ../../networks/proxy_private.yaml
-  
+
 services:
   ntfy:
     image: binwiederhier/ntfy:v2.11.0@sha256:4a7d0f0adc6d5d9fc36e64ab55ef676e76e124a2bdd50ce115b6d9c1c7430294
@@ -23,12 +23,13 @@ services:
         retries: 3
         start_period: 40s
     labels:
-      - "traefik.enable=true"
+      diun.enable: "true"
+      traefik.enable: "true"
       # Frontend => Router
-      - "traefik.http.routers.ntfy.entrypoints=websecure"
-      - "traefik.http.routers.ntfy.rule=Host(`${NTFY_URL_PREFIX:-ntfy.}${NETWORK_DOMAIN}`)"
-      - "traefik.http.routers.ntfy.tls.certresolver=dns-cloudflare"
-      - "traefik.http.routers.ntfy.tls=true"
+      traefik.http.routers.ntfy.entrypoints: websecure
+      traefik.http.routers.ntfy.rule: Host(`${NTFY_URL_PREFIX:-ntfy.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.ntfy.tls.certresolver: dns-cloudflare
+      traefik.http.routers.ntfy.tls: "true"
       # Frontend => Services
-      - "traefik.http.routers.ntfy.service=ntfy"
-      - "traefik.http.services.ntfy.loadbalancer.server.port=80"
+      traefik.http.routers.ntfy.service: ntfy
+      traefik.http.services.ntfy.loadbalancer.server.port: 80

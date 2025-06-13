@@ -2,6 +2,9 @@ defaults:
   excludeTags:
     - ^arm64.*
     - .*arm64$
+    - .*armv6$
+    - .*armv7$
+    - .*arm64v8$
     - ^dependabot-.*
     - ^develop$
     - ^develop.*
