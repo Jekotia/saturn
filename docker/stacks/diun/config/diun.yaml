@@ -6,11 +6,14 @@ defaults:
     - .*armv7$
     - .*arm64v8$
     - ^dependabot-.*
+    - ^dev$
     - ^develop$
     - ^develop.*
     - .*develop$
     - ^development.*
     - ^edge$
+    - ^feature-.*
+    - ^fix.*
     - ^fix-issue-.*
     - ^nightly$
     - ^nightly.*
