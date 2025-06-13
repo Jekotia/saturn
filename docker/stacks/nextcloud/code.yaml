@@ -1,6 +1,6 @@
 services:
   nextcloud.code:
-    image: collabora/code
+    image: collabora/code:latest
     container_name: nextcloud.code
     restart: always
     environment:

@@ -37,6 +37,7 @@ services:
       - office
       - proxy_private
     labels:
+      diun.enable: "true"
       traefik.enable: "true"
       # Frontend => Router
       traefik.http.routers.nextcloud.entrypoints: websecure
