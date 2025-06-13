@@ -8,6 +8,8 @@ links = [
   "https://github.com/CorentinTh/it-tools",
   "https://hub.docker.com/r/corentinth/it-tools"
 ]
+poll_for_updates = true
+auto_update = true
 git_account = "jekotia"
 repo = "jekotia/saturn"
 branch = "master"
