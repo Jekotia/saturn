@@ -15,4 +15,7 @@ run_directory = "docker/stacks/plextraktsync/"
 file_paths = ["compose.yaml"]
 environment = """
 TIMEZONE=[[TIMEZONE]]
+
+# UID=
+# GID=
 """
