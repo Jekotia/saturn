@@ -3,7 +3,7 @@ include:
 
 services:
   overseerr:
-    image: ghcr.io/linuxserver/overseerr:1.33.2@sha256:4aa0e08b6b4f857194038c93b3cd7c243501006076d2bfbd2c750f15e7539821
+    image: ghcr.io/linuxserver/overseerr:v1.34.0-ls142@sha256:1205b8873f3ea0a98890191d9e01da911d9509272462a46414ba0378a6d76288
     container_name: overseerr
     restart: unless-stopped
     networks:
@@ -11,11 +11,12 @@ services:
     volumes:
       - /srv/application_data/overseerr/app/config:/config
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TIMEZONE}
+      PUID: ${UID:-1000}
+      PGID: ${GID:-1000}
+      TZ: ${TIMEZONE}
       #?- UMASK_SET=022 #optional
     labels:
+      diun.enable: "true"
       traefik.enable: "true"
       # Frontend => Router
       traefik.http.routers.overseerr.entrypoints: websecure
