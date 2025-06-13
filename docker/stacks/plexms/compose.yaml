@@ -80,6 +80,7 @@ services:
       VERSION: ${VERSION}
     #?- UMASK_SET=022
     labels:
+      diun.enable: "true"
       traefik.enable: "true"
       # Frontend => Router
       traefik.http.routers.plexms.entrypoints: websecure
