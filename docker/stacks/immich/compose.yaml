@@ -33,6 +33,7 @@ services:
     healthcheck:
       disable: false
     labels:
+      diun.enable: "true"
       traefik.enable: "true"
       # Frontend => Router
       traefik.http.routers.immich.entrypoints: websecure
@@ -62,6 +63,8 @@ services:
       disable: false
     networks:
       - immich
+    labels:
+      diun.enable: "true"
 
   redis:
     container_name: immich_redis
