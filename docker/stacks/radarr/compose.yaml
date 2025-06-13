@@ -4,28 +4,25 @@ include:
 
 services:
   radarr:
-    image: ghcr.io/linuxserver/radarr:5.19.3.9730-ls261@sha256:0a8020afc5e3dcad1413ba125a980729a2b16ff0d88d108b3e1779111ef1c896
+    image: ghcr.io/linuxserver/radarr:5.25.0.10024-ls275@sha256:36e43720c130ec2d3ed80726d2134af3c6644729f4750abc830fdda7fa71d1e1
     container_name: radarr
     restart: unless-stopped
-#    depends_on:
-#      - prowlarr
     networks:
       - proxy_private
     volumes:
       - smb.multimedia:/multimedia
       - /srv/application_data/radarr/app/config:/config
       - radarr.data.mediacover:/config/MediaCover
-      #- $USERDIR/docker/shared/mp4_automator:/config_mp4_automator
       - /srv/application_data/arr-discord-notifier/arr-discord-notifier.sh:/app/arr-discord-notifier.sh:ro
     environment:
-      - DISCORD_WEBHOOK=${RADARR_DISCORD_WEBHOOK}
-      - AUTHOR_NAME=Radarr
-      - DROP_FIELDS="rating,genres,cast,links,backdrop,release,overview,codecs"
-      - DOCKER_MODS=linuxserver/mods:universal-package-install
-      - INSTALL_PACKAGES=grep
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TIMEZONE}
+      DISCORD_WEBHOOK: ${RADARR_DISCORD_WEBHOOK}
+      AUTHOR_NAME: Radarr
+      DROP_FIELDS: "rating,genres,cast,links,backdrop,release,overview,codecs"
+      DOCKER_MODS: linuxserver/mods:universal-package-install
+      INSTALL_PACKAGES: grep
+      PUID: ${UID:-1000}
+      PGID: ${GID:-1000}
+      TZ: ${TIMEZONE}
     labels:
       diun.enable: "true"
       traefik.enable: "true"
