@@ -12,6 +12,7 @@ services:
     volumes:
       - /srv/application_data/uptime-kuma/app/data:/app/data
     labels:
+      diun.enable: "true"
       traefik.enable: "true"
       # Frontend => Router
       traefik.http.routers.uptime-kuma.entrypoints: websecure

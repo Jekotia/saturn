@@ -6,7 +6,7 @@ server = "hyperion"
 links = [
   "https://uptime.jekotia.net",
   "https://github.com/louislam/uptime-kuma",
-  "https://github.com/louislam/uptime-kuma/pkgs/container/uptime-kuma"
+  "https://hub.docker.com/r/louislam/uptime-kuma"
 ]
 git_account = "jekotia"
 repo = "jekotia/saturn"
