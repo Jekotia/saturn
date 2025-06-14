@@ -19,6 +19,7 @@ defaults:
     - feature-.*
     - fix-.*
     - fix-issue-.*
+    - improvement_
     - nightly
     - nightly-.*
     - .*-nightly
