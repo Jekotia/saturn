@@ -1,6 +1,9 @@
 defaults:
   excludeTags:
     - alpine-sts
+    - amd64-.*
+    - .*-amd64
+    - .*-amd64-.*
     - arm64-.*
     - .*-arm-.*
     - .*-arm64-.*
