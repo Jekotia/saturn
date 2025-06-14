@@ -5,7 +5,7 @@ include:
 services:
   #-> ghcr.io/haveagitgat/tdarr
   tdarr-server:
-    image: ghcr.io/haveagitgat/tdarr:2.35.02@sha256:3192636b8cee4156cfab4fdfa567fddd64763449460607285ccf9d2956bdef1c
+    image: ghcr.io/haveagitgat/tdarr:2.43.01@sha256:55d3044b657f27d1efab20319a4b9dc3951ee2825b9650394eb8ae411dd8b233
     container_name: tdarr-server
     restart: unless-stopped
     networks:
@@ -34,6 +34,7 @@ services:
       - inContainer=true
       - nodeName=${TDARR_NODE_NAME}
     labels:
+      diun.enable: "true"
       traefik.enable: "true"
       # Frontend => Router
       traefik.http.routers.tdarr.entrypoints: websecure
