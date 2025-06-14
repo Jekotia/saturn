@@ -19,6 +19,7 @@ defaults:
     - develop
     - develop-.*
     - .*-develop
+    - .*-develop-.*
     - development.*
     - edge
     - feature-.*
