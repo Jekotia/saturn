@@ -8,6 +8,10 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       TZ: ${TIMEZONE}
+ 
+      LOG_LEVEL: debug
+      LOG_JSON: false
+
       CONFIG: /data/diun.yaml
       DIUN_WATCH_WORKERS: 20
       DIUN_WATCH_SCHEDULE: 0 */2 * * *
