@@ -1,5 +1,6 @@
 defaults:
   excludeTags:
+    - .*-alpha\..*
     - alpine-sts
     - amd64-.*
     - .*-amd64
@@ -11,6 +12,7 @@ defaults:
     - .*-arm64v8
     - .*-armv6
     - .*-armv7
+    - .*-beta\..*
     - commit-.*
     - dependabot-.*
     - dev
@@ -31,5 +33,6 @@ defaults:
     - .*-ppc64le-.*
     - pr-.*
     - sha.*
+    - .*-slim
     - sts
     - .*-windows.*
