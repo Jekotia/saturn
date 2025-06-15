@@ -24,6 +24,7 @@ defaults:
     - .*-develop-.*
     - development.*
     - edge
+    - feat-.*
     - feature-.*
     - fix-.*
     - fix-issue-.*
@@ -35,6 +36,7 @@ defaults:
     - .*-ppc64le
     - .*-ppc64le-.*
     - pr-.*
+    - .*-rknn
     - sha.*
     - .*-slim
     - sts
