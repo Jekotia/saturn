@@ -10,6 +10,7 @@ defaults:
     - .*-arm64-.*
     - .*-arm64
     - .*-arm64v8
+    - arm64v8-.*
     - .*-armnn
     - .*-armv6
     - .*-armv7
