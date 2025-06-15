@@ -26,7 +26,7 @@ services:
       DIUN_NOTIF_NTFY_PRIORITY: 1
       # DIUN_NOTIF_NTFY_TAGS: 
 
-      DIUN_DEFAULTS_WATCHREPO: true
+      # DIUN_DEFAULTS_WATCHREPO: true
       DIUN_DEFAULTS_NOTIFYON: new,update
 
       DIUN_REGOPTS_DIO_NAME: docker.io
