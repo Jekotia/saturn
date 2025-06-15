@@ -15,10 +15,10 @@ services:
       - lidarr.data.Backups:/config/Backups
       - lidarr.data.mediacover:/config/MediaCover
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TIMEZONE}
-      #?- UMASK_SET=022 #optional
+      PUID: ${UID:-1000}
+      PGID: ${GID:-1000}
+      TZ: ${TIMEZONE}
+      # UMASK_SET: 022 #optional
     labels:
       diun.enable: "true"
       traefik.enable: "true"
