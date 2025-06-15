@@ -10,7 +10,7 @@ services:
       - smb.multimedia:/multimedia
       - /srv/application_data/kavita/app/config:/kavita/config
     environment:
-      - TZ=${TIMEZONE}
+      TZ: ${TIMEZONE}
     labels:
       traefik.enable: "true"
       # Frontend => Router

@@ -4,17 +4,17 @@ services:
     container_name: romm.app
     restart: unless-stopped
     environment:
-      - DB_HOST=romm.db
-      - DB_NAME=${ROMM_DB_NAME:-romm} # Should match MYSQL_DATABASE in mariadb
-      - DB_USER=${ROMM_DB_USER:-romm} # Should match MYSQL_USER in mariadb
-      - DB_PASSWD=${ROMM_DB_PASS} # Should match MYSQL_PASSWORD in mariadb
-      - ROMM_AUTH_SECRET_KEY=${ROMM_AUTH_SECRET_KEY} # Generate a key with `openssl rand -hex 32`
-      - IGDB_CLIENT_ID=${IGDB_ID} # Generate an ID and SECRET in IGDB
-      - IGDB_CLIENT_SECRET=${IGDB_SECRET} # https://api-docs.igdb.com/#account-creation
-      - MOBYGAMES_API_KEY=${MOBYGAMES_API_KEY} # https://www.mobygames.com/info/api/
-      - STEAMGRIDDB_API_KEY=${STEAMGRID_API_KEY} # https://github.com/rommapp/romm/wiki/Generate-API-Keys#steamgriddb
-      - SCREENSCRAPER_USER=${SCREENSCRAPER_USER} # Use your ScreenScraper username and password
-      - SCREENSCRAPER_PASSWORD=${SCREENSCRAPER_PASSWORD} # https://docs.romm.app/latest/Getting-Started/Generate-API-Keys/#screenscraper
+      DB_HOST: romm.db
+      DB_NAME: ${ROMM_DB_NAME:-romm} # Should match MYSQL_DATABASE in mariadb
+      DB_USER: ${ROMM_DB_USER:-romm} # Should match MYSQL_USER in mariadb
+      DB_PASSWD: ${ROMM_DB_PASS} # Should match MYSQL_PASSWORD in mariadb
+      ROMM_AUTH_SECRET_KEY: ${ROMM_AUTH_SECRET_KEY} # Generate a key with `openssl rand -hex 32`
+      IGDB_CLIENT_ID: ${IGDB_ID} # Generate an ID and SECRET in IGDB
+      IGDB_CLIENT_SECRET: ${IGDB_SECRET} # https://api-docs.igdb.com/#account-creation
+      MOBYGAMES_API_KEY: ${MOBYGAMES_API_KEY} # https://www.mobygames.com/info/api/
+      STEAMGRIDDB_API_KEY: ${STEAMGRID_API_KEY} # https://github.com/rommapp/romm/wiki/Generate-API-Keys#steamgriddb
+      SCREENSCRAPER_USER: ${SCREENSCRAPER_USER} # Use your ScreenScraper username and password
+      SCREENSCRAPER_PASSWORD: ${SCREENSCRAPER_PASSWORD} # https://docs.romm.app/latest/Getting-Started/Generate-API-Keys/#screenscraper
     volumes:
       - /srv/application_data/romm/app/resources:/romm/resources # Resources fetched from IGDB (covers, screenshots, etc.)
       - /srv/application_data/romm/app/redis_data:/redis-data # Cached data for background tasks

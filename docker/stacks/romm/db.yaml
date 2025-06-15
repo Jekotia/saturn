@@ -5,10 +5,10 @@ services:
     container_name: romm.db
     restart: unless-stopped
     environment:
-      - MYSQL_ROOT_PASSWORD=${ROMM_DB_ROOT_PASS} # Use a unique, secure password
-      - MYSQL_DATABASE=${ROMM_DB_NAME:-romm}
-      - MYSQL_USER=${ROMM_DB_USER:-romm}
-      - MYSQL_PASSWORD=${ROMM_DB_PASS}
+      MYSQL_ROOT_PASSWORD: ${ROMM_DB_ROOT_PASS} # Use a unique, secure password
+      MYSQL_DATABASE: ${ROMM_DB_NAME:-romm}
+      MYSQL_USER: ${ROMM_DB_USER:-romm}
+      MYSQL_PASSWORD: ${ROMM_DB_PASS}
     volumes:
       - /srv/application_data/romm/db/data:/var/lib/mysql
     networks:

@@ -13,9 +13,9 @@ services:
       - smb.multimedia:/multimedia
       - /srv/application_data/bazarr/app/config:/config
     environment:
-      - PUID=${PID:-1000}
-      - PGID=${GID:-1000}
-      - TZ=${TIMEZONE}
+      PUID: ${PID:-1000}
+      PGID: ${GID:-1000}
+      TZ: ${TIMEZONE}
     labels:
       diun.enable: "true"
       traefik.enable: "true"

@@ -9,8 +9,8 @@ services:
     container_name: obsidian-livesync
     restart: unless-stopped
     environment:
-      - COUCHDB_USER=${COUCHDB_USER}
-      - COUCHDB_PASSWORD=${COUCHDB_PASSWORD}
+      COUCHDB_USER: ${COUCHDB_USER}
+      COUCHDB_PASSWORD: ${COUCHDB_PASSWORD}
     networks:
       - proxy_private
     volumes:

@@ -5,7 +5,7 @@ services:
     container_name: ttrss.db
     restart: unless-stopped
     environment:
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - /srv/application_data/ttrss/db/data:/var/lib/postgresql/data
     networks:

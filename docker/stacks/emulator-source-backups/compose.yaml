@@ -7,13 +7,13 @@ services:
     container_name: emulator-source-backups
     restart: unless-stopped
     environment:
-      - USER_UID=${UID:-1000}
-      - USER_GID=${GID:-1000}
-      - GITEA__repository__DEFAULT_BRANCH=master
-      - GITEA__repository__DEFAULT_MIRROR_REPO_UNITS=repo.code,repo.wiki,repo.projects
-      - GITEA__repository__DISABLE_HTTP_GIT=true
-      - GITEA__repository__DISABLE_DOWNLOAD_SOURCE_ARCHIVES=true
-      - GITEA__server__DISABLE_SSH=true
+      USER_UID: ${UID:-1000}
+      USER_GID: ${GID:-1000}
+      GITEA__repository__DEFAULT_BRANCH: master
+      GITEA__repository__DEFAULT_MIRROR_REPO_UNITS: repo.code,repo.wiki,repo.projects
+      GITEA__repository__DISABLE_HTTP_GIT: true
+      GITEA__repository__DISABLE_DOWNLOAD_SOURCE_ARCHIVES: true
+      GITEA__server__DISABLE_SSH: true
     #    ports:
     #      - "222:22"
     networks:

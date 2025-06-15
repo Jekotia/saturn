@@ -10,9 +10,9 @@ services:
     networks:
     - proxy_private
     environment:
-    - "ND_DATAFOLDER=/data"
-    - "ND_MUSICFOLDER=/music"
-    - "ND_BASEURL=https://${NAVIDROME_URL_PREFIX:-navidrome.}${NETWORK_DOMAIN}"
+      ND_DATAFOLDER: /data
+      ND_MUSICFOLDER: /music
+      ND_BASEURL: https://${NAVIDROME_URL_PREFIX:-navidrome.}${NETWORK_DOMAIN}
     volumes:
     - "/mnt/storage/application_data/navidrome/app/data:/data"
     - "/mnt/storage/multimedia/music:/music:ro"
