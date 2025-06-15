@@ -23,16 +23,16 @@ services:
       - /srv/application_data/tdarr/app/configs:/app/configs
       - /srv/application_data/tdarr/app/logs:/app/logs
     environment:
-      - TZ=${TIMEZONE}
-      - PUID=1000
-      - PGID=1000
-      - UMASK_SET=002
-      - serverIP=${TDARR_SERVER_IP}
-      - serverPort=8266
-      - webUIPort=8265
-      - internalNode=true
-      - inContainer=true
-      - nodeName=${TDARR_NODE_NAME}
+      TZ: ${TIMEZONE}
+      PUID: ${UID:-1000}
+      PGID: ${GID:-1000}
+      UMASK_SET: 002
+      serverIP: ${TDARR_SERVER_IP}
+      serverPort: 8266
+      webUIPort: 8265
+      internalNode: true
+      inContainer: true
+      nodeName: ${TDARR_NODE_NAME}
     labels:
       diun.enable: "true"
       traefik.enable: "true"
