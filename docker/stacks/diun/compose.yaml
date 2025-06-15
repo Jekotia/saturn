@@ -28,6 +28,12 @@ services:
 
       DIUN_DEFAULTS_WATCHREPO: true
       DIUN_DEFAULTS_NOTIFYON: new,update
+
+      DIUN_REGOPTS_DIO_NAME: docker.io
+      DIUN_REGOPTS_DIO_SELECTOR: image
+      DIUN_REGOPTS_DIO_USERNAME: ${DOCKERIO_USER}
+      DIUN_REGOPTS_DIO_PASSWORD: ${DOCKERIO_PASS}
+
     # labels:
     #   diun.enable: "true"
     restart: always
