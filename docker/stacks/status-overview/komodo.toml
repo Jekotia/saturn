@@ -1,0 +1,21 @@
+[[stack]]
+name = "status-overview"
+tags = ["core"]
+[stack.config]
+server = "hyperion"
+links = [
+  "https://status-overview.jekotia.net"
+]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/status-overview/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+# STATUS_OVERVIEW_URL_PREFIX=
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+"""

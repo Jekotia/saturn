@@ -1,0 +1,22 @@
+include:
+  - ../../networks/proxy_private.yaml
+
+services:
+  status-overview:
+    image: ghcr.io/jekotia/github-pages:latest
+    container_name: status-overview
+    restart: unless-stopped
+    networks:
+      - proxy_private
+    volumes:
+      - /srv/repositories/status-overview:/site
+    labels:
+      # diun.enable: "true"
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.status-overview.entrypoints: websecure
+      traefik.http.routers.status-overview.rule: Host(`${STATUS_OVERVIEW_URL_PREFIX:-status-overview.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.status-overview.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.status-overview.service: status-overview
+      traefik.http.services.status-overview.loadbalancer.server.port: 4000
