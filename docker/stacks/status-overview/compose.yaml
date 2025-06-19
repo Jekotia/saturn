@@ -3,13 +3,14 @@ include:
 
 services:
   status-overview:
-    image: ghcr.io/jekotia/github-pages:latest
+    image: ghcr.io/github/pages-gem:master
     container_name: status-overview
     restart: unless-stopped
+    command: [ "jekyll" , "serve" , "/src/site" , "--watch" , "--force_polling" , "--host" , "0.0.0.0" , "--port" , "4000" ]
     networks:
       - proxy_private
     volumes:
-      - /srv/repositories/status-overview:/site
+      - /srv/repositories/status-overview:/src/site
     labels:
       # diun.enable: "true"
       traefik.enable: "true"
