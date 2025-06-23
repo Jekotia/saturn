@@ -9,7 +9,7 @@ services:
     networks:
       - proxy_private
     volumes:
-      - /srv/repositories/jekotia.github.io:/site
+      - /srv/repositories/jekotia.github.io:/src/site
     labels:
       # diun.enable: "true"
       traefik.enable: "true"
