@@ -3,14 +3,13 @@ include:
 
 services:
   github-pages:
-    image: ghcr.io/github/pages-gem:master
+    image: ghcr.io/jekotia/github-pages:chirpy-v7.3.0
     container_name: github-pages
     restart: unless-stopped
-    command: [ "jekyll" , "serve" , "/src/site" , "--watch" , "--force_polling" , "--host" , "0.0.0.0" , "--port" , "4000" ]
     networks:
       - proxy_private
     volumes:
-      - /srv/repositories/jekotia.github.io:/src/site
+      - /srv/repositories/jekotia.github.io:/site
     labels:
       # diun.enable: "true"
       traefik.enable: "true"
