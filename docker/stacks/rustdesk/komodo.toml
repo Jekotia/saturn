@@ -1,6 +1,6 @@
 [[stack]]
 name = "rustdesk"
-tags = []
+tags = [ "utilities" ]
 [stack.config]
 server = "hyperion"
 links = [
