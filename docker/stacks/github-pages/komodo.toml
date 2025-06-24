@@ -6,7 +6,8 @@ server = "hyperion"
 links = [
   "https://github-pages.jekotia.net",
   "https://github.com/Jekotia/jekotia.github.io",
-  "https://github.com/Jekotia/Dockerfiles/pkgs/container/github-pages"
+  "https://github.com/Jekotia/docker-github-pages-chirpy",
+  "https://github.com/Jekotia/docker-github-pages-chirpy/pkgs/container/github-pages-chirpy"
 ]
 poll_for_updates = true
 auto_update = true
