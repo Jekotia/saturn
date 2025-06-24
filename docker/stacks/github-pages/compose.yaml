@@ -3,7 +3,7 @@ include:
 
 services:
   github-pages:
-    image: ghcr.io/jekotia/github-pages:chirpy-v7.3.0
+    image: ghcr.io/jekotia/github-pages-chirpy:latest
     container_name: github-pages
     restart: unless-stopped
     networks:
