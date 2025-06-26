@@ -3,4 +3,4 @@ defaults:
   notifyOn:
     - update
   includeTags:
-    - latest
+    - ^latest$
