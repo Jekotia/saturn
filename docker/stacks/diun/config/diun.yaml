@@ -1,3 +1,6 @@
 defaults:
+  watchRepo: true
+  notifyOn:
+    - update
   includeTags:
     - latest
