@@ -23,7 +23,7 @@ services:
     volumes:
       - /srv/application_data/vscodium/app/config:/config
       - /srv/repositories:/srv/repositories
-      - /home/jekotia/.zsh:/srv/zsh
+      # - /home/jekotia/.zsh:/srv/zsh
       - /srv/application_data/homepage/app/config:/srv/application_data/homepage/app/config
       # - /home/jekotia/ssh/id_jameli:/config/.ssh/id_rsa #ssh key for GitHub integration
     networks:
