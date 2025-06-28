@@ -10,7 +10,7 @@ services:
       - logforge
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /srv/application_data/logforge/backend/data:/app/core/data
+      - /srv/application_data/logforge/backend/data:/app/app/core/data
     restart: always
     ports:
       - "${EXPOSED_BACKEND_PORT:-8000}:${BACKEND_SERVICE_PORT:-8000}"
