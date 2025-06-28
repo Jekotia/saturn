@@ -1,6 +1,6 @@
 services:
   logforge.notifier:
-    image: madanb13/logforge-notifier:latest@sha256:8f9f55ea14de57ca79b9e2e4548df4d23e31c16dca4e1c062a1c1b7a066bd1ff
+    image: madanb13/logforge-notifier:latest@sha256:9d7231f2d8cbc8bd02cbc6e4ee8bf708c6ab09fd46c7c5dd72fc714a638f25c7
     container_name: ${NOTIFIER_SERVICE_CONTAINER_NAME:-logforge.notifier}
     ports:
       - "${NOTIFIER_PLAIN_PORT:-8083}:8083"

@@ -1,6 +1,6 @@
 services:
   logforge.backend:
-    image: madanb13/logforge-backend:latest@sha256:c349b0386d5dbb891c8dd0efb970762035de02bf16180932db0028d8d51967b8
+    image: madanb13/logforge-backend:latest@sha256:09b1f96ccc885c98463e00a4873f3fe8fe91591798bd75478aa89a4c6ce13d5d
     container_name: logforge.backend
     environment:
       PORT: "${BACKEND_SERVICE_PORT:-8000}"
