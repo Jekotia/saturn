@@ -2,7 +2,7 @@
 name = "romm"
 tags = ["gaming"]
 [stack.config]
-server = "hyperion"
+server = "enceladus"
 links = [
   "https://romm.jekotia.net",
   "https://github.com/rommapp/romm",

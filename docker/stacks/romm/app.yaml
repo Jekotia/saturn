@@ -16,11 +16,11 @@ services:
       SCREENSCRAPER_USER: ${SCREENSCRAPER_USER} # Use your ScreenScraper username and password
       SCREENSCRAPER_PASSWORD: ${SCREENSCRAPER_PASSWORD} # https://docs.romm.app/latest/Getting-Started/Generate-API-Keys/#screenscraper
     volumes:
-      - /srv/application_data/romm/app/resources:/romm/resources # Resources fetched from IGDB (covers, screenshots, etc.)
-      - /srv/application_data/romm/app/redis_data:/redis-data # Cached data for background tasks
-      - /srv/application_data/romm/app/library:/romm/library # Your game library
-      - /srv/application_data/romm/app/assets:/romm/assets # Uploaded saves, states, etc.
-      - /srv/application_data/romm/app/config:/romm/config # Path where config.yml is stored
+      - /mnt/storage/application_data/romm/app/resources:/romm/resources # Resources fetched from IGDB (covers, screenshots, etc.)
+      - /mnt/storage/application_data/romm/app/redis_data:/redis-data # Cached data for background tasks
+      - /mnt/storage/games/roms:/romm/library # Your game library
+      - /mnt/storage/application_data/romm/app/assets:/romm/assets # Uploaded saves, states, etc.
+      - /mnt/storage/application_data/romm/app/config:/romm/config # Path where config.yml is stored
     depends_on:
       romm.db:
         condition: service_healthy

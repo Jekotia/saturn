@@ -10,7 +10,7 @@ services:
       MYSQL_USER: ${ROMM_DB_USER:-romm}
       MYSQL_PASSWORD: ${ROMM_DB_PASS}
     volumes:
-      - /srv/application_data/romm/db/data:/var/lib/mysql
+      - /mnt/storage/application_data/romm/db/data:/var/lib/mysql
     networks:
       - romm
     healthcheck:
