@@ -1,0 +1,25 @@
+[[stack]]
+name = "13ft"
+tags = ["utilities"]
+[stack.config]
+server = "hyperion"
+links = [
+  "https://13ft.jekotia.net",
+  "https://github.com/wasi-master/13ft",
+  "https://github.com/wasi-master/13ft/pkgs/container/13ft"
+]
+poll_for_updates = true
+auto_update = true
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/13ft/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+# 13FT_URL_PREFIX=
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+"""
