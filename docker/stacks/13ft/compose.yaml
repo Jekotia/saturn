@@ -11,7 +11,7 @@ services:
       traefik.enable: "true"
       # Frontend => Router
       traefik.http.routers.13ft.entrypoints: websecure
-      traefik.http.routers.13ft.rule: Host(`${13FT_URL_PREFIX:-13ft.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.13ft.rule: Host(`${THIRTEENFT_URL_PREFIX:-13ft.}${NETWORK_DOMAIN}`)
       traefik.http.routers.13ft.tls.certresolver: dns-cloudflare
       # Frontend => Services
       traefik.http.routers.13ft.service: 13ft

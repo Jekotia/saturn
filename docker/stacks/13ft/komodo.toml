@@ -20,6 +20,6 @@ file_paths = [
   "../../networks/proxy_private.yaml"
 ]
 environment = """
-# 13FT_URL_PREFIX=
+# THIRTEENFT_URL_PREFIX=
 NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
 """
