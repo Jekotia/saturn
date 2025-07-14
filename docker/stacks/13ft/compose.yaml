@@ -7,6 +7,8 @@ services:
     container_name: 13ft
     hostname: 13ft
     restart: unless-stopped
+    networks:
+      - proxy_private
     labels:
       traefik.enable: "true"
       # Frontend => Router
