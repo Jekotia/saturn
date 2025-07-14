@@ -7,11 +7,12 @@ services:
   #-> https://hub.docker.com/_/traefik/
   traefik:
     container_name: traefik
-    image: traefik:v2.10@sha256:6341b98aec5ec8969b99e9730f4c5b22cca3103d42b6bbe4b7a3c910758fe565
+    image: traefik:v3.4.3@sha256:f3de2b96ec6b1cc987619c4d1d65d7e8140862eb0bbfc5f0e2e563691e8787d8
     restart: always
     depends_on:
       - traefik.dockerproxy
     command: # CLI arguments
+      # - --core.defaultRuleSyntax=v2
       - --global.checkNewVersion=true
       - --global.sendAnonymousUsage=true
 
@@ -41,7 +42,7 @@ services:
 
       # Logging
       - --log=true
-      - --log.level=DEBUG # (Default: error) DEBUG, INFO, WARN, ERROR, FATAL, PANIC
+      - --log.level=INFO # (Default: error) DEBUG, INFO, WARN, ERROR, FATAL, PANIC
       - --accessLog=true
       - --accessLog.filePath=/var/log/docker/traefik.log
       - --accessLog.bufferingSize=100 # Configuring a buffer of 100 lines
@@ -54,7 +55,7 @@ services:
       - --providers.docker.defaultrule=Host(`{{ index .Labels "com.docker.compose.service" }}.${NETWORK_DOMAIN}`)
       - --providers.docker.exposedByDefault=false
       - --providers.docker.network=bootstrap_proxy_private
-      - --providers.docker.swarmMode=false
+#      - --providers.docker.swarmMode=false
       - --providers.file=true
       - --providers.file.directory=/rules # Load dynamic configuration from one or more .toml or .yml files in a directory.
       #- --providers.file.filename=/etc/traefik/rules.toml
@@ -108,7 +109,7 @@ services:
       traefik.enable: "true"
       # Enable the Traefik dashboard
       traefik.http.routers.dashboard.entrypoints: websecure
-      traefik.http.routers.dashboard.rule: Host(`${TRAEFIK_URL_PREFIX:-traefik.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.dashboard.rule: Host(`${TRAEFIK_URL_PREFIX:-traefik.hyperion.}${NETWORK_DOMAIN}`)
       traefik.http.routers.dashboard.service: api@internal
       traefik.http.routers.dashboard.tls: "true"
       traefik.http.routers.dashboard.tls.certresolver: dns-cloudflare # Comment out this line after first run of traefik to force the use of wildcard certs
@@ -116,8 +117,8 @@ services:
       ### Broad certs
       traefik.http.routers.dashboard.tls.domains[0].main: ${NETWORK_DOMAIN}
       traefik.http.routers.dashboard.tls.domains[0].sans: '*.${NETWORK_DOMAIN}'
-      #traefik.http.routers.dashboard.tls.domains[1].main: enceladus.jekotia.net # Pulls main cert for second domain
-      #traefik.http.routers.dashboard.tls.domains[1].sans: *.$DOMAIN # Pulls wildcard cert for second domain
+      traefik.http.routers.dashboard.tls.domains[1].main: hyperion.${NETWORK_DOMAIN} # Pulls main cert for second domain
+      traefik.http.routers.dashboard.tls.domains[1].sans: '*.hyperion.${NETWORK_DOMAIN}' # Pulls wildcard cert for second domain
 
       ## Middlewares
 #      traefik.http.routers.dashboard.middlewares: traefik-headers,middlewares-rate-limit@file #,chain-oauth@file #,middlewares-rate-limit@file,rate-limit@file,oauth@file
@@ -127,10 +128,10 @@ services:
 #      traefik.http.middlewares.traefik-headers.headers.accesscontrolalloworiginlist: https://${NETWORK_DOMAIN}
 #      traefik.http.middlewares.traefik-headers.headers.accesscontrolmaxage: 100
 #      traefik.http.middlewares.traefik-headers.headers.addvaryheader: "true"
-#      traefik.http.middlewares.traefik-headers.headers.allowedhosts: ${TRAEFIK_URL_PREFIX:-traefik.}${NETWORK_DOMAIN} #:443
+#      traefik.http.middlewares.traefik-headers.headers.allowedhosts: ${TRAEFIK_URL_PREFIX:-traefik.hyperion.}${NETWORK_DOMAIN} #:443
 #      traefik.http.middlewares.traefik-headers.headers.hostsproxyheaders: X-Forwarded-Host
 #      traefik.http.middlewares.traefik-headers.headers.sslredirect: "true"
-#      traefik.http.middlewares.traefik-headers.headers.sslhost: ${TRAEFIK_URL_PREFIX:-traefik.}${NETWORK_DOMAIN} #:443
+#      traefik.http.middlewares.traefik-headers.headers.sslhost: ${TRAEFIK_URL_PREFIX:-traefik.hyperion.}${NETWORK_DOMAIN} #:443
 #      traefik.http.middlewares.traefik-headers.headers.sslforcehost: "true"
 #      traefik.http.middlewares.traefik-headers.headers.sslproxyheaders.X-Forwarded-Proto: https
 #      traefik.http.middlewares.traefik-headers.headers.stsseconds: '63072000'
