@@ -8,8 +8,6 @@ links = [
   "https://github.com/linuxserver/docker-vscodium",
   "https://github.com/linuxserver/docker-vscodium/pkgs/container/vscodium"
 ]
-poll_for_updates = true
-auto_update = true
 git_account = "jekotia"
 repo = "jekotia/saturn"
 branch = "master"
