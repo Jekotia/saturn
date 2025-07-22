@@ -24,8 +24,8 @@ services:
     #ports:
     #  - 9120:9120
     env_file:
-      - komodo.env
-      - komodo.secrets.env
+      - .env
+      - secrets.env
     environment:
       KOMODO_DATABASE_ADDRESS: komodo.mongo:27017
       KOMODO_DATABASE_USERNAME: ${KOMODO_DB_USERNAME}

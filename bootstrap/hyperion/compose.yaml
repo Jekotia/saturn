@@ -1,10 +1,12 @@
 name: bootstrap
 include:
-  - komodo.core.yaml
-  - komodo.mongo.yaml
-  - komodo.periphery.yaml
-  - traefik.yaml
+  # https://www.simplehomelab.com/authentik-docker-compose-guide-2025/
+  - komodo/core.yaml
+  - komodo/mongo.yaml
+  - komodo/periphery.yaml
+  - traefik/traefik.yaml
 
 networks:
-  proxy_private:
+  authentik:
   komodo:
+  proxy_private:

@@ -86,17 +86,17 @@ services:
         protocol: tcp
         mode: host
       # External
-      - target: 443
-        published: 8443
-        protocol: tcp
-        mode: host
-      - target: 80
-        published: 8080
-        protocol: tcp
-        mode: host
+      # - target: 443
+      #   published: 8443
+      #   protocol: tcp
+      #   mode: host
+      # - target: 80
+      #   published: 8080
+      #   protocol: tcp
+      #   mode: host
     volumes:
       - /srv/application_data/bootstrap/traefik/acme:/acme:rw # cert location - you must touch this file and change perms to 600 when creating
-      - /srv/application_data/bootstrap/traefik/rules:/rules:ro  # file provider directory
+      - ./rules:/rules:ro  # file provider directory
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /srv/application_data/bootstrap/traefik/traefik.log:/var/log/docker/traefik.log:rw # for fail2ban - make sure to touch file before starting container
     environment:
@@ -113,7 +113,6 @@ services:
       traefik.http.routers.dashboard.service: api@internal
       traefik.http.routers.dashboard.tls: "true"
       traefik.http.routers.dashboard.tls.certresolver: dns-cloudflare # Comment out this line after first run of traefik to force the use of wildcard certs
-
       ### Broad certs
       traefik.http.routers.dashboard.tls.domains[0].main: ${NETWORK_DOMAIN}
       traefik.http.routers.dashboard.tls.domains[0].sans: '*.${NETWORK_DOMAIN}'

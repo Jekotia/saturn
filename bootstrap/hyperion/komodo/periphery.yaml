@@ -8,8 +8,8 @@ services:
     logging:
       driver: ${COMPOSE_LOGGING_DRIVER:-local}
     env_file:
-      - komodo.env
-      - komodo.secrets.env
+      - .env
+      - secrets.env
     networks:
       - komodo
     volumes:
