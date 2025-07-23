@@ -1,0 +1,46 @@
+services:
+  authentik.server:
+    image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2025.6.3}
+    container_name: authentik.server
+    restart: always
+    command: server
+    environment:
+      AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY:?secret key required}
+      AUTHENTIK_REDIS__HOST: authentik.redis
+      AUTHENTIK_POSTGRESQL__HOST: authentik.postgresql
+      AUTHENTIK_POSTGRESQL__USER: ${PG_USER:-authentik}
+      AUTHENTIK_POSTGRESQL__NAME: ${PG_DB:-authentik}
+      AUTHENTIK_POSTGRESQL__PASSWORD: ${PG_PASS}
+      AUTHENTIK_HOST: http://authentik.server:9000
+      AUTHENTIK_HOST_BROWSER: https://auth.jekotia.net
+    volumes:
+      - /srv/application_data/bootstrap/authentik/common/media:/media
+      - /srv/application_data/bootstrap/authentik/common/custom-templates:/templates
+    networks:
+      - proxy_private
+      - authentik
+    env_file:
+      - ../.env
+    # ports:
+    #   - "${COMPOSE_PORT_HTTP:-9000}:9000"
+    #   - "${COMPOSE_PORT_HTTPS:-9443}:9443"
+    depends_on:
+      authentik.postgresql:
+        condition: service_healthy
+      authentik.redis:
+        condition: service_healthy
+    labels:
+      komodo.skip: # Prevent Komodo from stopping with StopAllContainers
+      # diun.enable: "true"
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.authentik.entrypoints: websecure
+      traefik.http.routers.authentik.rule: Host(`${AUTHENTIK_URL_PREFIX:-auth.}${NETWORK_DOMAIN}`) || HostRegexp(`^.+\.${NETWORK_DOMAIN}$`) && PathPrefix(`/outpost.goauthentik.io/`) # || PathPrefix(`/static/`))
+      traefik.http.routers.authentik.tls.certresolver: dns-cloudflare
+      # Frontend => Middlewares
+      # traefik.http.routers.authentik.middlewares: chain-no-auth@file
+      # Catch any subdomain using individual application forward authentication
+      traefik.http.routers.authentik-output-rtr.rule: HostRegexp(`{subdomain:[a-z0-9-]+}.${NETWORK_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)
+       # Frontend => Services
+      traefik.http.routers.authentik.service: authentik
+      traefik.http.services.authentik.loadbalancer.server.port: 9000

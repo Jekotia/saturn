@@ -1,0 +1,23 @@
+services:
+  authentik.postgresql:
+    image: docker.io/library/postgres:16-alpine
+    container_name: authentik.postgresql
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      start_period: 20s
+      interval: 30s
+      retries: 5
+      timeout: 5s
+    volumes:
+      - /srv/application_data/bootstrap/authentik/postgresql/data:/var/lib/postgresql/data
+    networks:
+      - authentik
+    environment:
+      POSTGRES_PASSWORD: ${PG_PASS:?database password required}
+      POSTGRES_USER: ${PG_USER:-authentik}
+      POSTGRES_DB: ${PG_DB:-authentik}
+    env_file:
+      - ../.env
+    labels:
+      komodo.skip: # Prevent Komodo from stopping with StopAllContainers
