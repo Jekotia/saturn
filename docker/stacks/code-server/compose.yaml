@@ -34,6 +34,7 @@ services:
       traefik.http.routers.code-server.entrypoints: websecure
       traefik.http.routers.code-server.rule: Host(`${CODESERVER_URL_PREFIX:-code-server.}${NETWORK_DOMAIN}`)
       traefik.http.routers.code-server.tls.certresolver: dns-cloudflare
+      traefik.http.routers.whoami.middlewares: forwardAuth-authentik@file
       # Frontend => Services
       traefik.http.routers.code-server.service: code-server
       traefik.http.services.code-server.loadbalancer.server.port: 8443
