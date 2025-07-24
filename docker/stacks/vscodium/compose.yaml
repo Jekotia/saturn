@@ -35,7 +35,7 @@ services:
       traefik.http.routers.vscodium.entrypoints: websecure
       traefik.http.routers.vscodium.rule: Host(`${VSCODIUM_URL_PREFIX:-vscodium.}${NETWORK_DOMAIN}`)
       traefik.http.routers.vscodium.tls.certresolver: dns-cloudflare
-      traefik.http.routers.whoami.middlewares: forwardAuth-authentik@file
+      traefik.http.routers.vscodium.middlewares: forwardAuth-authentik@file
       # Frontend => Services
       traefik.http.routers.vscodium.service: vscodium
       traefik.http.services.vscodium.loadbalancer.server.port: 3000
