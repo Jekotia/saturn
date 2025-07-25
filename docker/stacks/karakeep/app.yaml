@@ -25,7 +25,18 @@ services:
       DATA_DIR: /data # DON'T CHANGE THIS
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
       MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
-      NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3000}
+
+      # OIDC via Authentik is below
+      NEXTAUTH_URL: https://{KARAKEEP_URL_PREFIX:-karakeep.}${NETWORK_DOMAIN}
+      OAUTH_CLIENT_ID: ${OAUTH_CLIENT_ID}
+      OAUTH_CLIENT_SECRET: ${OAUTH_CLIENT_SECRET}
+      OAUTH_WELLKNOWN_URL: https://auth.${NETWORK_DOMAIN}/application/o/karakeep/.well-known/openid-configuration
+      OAUTH_PROVIDER_NAME: authentik
+      OAUTH_ALLOW_DANGEROUS_EMAIL_ACCOUNT_LINKING: true
+      # Optional: You can add this if you only want to allow login with Authentik
+      DISABLE_PASSWORD_AUTH: true
+      # Optional but highly recommended:
+      DISABLE_SIGNUPS: true
     labels:
       diun.enable: "true"
       traefik.enable: "true"
