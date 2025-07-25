@@ -20,6 +20,7 @@ services:
       traefik.http.routers.convertx.entrypoints: websecure
       traefik.http.routers.convertx.rule: Host(`${CONVERTX_URL_PREFIX:-convertx.}${NETWORK_DOMAIN}`)
       traefik.http.routers.convertx.tls.certresolver: dns-cloudflare
+      traefik.http.routers.convertx.middlewares: forwardAuth-authentik@file
       # Frontend => Services
       traefik.http.routers.convertx.service: convertx
       traefik.http.services.convertx.loadbalancer.server.port: 3000
