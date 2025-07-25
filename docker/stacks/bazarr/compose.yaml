@@ -23,6 +23,7 @@ services:
       traefik.http.routers.bazarr.entrypoints: websecure
       traefik.http.routers.bazarr.rule: Host(`${BAZARR_URL_PREFIX:-bazarr.}${NETWORK_DOMAIN}`)
       traefik.http.routers.bazarr.tls.certresolver: dns-cloudflare
+      traefik.http.routers.bazarr.middlewares: forwardAuth-authentik@file
       # Frontend => Services
       traefik.http.routers.bazarr.service: bazarr
       traefik.http.services.bazarr.loadbalancer.server.port: 6767
