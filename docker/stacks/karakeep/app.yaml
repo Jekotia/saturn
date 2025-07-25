@@ -27,7 +27,7 @@ services:
       MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
 
       # OIDC via Authentik is below
-      NEXTAUTH_URL: https://{KARAKEEP_URL_PREFIX:-karakeep.}${NETWORK_DOMAIN}
+      NEXTAUTH_URL: https://${KARAKEEP_URL_PREFIX:-karakeep.}${NETWORK_DOMAIN}
       OAUTH_CLIENT_ID: ${OAUTH_CLIENT_ID}
       OAUTH_CLIENT_SECRET: ${OAUTH_CLIENT_SECRET}
       OAUTH_WELLKNOWN_URL: https://auth.${NETWORK_DOMAIN}/application/o/karakeep/.well-known/openid-configuration
