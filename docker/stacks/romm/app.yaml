@@ -40,5 +40,5 @@ services:
       traefik.http.routers.romm.service: romm
       traefik.http.services.romm.loadbalancer.server.port: 8080
       # Headers for MS-DOS/PPSSPP emulation
-      traefik.http.middlewares.romm_SharedArrayBuffer.headers.customrequestheaders.Cross-Origin-Opener-Policy: same-origin
-      traefik.http.middlewares.romm_SharedArrayBuffer.headers.customrequestheaders.Cross-Origin-Embedder-Policy: require-corp
+      traefik.http.middlewares.romm_SharedArrayBuffer.headers.Cross-Origin-Opener-Policy: same-origin
+      traefik.http.middlewares.romm_SharedArrayBuffer.headers.Cross-Origin-Embedder-Policy: require-corp
