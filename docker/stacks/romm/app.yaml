@@ -35,6 +35,10 @@ services:
       traefik.http.routers.romm.entrypoints: websecure
       traefik.http.routers.romm.rule: Host(`${ROMM_URL_PREFIX:-romm.}${NETWORK_DOMAIN}`)
       traefik.http.routers.romm.tls.certresolver: dns-cloudflare
+      traefik.http.routers.romm.middlewares: romm_SharedArrayBuffer
       # Frontend => Services
       traefik.http.routers.romm.service: romm
       traefik.http.services.romm.loadbalancer.server.port: 8080
+      # Headers for MS-DOS/PPSSPP emulation
+      traefik.http.middlewares.romm_SharedArrayBuffer.headers.customrequestheaders.Cross-Origin-Opener-Policy: same-origin
+      traefik.http.middlewares.romm_SharedArrayBuffer.headers.customrequestheaders.Cross-Origin-Embedder-Policy: require-corp
