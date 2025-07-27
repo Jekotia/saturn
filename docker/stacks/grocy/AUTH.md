@@ -1,5 +1,7 @@
-Copied from https://www.reddit.com/r/grocy/comments/18avtb7/comment/mqynoyx/ for archival/reference purposes:
+Setup procedure originally followed from https://www.reddit.com/r/grocy/comments/18avtb7/comment/mqynoyx/ and preserved below.
+
 ---
+
 Don't be like me and go through all of the work to deploy an LDAP outpost with all of the trimmings just to find out that you can enable `ReverseProxyAuthMiddleware` in Grocy config.php
 
     Setting('AUTH_CLASS', 'Grocy\Middleware\ReverseProxyAuthMiddleware');`  
