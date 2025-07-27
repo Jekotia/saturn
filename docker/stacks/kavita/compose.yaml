@@ -1,9 +1,26 @@
 include:
-  - app.yaml
-  - email.yaml
   - ../../networks/proxy_private.yaml
   - ../../volumes/smb-multimedia.yaml
 
-networks:
-  kavita:
+services:
+  kavita.app:
+    image: jvmilazz0/kavita:0.8.7.8@sha256:b9c671586db2a6a688da3cb4b45f1319cca33b01e6e760c8bf3c19d60101bdf2
+    container_name: kavita.app
+    restart: unless-stopped
+    networks:
+      - proxy_private
+    volumes:
+      - smb.multimedia:/multimedia
+      - /srv/application_data/kavita/app/config:/kavita/config
+    environment:
+      TZ: ${TIMEZONE}
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.kavita.entrypoints: websecure
+      traefik.http.routers.kavita.rule: Host(`${KAVITA_URL_PREFIX:-kavita.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.kavita.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.kavita.service: kavita
+      traefik.http.services.kavita.loadbalancer.server.port: 5000
   
