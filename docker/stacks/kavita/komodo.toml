@@ -16,8 +16,6 @@ webhook_enabled = false
 run_directory = "docker/stacks/kavita/"
 file_paths = [
   "compose.yaml",
-  "app.yaml",
-  "email.yaml",
   "../../networks/proxy_private.yaml",
   "../../volumes/smb-multimedia.yaml"
 ]
@@ -26,12 +24,6 @@ TIMEZONE=[[TIMEZONE]]
 
 # KAVITA_URL_PREFIX=
 NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
-
-KAVITA_MAIL_SMTP_HOST: [[KAVITA_MAIL_SMTP_HOST]]
-KAVITA_MAIL_SMTP_PORT: [[KAVITA_MAIL_SMTP_PORT]]
-KAVITA_MAIL_SMTP_USER: [[KAVITA_MAIL_SMTP_USER]]
-KAVITA_MAIL_SMTP_PASS: [[KAVITA_MAIL_SMTP_PASS]]
-KAVITA_MAIL_SEND_ADDR: [[KAVITA_MAIL_SEND_ADDR]]
 
 MULTIMEDIA_HOST=[[MULTIMEDIA_HOST]]
 MULTIMEDIA_USER=[[MULTIMEDIA_USER]]
