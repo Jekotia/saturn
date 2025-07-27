@@ -3,9 +3,9 @@ include:
   - ../../volumes/smb-multimedia.yaml
 
 services:
-  kavita.app:
+  kavita:
     image: jvmilazz0/kavita:0.8.7.8@sha256:b9c671586db2a6a688da3cb4b45f1319cca33b01e6e760c8bf3c19d60101bdf2
-    container_name: kavita.app
+    container_name: kavita
     restart: unless-stopped
     networks:
       - proxy_private
