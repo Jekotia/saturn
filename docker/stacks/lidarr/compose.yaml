@@ -26,6 +26,7 @@ services:
       traefik.http.routers.lidarr.entrypoints: websecure
       traefik.http.routers.lidarr.rule: Host(`${LIDARR_URL_PREFIX:-lidarr.}${NETWORK_DOMAIN}`)
       traefik.http.routers.lidarr.tls.certresolver: dns-cloudflare
+      traefik.http.routers.lidarr.middlewares: forwardAuth-authentik@file
       # Frontend => Services
       traefik.http.routers.lidarr.service: lidarr
       traefik.http.services.lidarr.loadbalancer.server.port: 8686
