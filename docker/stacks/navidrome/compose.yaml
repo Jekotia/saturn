@@ -13,6 +13,8 @@ services:
       ND_DATAFOLDER: /data
       ND_MUSICFOLDER: /music
       ND_BASEURL: https://${NAVIDROME_URL_PREFIX:-navidrome.}${NETWORK_DOMAIN}
+      ND_REVERSEPROXYUSERHEADER: "X-authentik-username"
+      ND_REVERSEPROXYWHITELIST: ${NAVIDROME_REVERSE_PROXY_WHITELIST}
     volumes:
     - "/mnt/storage/application_data/navidrome/app/data:/data"
     - "/mnt/storage/multimedia/music:/music:ro"
@@ -23,6 +25,7 @@ services:
       traefik.http.routers.navidrome.entrypoints: websecure
       traefik.http.routers.navidrome.rule: Host(`${NAVIDROME_URL_PREFIX:-navidrome.}${NETWORK_DOMAIN}`)
       traefik.http.routers.navidrome.tls.certresolver: dns-cloudflare
+      traefik.http.routers.navidrome.middlewares: forwardAuth-authentik@file
       # Frontend => Services
       traefik.http.routers.navidrome.service: navidrome
       traefik.http.services.navidrome.loadbalancer.server.port: 4533
