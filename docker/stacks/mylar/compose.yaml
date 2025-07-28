@@ -23,6 +23,7 @@ services:
       traefik.http.routers.mylar.entrypoints: websecure
       traefik.http.routers.mylar.rule: Host(`${MYLAR_URL_PREFIX:-mylar.}${NETWORK_DOMAIN}`)
       traefik.http.routers.mylar.tls.certresolver: dns-cloudflare
+      traefik.http.routers.mylar.middlewares: forwardAuth-authentik@file
       # Frontend => Services
       traefik.http.routers.mylar.service: mylar
       traefik.http.services.mylar.loadbalancer.server.port: 8090
