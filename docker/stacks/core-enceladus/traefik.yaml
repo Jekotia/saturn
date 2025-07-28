@@ -88,9 +88,9 @@ services:
 
     volumes:
       - /mnt/storage/application_data/traefik/app/acme:/acme:rw # cert location - you must touch this file and change perms to 600 when creating
-      - /mnt/storage/application_data/traefik/app/rules:/rules:ro  # file provider directory
+      - ./traefik/rules:/rules:ro  # file provider directory
       - /mnt/storage/application_data/traefik/app/traefik.log:/var/log/docker/traefik.log:rw # for fail2ban - make sure to touch file before starting container
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      # - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       CF_DNS_API_TOKEN: ${SECRETS_CLOUDFLARE_API_KEY}
       PUID: ${TRAEFIK_UID:-1000}
