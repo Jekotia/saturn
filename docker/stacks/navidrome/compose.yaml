@@ -14,7 +14,7 @@ services:
       ND_MUSICFOLDER: /music
       ND_BASEURL: https://${NAVIDROME_URL_PREFIX:-navidrome.}${NETWORK_DOMAIN}
       ND_REVERSEPROXYUSERHEADER: "X-authentik-username"
-      ND_REVERSEPROXYWHITELIST: ${NAVIDROME_REVERSE_PROXY_WHITELIST}
+      ND_REVERSEPROXYWHITELIST: 0.0.0.0/0 # This is safe because Navidrome is ONLY reachable internally, via the proxy_private network
     volumes:
     - "/mnt/storage/application_data/navidrome/app/data:/data"
     - "/mnt/storage/multimedia/music:/music:ro"
