@@ -14,6 +14,7 @@ branch = "master"
 webhook_enabled = false
 run_directory = "docker/stacks/core-enceladus/"
 file_paths = [
+  "authentik.outpost.yaml",
   "compose.yaml",
   "portainer.yaml",
   "traefik.yaml",
@@ -27,6 +28,8 @@ NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
 
 SECRETS_CLOUDFLARE_API_KEY=[[ENCELADUS_TRAEFIK_CLOUDFLARE_API_TOKEN]]
 SECRETS_CLOUDFLARE_EMAIL=[[SECRETS_CLOUDFLARE_EMAIL]]
+
+AUTHENTIK_TOKEN=[[AUTHENTIK_ENCELADUS_TOKEN]]
 
 # TRAEFIK_UID=
 # TRAEFIK_GID=
