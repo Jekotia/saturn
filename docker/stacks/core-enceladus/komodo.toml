@@ -18,6 +18,7 @@ file_paths = [
   "compose.yaml",
   "portainer.yaml",
   "traefik.yaml",
+  "whoami.yaml",
   "../../networks/proxy_private.yaml"
 ]
 environment = """
