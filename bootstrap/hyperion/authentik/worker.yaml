@@ -1,6 +1,6 @@
 services:
   authentik.worker:
-    image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2025.6.3}
+    image: ghcr.io/goauthentik/server:2025.6.3@sha256:334354d11e015037cc1b030a9710e564f6e3545369d28789db823e86171d3fdc
     container_name: authentik.worker
     restart: always
     command: worker

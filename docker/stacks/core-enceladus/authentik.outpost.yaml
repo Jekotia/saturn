@@ -1,18 +1,11 @@
 services:
   authentik.outpost:
-    image: ghcr.io/goauthentik/proxy:latest
+    image: ghcr.io/goauthentik/proxy:2025.6.3@sha256:d2295ef6caaff9c9e7061ddf6e8d67809b0f082626fe2f90ba9fcb13c642f772
     container_name: authentik.outpost
     restart: unless-stopped
-    # expose:
-    #    - 9000
     environment:
       AUTHENTIK_HOST: https://auth.${NETWORK_DOMAIN}
       AUTHENTIK_TOKEN: ${AUTHENTIK_TOKEN}
       AUTHENTIK_INSECURE: "false"  # set to "true" if your Authentik domain uses self-signed certs
-    # labels:
-    #   - traefik.enable=true
-    #   - traefik.http.middlewares.forwardAuth-authentik.forwardauth.address=http://authentik.outpost:9000/outpost.goauthentik.io/auth/traefik
-    #   - traefik.http.middlewares.forwardAuth-authentik.forwardauth.trustForwardHeader=true
-    #   - traefik.http.middlewares.forwardAuth-authentik.forwardauth.authResponseHeaders=X-authentik-username,X-authentik-groups,X-authentik-email,X-authentik-name,X-authentik-uid,X-authentik-jwt,X-authentik-meta-jwks,X-authentik-meta-outpost,X-authentik-meta-provider,X-authentik-meta-app,X-authentik-m>
     networks:
       - proxy_private
