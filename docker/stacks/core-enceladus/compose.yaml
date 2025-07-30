@@ -2,5 +2,4 @@ include:
   - authentik.outpost.yaml
   - portainer.yaml
   - traefik.yaml
-  - whoami.yaml
   - ../../networks/proxy_private.yaml
