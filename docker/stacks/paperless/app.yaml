@@ -41,6 +41,24 @@ services:
       PAPERLESS_URL: https://${PAPERLESS_URL_PREFIX:-paperless-ngx.}${NETWORK_DOMAIN}
       PAPERLESS_TIME_ZONE: ${TIMEZONE}
       PAPERLESS_CONSUMER_POLLING: 60
+      PAPERLESS_APPS: allauth.socialaccount.providers.openid_connect
+      PAPERLESS_SOCIALACCOUNT_PROVIDERS: >
+          {
+            "openid_connect": {
+              "APPS": [
+                {
+                  "provider_id": "authentik",
+                  "name": "Authentik",
+                  "client_id": "${AUTHENTIK_OAUTH_ID}",
+                  "secret": "${AUTHENTIK_OAUTH_SECRET}",
+                  "settings": {
+                    "server_url": "https://auth.${NETWORK_DOMAIN}/application/o/${AUTHENTIK_SLUG:-paperless-ngx}/.well-known/openid-configuration"
+                  }
+                }
+              ],
+              "OAUTH_PKCE_ENABLED": "True"
+            }
+          }
     labels:
       diun.enable: "true"
       traefik.enable: "true"
