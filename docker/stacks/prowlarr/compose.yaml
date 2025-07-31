@@ -21,6 +21,7 @@ services:
       traefik.http.routers.prowlarr.entrypoints: websecure
       traefik.http.routers.prowlarr.rule: Host(`${PROWLARR_URL_PREFIX:-prowlarr.}${NETWORK_DOMAIN}`)
       traefik.http.routers.prowlarr.tls.certresolver: dns-cloudflare
+      traefik.http.routers.prowlarr.middlewares: forwardAuth-authentik@file
       # Frontend => Services
       traefik.http.routers.prowlarr.service: prowlarr
       traefik.http.services.prowlarr.loadbalancer.server.port: 9696
