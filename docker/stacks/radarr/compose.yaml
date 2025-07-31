@@ -30,6 +30,7 @@ services:
       traefik.http.routers.radarr.entrypoints: websecure
       traefik.http.routers.radarr.rule: Host(`${RADARR_URL_PREFIX:-radarr.}${NETWORK_DOMAIN}`)
       traefik.http.routers.radarr.tls.certresolver: dns-cloudflare
+      traefik.http.routers.radarr.middlewares: forwardAuth-authentik@file
       # Frontend => Services
       traefik.http.routers.radarr.service: radarr
       traefik.http.services.radarr.loadbalancer.server.port: 7878
