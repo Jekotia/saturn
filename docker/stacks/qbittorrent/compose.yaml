@@ -35,6 +35,6 @@ services:
       traefik.http.middlewares.qbittorrent-headers.headers.customrequestheaders.X-Frame-Options: SAMEORIGIN
       traefik.http.middlewares.qbittorrent-headers.headers.customrequestheaders.Referer:
       traefik.http.middlewares.qbittorrent-headers.headers.customrequestheaders.Origin:
-      traefik.http.routers.qbittorrent.middlewares: qbittorrent-headers,forwardAuth-authentik@file
+      traefik.http.routers.qbittorrent.middlewares: qbittorrent-headers
       # loadbalancer to *not* pass the host header
       traefik.http.services.qbittorrent.loadbalancer.passhostheader: false
