@@ -15,6 +15,13 @@ services:
       STEAMGRIDDB_API_KEY: ${STEAMGRID_API_KEY} # https://github.com/rommapp/romm/wiki/Generate-API-Keys#steamgriddb
       SCREENSCRAPER_USER: ${SCREENSCRAPER_USER} # Use your ScreenScraper username and password
       SCREENSCRAPER_PASSWORD: ${SCREENSCRAPER_PASSWORD} # https://docs.romm.app/latest/Getting-Started/Generate-API-Keys/#screenscraper
+      # OIDC Configuration
+      OIDC_ENABLED: true
+      OIDC_PROVIDER: authentik
+      OIDC_CLIENT_ID: ${OIDC_CLIENT_ID}
+      OIDC_CLIENT_SECRET: ${OIDC_CLIENT_SECRET}
+      OIDC_REDIRECT_URI: https://${ROMM_URL_PREFIX:-romm.}${NETWORK_DOMAIN}/api/oauth/openid
+      OIDC_SERVER_APPLICATION_URL: https://auth.${NETWORK_DOMAIN}/application/o/${AUTHENTIK_SLUG:-romm}
     volumes:
       - /mnt/storage/application_data/romm/app/resources:/romm/resources # Resources fetched from IGDB (covers, screenshots, etc.)
       - /mnt/storage/application_data/romm/app/redis_data:/redis-data # Cached data for background tasks
