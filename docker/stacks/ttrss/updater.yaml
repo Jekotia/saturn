@@ -1,7 +1,7 @@
 services:
-  ttrss.app:
+  ttrss.updater:
     image: cthulhoo/ttrss-fpm-pgsql-static:851ddf4b@sha256:38600200216d2a04c482a80b1ae61196b1187208f657a55ca7ccc45f11a5f179
-    container_name: ttrss.app
+    container_name: ttrss.updater
     restart: unless-stopped
     networks:
       - ttrss
@@ -11,4 +11,5 @@ services:
       - /srv/application_data/ttrss/app/html:/var/www/html
       - /srv/application_data/ttrss/app/config.d:/opt/tt-rss/config.d:ro
     depends_on:
-      - ttrss.db
+      - ttrss.app
+    command: /opt/tt-rss/updater.sh

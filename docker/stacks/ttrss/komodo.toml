@@ -16,14 +16,73 @@ run_directory = "docker/stacks/ttrss/"
 file_paths = [
   "compose.yaml",
   "app.yaml",
-  "database.yaml",
+  "backups.yaml",
+  "db.yaml",
+  "updater.yaml",
+  "web-nginx.yaml",
   "../../networks/proxy_private.yaml"
 ]
 environment = """
 # TTRSS_URL_PREFIX=
 NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
 
-# DB_NAME=
-# DB_USER=
-POSTGRES_PASSWORD=[[TTRSS_POSTGRES_PASSWORD]]
+# Put any local modifications here.
+# Run FPM under this UID/GID.
+# OWNER_UID=1000
+# OWNER_GID=1000
+
+# FPM settings.
+#PHP_WORKER_MAX_CHILDREN=5
+#PHP_WORKER_MEMORY_LIMIT=256M
+
+# ADMIN_USER_* settings are applied on every startup.
+
+# Set admin user password to this value. If not set, random password
+# will be generated on startup, look for it in the 'app' container logs.
+#ADMIN_USER_PASS=
+
+# Sets admin user access level to this value. Valid values:
+# -2 - forbidden to login
+# -1 - readonly
+#  0 - default user
+# 10 - admin
+#ADMIN_USER_ACCESS_LEVEL=
+
+# Auto create another user (in addition to built-in admin) unless it already exists.
+#AUTO_CREATE_USER=
+#AUTO_CREATE_USER_PASS=
+#AUTO_CREATE_USER_ACCESS_LEVEL=0
+
+# Default database credentials.
+TTRSS_DB_USER=ttrss
+TTRSS_DB_NAME=ttrss
+TTRSS_DB_PASS=[[TTRSS_POSTGRES_PASSWORD]]
+TTRSS_DB_HOST=ttrss.db
+
+# You can customize other config.php defines by setting overrides here.
+# See tt-rss/.docker/app/Dockerfile for a complete list.
+
+# You probably shouldn't disable auth_internal unless you know what you're doing.
+# TTRSS_PLUGINS=auth_internal,auth_remote
+# TTRSS_SINGLE_USER_MODE=true
+# TTRSS_SESSION_COOKIE_LIFETIME=2592000
+# TTRSS_FORCE_ARTICLE_PURGE=30
+# ...
+
+# Bind exposed port to 127.0.0.1 to run behind reverse proxy on the same host.
+# If you plan to expose the container, remove "127.0.0.1:".
+## HTTP_PORT=127.0.0.1:8280
+#HTTP_PORT=8280
+
+
+##TTRSS_AUTH_OIDC_NAME=Authentik
+##TTRSS_AUTH_OIDC_URL=https://auth.[[NETWORK_DOMAIN]]/application/o/ttrss/
+##TTRSS_AUTH_OIDC_CLIENT_ID=[[TTRSS_AUTHENTIK_ID]]
+##TTRSS_AUTH_OIDC_CLIENT_SECRET=[[TTRSS_AUTHENTIK_SECRET]]
+
+# in seconds, -1 disables
+##TTRSS_AUTH_OIDC_VALIDATE_INTERVAL=-1
+
+# or sub, etc
+##TTRSS_AUTH_OIDC_CLIENT_USERNAME_CLAIM=preferred_username
 """

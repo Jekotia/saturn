@@ -1,0 +1,15 @@
+services:
+  ttrss.db:
+    image: postgres:15.13-alpine3.22@sha256:1414298ea93186123a6dcf872f778ba3bd2347edcbd2f31aa7bb2d9814ff5393
+    container_name: ttrss.db
+    restart: unless-stopped
+    networks:
+      - ttrss
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${TTRSS_DB_USER}
+      - POSTGRES_PASSWORD=${TTRSS_DB_PASS}
+      - POSTGRES_DB=${TTRSS_DB_NAME}
+    volumes:
+      - /srv/application_data/ttrss/db/data:/var/lib/postgresql/data

@@ -1,7 +1,10 @@
 # https://github.com/HenryQW/Awesome-TTRSS/blob/master/docker-compose.yml
 include:
   - app.yaml
-  - database.yaml
+  - backups.yaml
+  - db.yaml
+  - updater.yaml
+  - web-nginx.yaml
   - ../../networks/proxy_private.yaml
 
 networks:
