@@ -25,6 +25,7 @@ services:
       traefik.http.routers.readarr.entrypoints: websecure
       traefik.http.routers.readarr.rule: Host(`${READARR_URL_PREFIX:-readarr.}${NETWORK_DOMAIN}`)
       traefik.http.routers.readarr.tls.certresolver: dns-cloudflare
+      traefik.http.routers.readarr.middlewares: forwardAuth-authentik@file
       # Frontend => Services
       traefik.http.routers.readarr.service: readarr
       traefik.http.services.readarr.loadbalancer.server.port: 8787
