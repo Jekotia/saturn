@@ -33,6 +33,7 @@ services:
       internalNode: true
       inContainer: true
       nodeName: ${TDARR_NODE_NAME}
+      auth: true
     labels:
       diun.enable: "true"
       traefik.enable: "true"
