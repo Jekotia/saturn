@@ -31,6 +31,7 @@ services:
       traefik.http.routers.sonarr.entrypoints: websecure
       traefik.http.routers.sonarr.rule: Host(`${SONARR_URL_PREFIX:-sonarr.}${NETWORK_DOMAIN}`)
       traefik.http.routers.sonarr.tls.certresolver: dns-cloudflare
+      traefik.http.routers.sonarr.middlewares: forwardAuth-authentik@file
       # Frontend => Services
       traefik.http.routers.sonarr.service: sonarr
       traefik.http.services.sonarr.loadbalancer.server.port: 8989
