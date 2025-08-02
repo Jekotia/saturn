@@ -19,6 +19,7 @@ services:
       traefik.http.routers.uptime-kuma.rule: Host(`${UPTIME_KUMA_URL_PREFIX:-uptime.}${NETWORK_DOMAIN}`)
       traefik.http.routers.uptime-kuma.tls.certresolver: dns-cloudflare
       traefik.http.routers.uptime-kuma.tls: "true"
+      traefik.http.routers.uptime-kuma.middlewares: forwardAuth-authentik@file
       # Frontend => Services
       traefik.http.routers.uptime-kuma.service: uptime-kuma
       traefik.http.services.uptime-kuma.loadbalancer.server.port: "3001"
