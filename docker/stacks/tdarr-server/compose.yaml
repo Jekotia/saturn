@@ -34,6 +34,7 @@ services:
       inContainer: true
       nodeName: ${TDARR_NODE_NAME}
       auth: true
+      apiKey: ${API_KEY}
     labels:
       diun.enable: "true"
       traefik.enable: "true"
