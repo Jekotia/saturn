@@ -1,5 +1,5 @@
 services:
-  ttrss.web-nginx:
+  web-nginx:
     image: cthulhoo/ttrss-web-nginx:851ddf4b@sha256:ac920266f55bb8e3659dfb435a944b2dbddca50780d02a46684f2e9e6543ef64
     container_name: ttrss.web-nginx
     restart: unless-stopped
@@ -11,7 +11,7 @@ services:
     volumes:
       - /srv/application_data/ttrss/app/html:/var/www/html:ro
     depends_on:
-      - ttrss.app
+      - app
     labels:
       #diun.enable: "true"
       traefik.enable: "true"

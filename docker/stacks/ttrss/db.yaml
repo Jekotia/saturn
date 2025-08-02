@@ -1,5 +1,5 @@
 services:
-  ttrss.db:
+  db:
     image: postgres:15.13-alpine3.22@sha256:1414298ea93186123a6dcf872f778ba3bd2347edcbd2f31aa7bb2d9814ff5393
     container_name: ttrss.db
     restart: unless-stopped
