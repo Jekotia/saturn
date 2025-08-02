@@ -46,7 +46,7 @@ NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
 # -1 - readonly
 #  0 - default user
 # 10 - admin
-#ADMIN_USER_ACCESS_LEVEL=
+ADMIN_USER_ACCESS_LEVEL=-2
 
 # Auto create another user (in addition to built-in admin) unless it already exists.
 #AUTO_CREATE_USER=
