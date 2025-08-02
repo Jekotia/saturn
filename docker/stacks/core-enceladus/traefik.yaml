@@ -105,6 +105,7 @@ services:
       traefik.http.routers.dashboard.service: api@internal
       traefik.http.routers.dashboard.tls: "true"
       traefik.http.routers.dashboard.tls.certresolver: dns-cloudflare # Comment out this line after first run of traefik to force the use of wildcard certs
+      traefik.http.routers.dashboard.middlewares: forwardAuth-authentik@file
 
       ### Broad certs
       traefik.http.routers.dashboard.tls.domains[0].main: ${NETWORK_DOMAIN}
