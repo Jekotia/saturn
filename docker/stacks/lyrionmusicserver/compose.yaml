@@ -13,12 +13,30 @@ services:
       - /etc/timezone:/etc/timezone:ro
     # network_mode: host
     ports:
-      - name: main
+      - name: web
         target: 9000
         host_ip: 10.0.0.21
         published: 9000
         protocol: tcp
         app_protocol: http
+        mode: host
+      - name: one
+        target: 3483
+        host_ip: 10.0.0.21
+        published: 3483
+        protocol: tcp
+        mode: host
+      - name: two
+        target: 3483
+        host_ip: 10.0.0.21
+        published: 3483
+        protocol: udp
+        mode: host
+      - name: three
+        target: 9090
+        host_ip: 10.0.0.21
+        published: 9090
+        protocol: tcp
         mode: host
     environment:
       HTTP_PORT: 9000
