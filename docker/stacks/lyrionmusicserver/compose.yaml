@@ -1,0 +1,36 @@
+include:
+  - ../../networks/proxy_private.yaml
+services:
+  lyrionmusicserver:
+    image: lmscommunity/lyrionmusicserver:9.0.3@sha256:3afacae8c6fc7c0a5a8d3f832ba51b63d2dcfafc33ffee9332e5b29741577b77
+    container_name: lyrionmusicserver
+    restart: unless-stopped
+    volumes:
+      - /mnt/storage/application_data/lyrionmusicserver/app/config:/config:rw
+      - /mnt/storage/multimedia/music:/music:ro
+      - /mnt/storage/multimedia/music:/playlist:rw
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    # network_mode: host
+    ports:
+      - name: main
+        target: 9000
+        host_ip: 10.0.0.21
+        published: 9000
+        protocol: tcp
+        app_protocol: http
+        mode: host
+    environment:
+      HTTP_PORT: 9000
+    networks:
+      - proxy_private
+    labels:
+      # diun.enable: "true"
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.lyrionmusicserver.entrypoints: websecure
+      traefik.http.routers.lyrionmusicserver.rule: Host(`${LYRIONMUSICSERVER_URL_PREFIX:-lms.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.lyrionmusicserver.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.lyrionmusicserver.service: lyrionmusicserver
+      traefik.http.services.lyrionmusicserver.loadbalancer.server.port: 9000

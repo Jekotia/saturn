@@ -1,0 +1,23 @@
+[[stack]]
+name = "lyrionmusicserver"
+tags = ["media-server"]
+[stack.config]
+server = "enceladus"
+links = [
+  "https://lms.jekotia.net",
+  "https://lyrion.org",
+  "https://hub.docker.com/r/lmscommunity/lyrionmusicserver"
+]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/lyrionmusicserver/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+# LYRIONMUSICSERVER_URL_PREFIX=
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+"""
