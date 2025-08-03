@@ -7,8 +7,8 @@ services:
     restart: unless-stopped
     volumes:
       - /mnt/storage/application_data/lyrionmusicserver/app/config:/config:rw
-      - /mnt/storage/multimedia/music:/music:ro
-      - /mnt/storage/multimedia/music:/playlist:rw
+      # - /mnt/storage/multimedia/music:/music:ro
+      # - /mnt/storage/multimedia/music:/playlist:rw
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
     # network_mode: host
@@ -32,7 +32,7 @@ services:
         published: 3483
         protocol: udp
         mode: host
-      - name: three
+      - name: cli
         target: 9090
         host_ip: 10.0.0.21
         published: 9090
