@@ -5,8 +5,9 @@ tags = ["personal"]
 server = "hyperion"
 links = [
   "https://ttrss.jekotia.net",
-  "https://github.com/HenryQW/Awesome-TTRSS",
-  "https://hub.docker.com/r/wangqiru/ttrss"
+  "https://tt-rss.org",
+  "https://hub.docker.com/r/cthulhoo/ttrss-fpm-pgsql-static",
+  "https://hub.docker.com/r/cthulhoo/ttrss-web-nginx"
 ]
 git_account = "jekotia"
 repo = "jekotia/saturn"
