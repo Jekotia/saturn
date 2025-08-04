@@ -73,3 +73,4 @@ This document serves as a reference for what authentication, if any, is used for
 | ttrss                     | OIDC |
 | uptime-kuma               | forwardAuth |
 | vscodium                  | forwardAuth |
+| whatsupdocker             | OIDC |
