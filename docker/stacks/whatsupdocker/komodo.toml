@@ -1,0 +1,27 @@
+[[stack]]
+name = "whatsupdocker"
+tags = ["core"]
+[stack.config]
+server = "hyperion"
+links = [
+  "https://wud.jekotia.net",
+  "https://github.com/getwud/wud",
+  "https://hub.docker.com/r/getwud/wud"
+]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/whatsupdocker/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+# WHATSUPDOCKER_URL_PREFIX=
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+
+WUD_AUTH_OIDC_AUTHENTIK_CLIENTID=[[WHATSUPDOCKER_AUTHENTIK_OAUTH_ID]]
+WUD_AUTH_OIDC_AUTHENTIK_CLIENTSECRET=[[WHATSUPDOCKER_AUTHENTIK_OAUTH_SECRET]]
+# WHATSUPDOCKER_AUTHENTIK_SLUG=
+"""

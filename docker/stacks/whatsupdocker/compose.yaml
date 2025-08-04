@@ -1,0 +1,34 @@
+include:
+  - ../../networks/proxy_private.yaml
+
+services:
+  whatsupdocker:
+    image: getwud/wud:8.1.1@sha256:b1cd01c438399c3833a8dbb23b27549979fe9272a05c57f74d27867acbb12298
+    container_name: whatsupdocker
+    restart: always
+    environment:
+      WUD_AUTH_OIDC_AUTHENTIK_CLIENTID: ${WUD_AUTH_OIDC_AUTHENTIK_CLIENTID}
+      WUD_AUTH_OIDC_AUTHENTIK_CLIENTSECRET: ${WUD_AUTH_OIDC_AUTHENTIK_CLIENTSECRET}
+      WUD_AUTH_OIDC_AUTHENTIK_DISCOVERY: https://auth.${NETWORK_DOMAIN}/application/o/${WHATSUPDOCKER_AUTHENTIK_SLUG:-wud}/.well-known/openid-configuration
+      WUD_AUTH_OIDC_AUTHENTIK_REDIRECT: true # optional (to skip internal login page)
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /srv/application_data/whatsupdocker/app/store:/store
+    networks:
+      - proxy_private
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.whatsupdocker.entrypoints: websecure
+      traefik.http.routers.whatsupdocker.rule: Host(`${WHATSUPDOCKER_URL_PREFIX:-wud.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.whatsupdocker.tls.certresolver: dns-cloudflare
+      traefik.http.routers.whatsupdocker.tls: "true"
+      # Frontend => Services
+      traefik.http.routers.whatsupdocker.service: whatsupdocker
+      traefik.http.services.whatsupdocker.loadbalancer.server.port: 3000
+    healthcheck:
+      test: curl --fail http://localhost:3000/health || exit 1
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
