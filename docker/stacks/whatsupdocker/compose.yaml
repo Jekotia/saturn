@@ -15,6 +15,9 @@ services:
       # GHCR
       WUD_REGISTRY_GHCR_PRIVATE_USERNAME: ${WUD_REGISTRY_GHCR_PRIVATE_USERNAME}
       WUD_REGISTRY_GHCR_PRIVATE_TOKEN: ${WUD_REGISTRY_GHCR_PRIVATE_TOKEN}
+      # dOCKER hUB
+      WUD_REGISTRY_HUB_PUBLIC_LOGIN: ${WUD_REGISTRY_HUB_PUBLIC_LOGIN}
+      WUD_REGISTRY_HUB_PUBLIC_TOKEN: ${WUD_REGISTRY_HUB_PUBLIC_TOKEN}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /srv/application_data/whatsupdocker/app/store:/store
