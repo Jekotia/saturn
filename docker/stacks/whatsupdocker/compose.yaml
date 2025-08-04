@@ -7,10 +7,14 @@ services:
     container_name: whatsupdocker
     restart: always
     environment:
+      # OAUTH
       WUD_AUTH_OIDC_AUTHENTIK_CLIENTID: ${WUD_AUTH_OIDC_AUTHENTIK_CLIENTID}
       WUD_AUTH_OIDC_AUTHENTIK_CLIENTSECRET: ${WUD_AUTH_OIDC_AUTHENTIK_CLIENTSECRET}
       WUD_AUTH_OIDC_AUTHENTIK_DISCOVERY: https://auth.${NETWORK_DOMAIN}/application/o/${WHATSUPDOCKER_AUTHENTIK_SLUG:-wud}/.well-known/openid-configuration
       WUD_AUTH_OIDC_AUTHENTIK_REDIRECT: true # optional (to skip internal login page)
+      # GHCR
+      WUD_REGISTRY_GHCR_PRIVATE_USERNAME: ${WUD_REGISTRY_GHCR_PRIVATE_USERNAME}
+      WUD_REGISTRY_GHCR_PRIVATE_TOKEN: ${WUD_REGISTRY_GHCR_PRIVATE_TOKEN}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /srv/application_data/whatsupdocker/app/store:/store
