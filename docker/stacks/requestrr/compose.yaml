@@ -3,7 +3,7 @@ include:
 
 services:
   requestrr:
-    image: thomst08/requestrr:2.1.8
+    image: thomst08/requestrr:v2.1.8
     container_name: requestrr
     restart: unless-stopped
     networks:
@@ -15,7 +15,7 @@ services:
       wud.watch: true
       wud.watch.digest: false
       wud.display.icon: sh:requestrr
-      wud.tag.include: ^\d+\.\d+\.\d+$$
+      wud.tag.include: ^v\d+\.\d+\.\d+$$
       # Traefik
       traefik.enable: "true"
       # Traefik, Router
