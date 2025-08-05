@@ -1,0 +1,27 @@
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    restart: always
+    networks:
+      - proxy_private
+      - homepage.dockerproxy
+    volumes:
+      - /srv/application_data/homepage/app/config:/app/config # Make sure your local config directory exists
+      - /srv/application_data/homepage/app/icons:/app/public/icons
+      - smb.multimedia:/multimedia:ro
+    environment:
+    # Specify your user ID and group ID. You can find this by running `id -u` and `id -g`
+      PUID: ${UID:-1000}
+      PGID: ${GID:-1000}
+      HOMEPAGE_ALLOWED_HOSTS: ${HOMEPAGE_URL_PREFIX:-homepage.}${NETWORK_DOMAIN}
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.homepage.entrypoints: websecure
+      traefik.http.routers.homepage.rule: Host(`${HOMEPAGE_URL_PREFIX:-homepage.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.homepage.tls.certresolver: dns-cloudflare
+      traefik.http.routers.homepage.tls: "true"
+      # Frontend => Services
+      traefik.http.routers.homepage.service: homepage
+      traefik.http.services.homepage.loadbalancer.server.port: "3000"

@@ -17,6 +17,8 @@ webhook_enabled = false
 run_directory = "docker/stacks/homepage/"
 file_paths = [
   "compose.yaml",
+  "app.yaml",
+  "dockerproxy.yaml",
   "../../networks/proxy_private.yaml",
   "../../volumes/smb-multimedia.yaml"
 ]
