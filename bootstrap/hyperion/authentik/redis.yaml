@@ -1,6 +1,6 @@
 services:
   authentik.redis:
-    image: docker.io/library/redis:alpine
+    image: docker.io/library/redis:8.2.0-alpine
     container_name: authentik.redis
     command: --save 60 1 --loglevel warning
     restart: always
@@ -15,4 +15,9 @@ services:
     networks:
       - authentik
     labels:
-      komodo.skip: # Prevent Komodo from stopping with StopAllContainers
+      komodo.skip: true # Prevent Komodo from stopping with StopAllContainers
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:redis
+      wud.tag.include: ^\d+\.\d+\.\d+-alpine$$

@@ -1,6 +1,6 @@
 services:
   authentik.postgresql:
-    image: docker.io/library/postgres:16-alpine
+    image: docker.io/library/postgres:16.9-alpine
     container_name: authentik.postgresql
     restart: always
     healthcheck:
@@ -20,4 +20,9 @@ services:
     env_file:
       - ../.env
     labels:
-      komodo.skip: # Prevent Komodo from stopping with StopAllContainers
+      komodo.skip: true # Prevent Komodo from stopping with StopAllContainers
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:postgresql
+      wud.tag.include: ^\d+\.\d+\.\d+-alpine$$

@@ -1,18 +1,7 @@
 services:
   komodo.core:
-    image: ghcr.io/moghtech/komodo-core:1.18.1@sha256:e116e03b7b551bbc1e78805bcbf563fdf35420522f08d3bb72fce136c7b1ccbd
+    image: ghcr.io/moghtech/komodo-core:1.18.1
     container_name: komodo.core
-    labels:
-      komodo.skip: # Prevent Komodo from stopping with StopAllContainers
-      traefik.enable: "true"
-      # Frontend => Router
-      traefik.http.routers.komodo.entrypoints: websecure
-      traefik.http.routers.komodo.rule: Host(`${KOMODO_URL_PREFIX:-komodo.}${NETWORK_DOMAIN}`)
-      traefik.http.routers.komodo.tls.certresolver: dns-cloudflare
-      traefik.http.routers.komodo.tls: "true"
-      # Frontend => Services
-      traefik.http.routers.komodo.service: komodo
-      traefik.http.services.komodo.loadbalancer.server.port: 9120
     restart: always
     depends_on:
       - komodo.mongo
@@ -41,3 +30,20 @@ services:
     ## "http://host.docker.internal:8120"
     # extra_hosts:
     #   - host.docker.internal:host-gateway
+    labels:
+      komodo.skip: # Prevent Komodo from stopping with StopAllContainers
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:komodo
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+      # Traefik
+      traefik.enable: "true"
+      # Traefik, Router
+      traefik.http.routers.komodo.entrypoints: websecure
+      traefik.http.routers.komodo.rule: Host(`${KOMODO_URL_PREFIX:-komodo.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.komodo.tls.certresolver: dns-cloudflare
+      traefik.http.routers.komodo.tls: "true"
+      # Traefik, Services
+      traefik.http.routers.komodo.service: komodo
+      traefik.http.services.komodo.loadbalancer.server.port: 9120

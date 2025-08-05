@@ -1,9 +1,7 @@
 services:
   komodo.mongo:
-    image: mongo:8.0.8-noble@sha256:8a98d6e55113e1d659bd20127df9c3cda3f5a5142506bf542cec2780b240faa9
+    image: mongo:8.0.8-noble
     container_name: komodo.mongo
-    labels:
-      komodo.skip: true # Prevent Komodo from stopping with StopAllContainers
     command: --quiet --wiredTigerCacheSizeGB 0.25
     restart: always
     logging:
@@ -19,3 +17,10 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${KOMODO_DB_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${KOMODO_DB_PASSWORD}
+    labels:
+      komodo.skip: true # Prevent Komodo from stopping with StopAllContainers
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:mongodb
+      wud.tag.include: ^\d+\.\d+\.\d+-noble$$

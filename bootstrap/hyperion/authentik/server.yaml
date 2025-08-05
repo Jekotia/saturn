@@ -1,6 +1,6 @@
 services:
   authentik.server:
-    image: ghcr.io/goauthentik/server:2025.6.3@sha256:334354d11e015037cc1b030a9710e564f6e3545369d28789db823e86171d3fdc
+    image: ghcr.io/goauthentik/server:2025.6.3
     container_name: authentik.server
     restart: always
     command: server
@@ -30,17 +30,20 @@ services:
       authentik.redis:
         condition: service_healthy
     labels:
-      komodo.skip: # Prevent Komodo from stopping with StopAllContainers
-      # diun.enable: "true"
+      komodo.skip: true # Prevent Komodo from stopping with StopAllContainers
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:authentik
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.authentik.entrypoints: websecure
       traefik.http.routers.authentik.rule: Host(`${AUTHENTIK_URL_PREFIX:-auth.}${NETWORK_DOMAIN}`) || HostRegexp(`^.+\.${NETWORK_DOMAIN}$`) && PathPrefix(`/outpost.goauthentik.io/`) # || PathPrefix(`/static/`))
       traefik.http.routers.authentik.tls.certresolver: dns-cloudflare
-      # Frontend => Middlewares
-      # traefik.http.routers.authentik.middlewares: chain-no-auth@file
       # Catch any subdomain using individual application forward authentication
-      traefik.http.routers.authentik-output-rtr.rule: HostRegexp(`{subdomain:[a-z0-9-]+}.${NETWORK_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)
-       # Frontend => Services
+      ###traefik.http.routers.authentik-output-rtr.rule: HostRegexp(`{subdomain:[a-z0-9-]+}.${NETWORK_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)
+       # Traefik, Services
       traefik.http.routers.authentik.service: authentik
       traefik.http.services.authentik.loadbalancer.server.port: 9000

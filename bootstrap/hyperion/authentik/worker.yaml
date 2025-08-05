@@ -1,6 +1,6 @@
 services:
   authentik.worker:
-    image: ghcr.io/goauthentik/server:2025.6.3@sha256:334354d11e015037cc1b030a9710e564f6e3545369d28789db823e86171d3fdc
+    image: ghcr.io/goauthentik/server:2025.6.3
     container_name: authentik.worker
     restart: always
     command: worker
@@ -33,4 +33,9 @@ services:
       authentik.redis:
         condition: service_healthy
     labels:
-      komodo.skip: # Prevent Komodo from stopping with StopAllContainers
+      komodo.skip: true # Prevent Komodo from stopping with StopAllContainers
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:authentik
+      wud.tag.include: ^\d+\.\d+\.\d+$$
