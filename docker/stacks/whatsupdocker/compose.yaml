@@ -6,6 +6,8 @@ services:
     image: getwud/wud:8.1.1@sha256:b1cd01c438399c3833a8dbb23b27549979fe9272a05c57f74d27867acbb12298
     container_name: whatsupdocker
     restart: always
+    depends_on:
+      - whatsupdocker.socketproxy
     environment:
       WUD_WATCHER_LOCALPROXY_WATCHBYDEFAULT: false
       # Docker socket via proxy
