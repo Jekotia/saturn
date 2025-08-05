@@ -104,7 +104,7 @@ services:
       PUID: ${TRAEFIK_UID:-1000}
       PGID: ${TRAEFIK_GID:-1000}
     labels:
-      komodo.skip: # Prevent Komodo from stopping with StopAllContainers
+      komodo.skip: true # Prevent Komodo from stopping with StopAllContainers
       ### HTTP Routers
       traefik.enable: "true"
       # Enable the Traefik dashboard
