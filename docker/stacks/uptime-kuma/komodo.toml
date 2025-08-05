@@ -15,6 +15,8 @@ webhook_enabled = false
 run_directory = "docker/stacks/uptime-kuma/"
 file_paths = [
   "compose.yaml",
+  "app.yaml",
+  "dockerproxy.yaml",
   "../../networks/proxy_private.yaml"
 ]
 environment = """
