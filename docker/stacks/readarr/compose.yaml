@@ -4,7 +4,7 @@ include:
 
 services:
   readarr:
-    image: ghcr.io/linuxserver/readarr:develop-0.4.17
+    image: ghcr.io/linuxserver/readarr:0.4.17-develop
     container_name: readarr
     restart: unless-stopped
     networks:
@@ -22,7 +22,7 @@ services:
       wud.watch: true
       wud.watch.digest: false
       wud.display.icon: sh:readarr
-      wud.tag.include: ^develop-\d+\.\d+\.\d+\.\d+-ls\d+$$
+      wud.tag.include: ^\d+\.\d+\.\d+-develop$$
       # Traefik
       traefik.enable: "true"
       # Traefik, Router
