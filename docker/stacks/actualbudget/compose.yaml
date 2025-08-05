@@ -29,8 +29,8 @@ services:
       # !! If you are not using any of these options, remove the 'environment:' tag entirely.
     labels:
       # What's Up Docker
-      wud.watch: "true"
-      wud.tag.include: ^\d+\.\d+\.\d+$$
+      ## wud.watch: "true"
+      ## wud.tag.include: ^\d+\.\d+\.\d+$$
       # Traefik
       traefik.enable: "true"
       # Traefik, Router
