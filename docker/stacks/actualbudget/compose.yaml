@@ -28,12 +28,15 @@ services:
       # See all options and more details at https://actualbudget.github.io/docs/Installing/Configuration
       # !! If you are not using any of these options, remove the 'environment:' tag entirely.
     labels:
-      diun.enable: "true"
+      # What's Up Docker
+      wud.watch: "true"
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.actualbudget.entrypoints: websecure
       traefik.http.routers.actualbudget.rule: Host(`${ACTUALBUDGET_URL_PREFIX:-actualbudget.}${NETWORK_DOMAIN}`)
       traefik.http.routers.actualbudget.tls.certresolver: dns-cloudflare
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.actualbudget.service: actualbudget
       traefik.http.services.actualbudget.loadbalancer.server.port: 5006
