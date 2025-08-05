@@ -7,10 +7,10 @@ services:
     container_name: whatsupdocker
     restart: always
     environment:
-      WUD_WATCHER_LOCAL_WATCHBYDEFAULT: false
+      WUD_WATCHER_LOCALPROXY_WATCHBYDEFAULT: false
       # Docker socket via proxy
-      WUD_WATCHER_LOCAL_HOST: whatsupdocker.socketproxy
-      WUD_WATCHER_LOCAL_PORT: 2375
+      WUD_WATCHER_LOCALPROXY_HOST: whatsupdocker.socketproxy
+      WUD_WATCHER_LOCALPROXY_PORT: 2375
       # OAUTH
       WUD_AUTH_OIDC_AUTHENTIK_CLIENTID: ${WUD_AUTH_OIDC_AUTHENTIK_CLIENTID}
       WUD_AUTH_OIDC_AUTHENTIK_CLIENTSECRET: ${WUD_AUTH_OIDC_AUTHENTIK_CLIENTSECRET}
