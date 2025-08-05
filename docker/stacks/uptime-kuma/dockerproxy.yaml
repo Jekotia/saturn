@@ -1,4 +1,5 @@
 services:
+  uptime-kuma.dockerproxy:
     image: ghcr.io/tecnativa/docker-socket-proxy:latest
     container_name: uptime-kuma.dockerproxy
     restart: always
