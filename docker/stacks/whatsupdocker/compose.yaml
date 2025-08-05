@@ -9,10 +9,11 @@ services:
     depends_on:
       - whatsupdocker.socketproxy
     environment:
-      WUD_WATCHER_LOCALPROXY_WATCHBYDEFAULT: false
+      WUD_WATCHER_LOCAL_WATCHBYDEFAULT: false
+      ## WUD_WATCHER_LOCALPROXY_WATCHBYDEFAULT: false
       # Docker socket via proxy
-      WUD_WATCHER_LOCALPROXY_HOST: whatsupdocker.socketproxy
-      WUD_WATCHER_LOCALPROXY_PORT: 2375
+      ## WUD_WATCHER_LOCALPROXY_HOST: whatsupdocker.socketproxy
+      ## WUD_WATCHER_LOCALPROXY_PORT: 2375
       # OAUTH
       WUD_AUTH_OIDC_AUTHENTIK_CLIENTID: ${WUD_AUTH_OIDC_AUTHENTIK_CLIENTID}
       WUD_AUTH_OIDC_AUTHENTIK_CLIENTSECRET: ${WUD_AUTH_OIDC_AUTHENTIK_CLIENTSECRET}
@@ -26,9 +27,10 @@ services:
       WUD_REGISTRY_HUB_PUBLIC_TOKEN: ${WUD_REGISTRY_HUB_PUBLIC_TOKEN}
     volumes:
       - /srv/application_data/whatsupdocker/app/store:/store
+      - /var/run/docker.sock:/var/run/docker.sock:ro # Mounted as read-only
     networks:
       - proxy_private
-      - whatsupdocker.socketproxy
+      # - whatsupdocker.socketproxy
     labels:
       traefik.enable: "true"
       # Frontend => Router
@@ -46,19 +48,19 @@ services:
       retries: 3
       start_period: 10s
 
-  whatsupdocker.socketproxy:
-    image: ghcr.io/tecnativa/docker-socket-proxy:latest
-    container_name: whatsupdocker.socketproxy
-    restart: always
-    environment:
-      CONTAINERS: 1 # Allow access to viewing containers
-      POST: 0 # Disallow any POST operations (effectively read-only)
-    networks:
-      - whatsupdocker.socketproxy
-    # ports:
-    #   - 2375:2375
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro # Mounted as read-only
+  # whatsupdocker.socketproxy:
+  #   image: ghcr.io/tecnativa/docker-socket-proxy:latest
+  #   container_name: whatsupdocker.socketproxy
+  #   restart: always
+  #   environment:
+  #     CONTAINERS: 1 # Allow access to viewing containers
+  #     POST: 0 # Disallow any POST operations (effectively read-only)
+  #   networks:
+  #     - whatsupdocker.socketproxy
+  #   # ports:
+  #   #   - 2375:2375
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro # Mounted as read-only
 
-networks:
-  whatsupdocker.socketproxy:
+# networks:
+#   whatsupdocker.socketproxy:
