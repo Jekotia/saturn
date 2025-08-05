@@ -1,6 +1,6 @@
 services:
   plextraktsync:
-    image: ghcr.io/taxel/plextraktsync:0.34.11@sha256:ea2ffc8eff13b7ce43f482d5a6aee0f83c58828fb69e113a2b505440b275bb2b
+    image: ghcr.io/taxel/plextraktsync:0.34.11
     container_name: plextraktsync
     restart: no
     command: sync
@@ -11,5 +11,9 @@ services:
     volumes:
       - /srv/application_data/plextraktsync/app/config:/app/config
     labels:
-      diun.enable: "true"
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:python
+      wud.tag.include: ^\d+\.\d+\.\d+$$
   

@@ -3,7 +3,7 @@ include:
 
 services:
   navidrome:
-    image: ghcr.io/navidrome/navidrome:0.56.1@sha256:d8dcacba4cf48b4caa81f231f20ebba719e642b0f86a46b1b5c24bb4f27edddc
+    image: ghcr.io/navidrome/navidrome:0.56.1
     container_name: navidrome
     restart: unless-stopped
     user: ${UID:-568}:${GID:-1001} # should be owner of volumes
@@ -19,13 +19,18 @@ services:
     - "/mnt/storage/application_data/navidrome/app/data:/data"
     - "/mnt/storage/multimedia/music:/music:ro"
     labels:
-      diun.enable: "true"
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:navidrome
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.navidrome.entrypoints: websecure
       traefik.http.routers.navidrome.rule: Host(`${NAVIDROME_URL_PREFIX:-navidrome.}${NETWORK_DOMAIN}`)
       traefik.http.routers.navidrome.tls.certresolver: dns-cloudflare
       traefik.http.routers.navidrome.middlewares: forwardAuth-authentik@file
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.navidrome.service: navidrome
       traefik.http.services.navidrome.loadbalancer.server.port: 4533

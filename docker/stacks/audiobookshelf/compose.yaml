@@ -4,7 +4,7 @@ include:
 
 services:
   audiobookshelf:
-    image: ghcr.io/advplyr/audiobookshelf:2.26.3@sha256:fe2ec344b4881ee0fad5c1605e7069c993c218c103e8a57e467e381ee9eebcfb
+    image: ghcr.io/advplyr/audiobookshelf:2.26.3
     container_name: audiobookshelf
     restart: unless-stopped
     user: 1000:1000
@@ -17,12 +17,17 @@ services:
       - /srv/application_data/audiobookshelf/app/metadata:/metadata
       - /srv/application_data/audiobookshelf/app/config:/config
     labels:
-      diun.enable: "true"
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:audiobookshelf
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.audiobookshelf.entrypoints: websecure
       traefik.http.routers.audiobookshelf.rule: Host(`${AUDIOBOOKSHELF_URL_PREFIX:-audiobookshelf.}${NETWORK_DOMAIN}`)
       traefik.http.routers.audiobookshelf.tls.certresolver: dns-cloudflare
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.audiobookshelf.service: audiobookshelf
       traefik.http.services.audiobookshelf.loadbalancer.server.port: 80

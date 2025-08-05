@@ -1,6 +1,6 @@
 services:
   paperless.app:
-    image: ghcr.io/paperless-ngx/paperless-ngx:2.16.3@sha256:5622c95b4e22c6b95d4791563d8ace03ae16e3147e2cdf2016b938dc9341d30a
+    image: ghcr.io/paperless-ngx/paperless-ngx:2.16.3
     container_name: paperless.app
     restart: unless-stopped
     user: "1000"
@@ -60,13 +60,18 @@ services:
             }
           }
     labels:
-      diun.enable: "true"
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:paperless-ngx
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.paperless.entrypoints: websecure
       traefik.http.routers.paperless.rule: Host(`${PAPERLESS_URL_PREFIX:-paperless-ngx.}${NETWORK_DOMAIN}`)
       traefik.http.routers.paperless.tls.certresolver: dns-cloudflare
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.paperless.service: paperless
       traefik.http.services.paperless.loadbalancer.server.port: 8000
 

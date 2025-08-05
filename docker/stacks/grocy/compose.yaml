@@ -3,7 +3,7 @@ include:
 
 services:
   grocy:
-    image: ghcr.io/linuxserver/grocy:v4.5.0-ls293@sha256:ba512dd15c7ec8f3bf432c599710f4c05c6fe420963a298d410a078a4e6dd466
+    image: ghcr.io/linuxserver/grocy:4.5.0
     container_name: grocy
     restart: unless-stopped
     networks:
@@ -15,13 +15,18 @@ services:
       PGID: ${GID:-1000}
       TZ: ${TIMEZONE}
     labels:
-      diun.enable: "true"
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:grocy
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.grocy.entrypoints: websecure
       traefik.http.routers.grocy.rule: Host(`${GROCY_URL_PREFIX:-grocy.}${NETWORK_DOMAIN}`)
       traefik.http.routers.grocy.tls.certresolver: dns-cloudflare
       traefik.http.routers.grocy.middlewares: forwardAuth-authentik@file
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.grocy.service: grocy
       traefik.http.services.grocy.loadbalancer.server.port: 80

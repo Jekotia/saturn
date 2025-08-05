@@ -3,7 +3,7 @@ include:
 
 services:
   resilio-sync:
-    image: ghcr.io/linuxserver/resilio-sync:3.0.3.1065-1-ls213@sha256:9f330ccf779a53e651bbbb9dbcdaf703a6f591c94900493ee9a54b820368f1df
+    image: ghcr.io/linuxserver/resilio-sync:3.0.3
     container_name: resilio-sync
     restart: unless-stopped
     networks:
@@ -18,13 +18,18 @@ services:
       PGID: ${GID:-1000}
       TZ: ${TIMEZONE}
     labels:
-      diun.enable: "true"
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:resilio-sync
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.resilio-sync.entrypoints: websecure
       traefik.http.routers.resilio-sync.rule: Host(`${RESILIO_SYNC_URL_PREFIX:-resilio-sync.}${NETWORK_DOMAIN}`)
       traefik.http.routers.resilio-sync.tls.certresolver: dns-cloudflare
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.resilio-sync.service: resilio-sync
       traefik.http.services.resilio-sync.loadbalancer.server.port: 8888
 

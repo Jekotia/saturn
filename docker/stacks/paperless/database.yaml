@@ -1,6 +1,6 @@
 services:
   paperless.db:
-    image: postgres:13.11-alpine3.18@sha256:e4bb33f1654eda60011429028303c7785c51af16949cd461cc55fb6074e2bf97
+    image: postgres:13.11-alpine
     container_name: paperless.db
     restart: unless-stopped
     networks:
@@ -11,3 +11,9 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-paperless}
       POSTGRES_USER: ${POSTGRES_USER:-paperless}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    labels:
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:postgresql
+      wud.tag.include: ^\d+\.\d+-alpine$$

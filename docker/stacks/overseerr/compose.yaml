@@ -3,7 +3,7 @@ include:
 
 services:
   overseerr:
-    image: ghcr.io/linuxserver/overseerr:v1.34.0-ls142@sha256:1205b8873f3ea0a98890191d9e01da911d9509272462a46414ba0378a6d76288
+    image: ghcr.io/linuxserver/overseerr:1.34.0
     container_name: overseerr
     restart: unless-stopped
     networks:
@@ -16,12 +16,17 @@ services:
       TZ: ${TIMEZONE}
       #?- UMASK_SET=022 #optional
     labels:
-      diun.enable: "true"
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:overseerr
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.overseerr.entrypoints: websecure
       traefik.http.routers.overseerr.rule: Host(`${OVERSEERR_URL_PREFIX:-overseerr.}${NETWORK_DOMAIN}`)
       traefik.http.routers.overseerr.tls.certresolver: dns-cloudflare
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.overseerr.service: overseerr
       traefik.http.services.overseerr.loadbalancer.server.port: 5055

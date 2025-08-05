@@ -4,7 +4,7 @@ include:
 
 services:
   bazarr:
-    image: ghcr.io/linuxserver/bazarr:v1.5.2-ls307@sha256:a92ba81b9405942d0b5c01e2707ba8fb99ab059dd800d1dc0e8f52f62ddf74dd
+    image: ghcr.io/linuxserver/bazarr:1.5.2
     container_name: bazarr
     restart: unless-stopped
     networks:
@@ -17,13 +17,18 @@ services:
       PGID: ${GID:-1000}
       TZ: ${TIMEZONE}
     labels:
-      diun.enable: "true"
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:bazarr
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.bazarr.entrypoints: websecure
       traefik.http.routers.bazarr.rule: Host(`${BAZARR_URL_PREFIX:-bazarr.}${NETWORK_DOMAIN}`)
       traefik.http.routers.bazarr.tls.certresolver: dns-cloudflare
       traefik.http.routers.bazarr.middlewares: forwardAuth-authentik@file
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.bazarr.service: bazarr
       traefik.http.services.bazarr.loadbalancer.server.port: 6767

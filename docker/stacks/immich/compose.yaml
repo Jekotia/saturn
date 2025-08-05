@@ -32,8 +32,16 @@ services:
     restart: always
     healthcheck:
       disable: false
+    networks:
+      - immich
+      - proxy_private
     labels:
-      diun.enable: "true"
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:immich
+      wud.tag.include: ^v\d+\.\d+\.\d+$$
+      # Traefik
       traefik.enable: "true"
       # Frontend => Router
       traefik.http.routers.immich.entrypoints: websecure
@@ -42,9 +50,6 @@ services:
       # Frontend => Services
       traefik.http.routers.immich.service: immich
       traefik.http.services.immich.loadbalancer.server.port: 2283
-    networks:
-      - immich
-      - proxy_private
 
   immich-machine-learning:
     container_name: immich_machine_learning
@@ -64,20 +69,30 @@ services:
     networks:
       - immich
     labels:
-      diun.enable: "true"
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:immich
+      wud.tag.include: ^v\d+\.\d+\.\d+$$
 
   redis:
     container_name: immich_redis
-    image: docker.io/redis:6.2-alpine@sha256:148bb5411c184abd288d9aaed139c98123eeb8824c5d3fce03cf721db58066d8
+    image: docker.io/redis:6.2-alpine
     healthcheck:
       test: redis-cli ping || exit 1
     restart: always
     networks:
       - immich
+    labels:
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:redis
+      wud.tag.include: ^\d+\.\d+-alpine$$
 
   database:
     container_name: immich_postgres
-    image: docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:739cdd626151ff1f796dc95a6591b55a714f341c737e27f045019ceabf8e8c52
+    image: docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_USER: ${DB_USERNAME}
@@ -97,6 +112,13 @@ services:
     restart: always
     networks:
       - immich
+    labels:
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:postgresql
+      wud.tag.include: ^pg14-v\d+\.\d+\.\d+$$
+      # Traefik
 
 volumes:
   model-cache:

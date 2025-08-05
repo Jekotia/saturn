@@ -1,6 +1,6 @@
 services:
   karakeep.app:
-    image: ghcr.io/karakeep-app/karakeep:0.26.0@sha256:f575a34ed3f8975225c156786442f177846126cf27d7fd37350f3af23c549d22
+    image: ghcr.io/karakeep-app/karakeep:0.26.0
     container_name: karakeep.app
     restart: unless-stopped
     networks:
@@ -38,12 +38,17 @@ services:
       # Optional but highly recommended:
       DISABLE_SIGNUPS: true
     labels:
-      diun.enable: "true"
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:karakeep
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.karakeep.entrypoints: websecure
       traefik.http.routers.karakeep.rule: Host(`${KARAKEEP_URL_PREFIX:-karakeep.}${NETWORK_DOMAIN}`)
       traefik.http.routers.karakeep.tls.certresolver: dns-cloudflare
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.karakeep.service: karakeep
       traefik.http.services.karakeep.loadbalancer.server.port: 3000

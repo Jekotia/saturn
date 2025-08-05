@@ -1,7 +1,13 @@
 services:
   paperless.tika:
-    image: ghcr.io/paperless-ngx/tika:2.9.1-minimal@sha256:20db3df89eaeb1b271dd840888fe909b88b12f4b86ef641ec07a1d45d4c5168f
+    image: ghcr.io/paperless-ngx/tika:2.9.1-minimal
     container_name: paperless.tika
     restart: unless-stopped
     networks:
       - paperless
+    labels:
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:apache-tika
+      wud.tag.include: ^\d+\.\d+\.\d+-minimal$$

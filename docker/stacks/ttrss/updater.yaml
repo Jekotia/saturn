@@ -1,6 +1,6 @@
 services:
   updater:
-    image: cthulhoo/ttrss-fpm-pgsql-static:851ddf4b@sha256:38600200216d2a04c482a80b1ae61196b1187208f657a55ca7ccc45f11a5f179
+    image: cthulhoo/ttrss-fpm-pgsql-static:851ddf4b
     container_name: ttrss.updater
     restart: unless-stopped
     networks:
@@ -13,3 +13,8 @@ services:
     depends_on:
       - app
     command: /opt/tt-rss/updater.sh
+    labels:
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:tiny-tiny-rss

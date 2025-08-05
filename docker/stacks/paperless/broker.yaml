@@ -1,9 +1,15 @@
 services:
   paperless.broker:
-    image: redis:7.0.10-alpine3.17@sha256:0859ed47321d2d26a3f53bca47b76fb7970ea2512ca3a379926dc965880e442e
+    image: redis:7.0.10-alpine
     container_name: paperless.broker
     restart: unless-stopped
     networks:
       - paperless
     volumes:
       - /srv/application_data/paperless/broker/data:/data
+    labels:
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:redis
+      wud.tag.include: ^\d+\.\d+\.\d+-alpine$$

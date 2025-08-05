@@ -80,12 +80,17 @@ services:
       VERSION: ${VERSION}
     #?- UMASK_SET=022
     labels:
-      diun.enable: "true"
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:plex
+      wud.tag.include: ^version-v\d+\.\d+\.\d+\.\d+-\d+$$
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.plexms.entrypoints: websecure
       traefik.http.routers.plexms.rule: Host(`${PLEXMS_URL_PREFIX:-plex.}${NETWORK_DOMAIN}`)
       traefik.http.routers.plexms.tls.certresolver: dns-cloudflare
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.plexms.service: plexms
       traefik.http.services.plexms.loadbalancer.server.port: 32400

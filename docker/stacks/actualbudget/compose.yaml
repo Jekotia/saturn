@@ -3,7 +3,7 @@ include:
 
 services:
   actualbudget:
-    image: ghcr.io/actualbudget/actual:25.7.1@sha256:b6bb759f31d1c2c82a37d04f9d8930359ae8e3b3faa8eaa5338a0a2328702908
+    image: ghcr.io/actualbudget/actual:25.7.1
     container_name: actualbudget
     restart: unless-stopped
     networks:
@@ -29,8 +29,10 @@ services:
       # !! If you are not using any of these options, remove the 'environment:' tag entirely.
     labels:
       # What's Up Docker
-      ## wud.watch: "true"
-      ## wud.tag.include: ^\d+\.\d+\.\d+$$
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:actual-budget
+      wud.tag.include: ^\d+\.\d+\.\d+$$
       # Traefik
       traefik.enable: "true"
       # Traefik, Router

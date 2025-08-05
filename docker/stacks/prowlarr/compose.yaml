@@ -3,7 +3,7 @@ include:
 
 services:
   prowlarr:
-    image: ghcr.io/linuxserver/prowlarr:1.37.0.5076-ls120@sha256:b058be8a4e083e0cba238f03759994617a559abe0c89e5ed66454b44395da6a9
+    image: ghcr.io/linuxserver/prowlarr:1.37.0
     container_name: prowlarr
     restart: unless-stopped
     networks:
@@ -15,13 +15,18 @@ services:
       PGID: ${GID:-1000}
       TZ: ${TIMEZONE}
     labels:
-      diun.enable: "true"
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:prowlarr
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.prowlarr.entrypoints: websecure
       traefik.http.routers.prowlarr.rule: Host(`${PROWLARR_URL_PREFIX:-prowlarr.}${NETWORK_DOMAIN}`)
       traefik.http.routers.prowlarr.tls.certresolver: dns-cloudflare
       traefik.http.routers.prowlarr.middlewares: forwardAuth-authentik@file
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.prowlarr.service: prowlarr
       traefik.http.services.prowlarr.loadbalancer.server.port: 9696

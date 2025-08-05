@@ -3,7 +3,7 @@ include:
 
 services:
   bytestash:
-    image: ghcr.io/jordan-dalby/bytestash:1.5.8@sha256:f57d694a727bfbe1daf72acd3d98620b2ff9b1e4f4aafbacc5cda89c31da3512
+    image: ghcr.io/jordan-dalby/bytestash:1.5.8
     container_name: bytestash
     restart: always
     environment:
@@ -27,12 +27,17 @@ services:
     networks:
       - proxy_private
     labels:
-      diun.enable: "true"
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:bytestash
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.bytestash.entrypoints: websecure
       traefik.http.routers.bytestash.rule: Host(`${BYTESTASH_URL_PREFIX:-bytestash.}${NETWORK_DOMAIN}`)
       traefik.http.routers.bytestash.tls.certresolver: dns-cloudflare
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.bytestash.service: bytestash
       traefik.http.services.bytestash.loadbalancer.server.port: 5000

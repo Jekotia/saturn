@@ -1,6 +1,6 @@
 services:
   web-nginx:
-    image: cthulhoo/ttrss-web-nginx:851ddf4b@sha256:ac920266f55bb8e3659dfb435a944b2dbddca50780d02a46684f2e9e6543ef64
+    image: cthulhoo/ttrss-web-nginx:851ddf4b
     container_name: ttrss.web-nginx
     restart: unless-stopped
     networks:
@@ -13,12 +13,16 @@ services:
     depends_on:
       - app
     labels:
-      #diun.enable: "true"
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:tiny-tiny-rss
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.ttrss.entrypoints: websecure
       traefik.http.routers.ttrss.rule: Host(`${TTRSS_URL_PREFIX:-ttrss.}${NETWORK_DOMAIN}`)
       traefik.http.routers.ttrss.tls.certresolver: dns-cloudflare
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.ttrss.service: ttrss
       traefik.http.services.ttrss.loadbalancer.server.port: 80

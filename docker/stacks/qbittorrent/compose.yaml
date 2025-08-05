@@ -3,7 +3,7 @@ include:
   
 services:
   qbittorrent:
-    image: ghcr.io/linuxserver/qbittorrent:5.1.0-r0-ls397@sha256:22dc2f60b6253356005b6cbb77ea282c788aa9ffb828ca61c43479735913e02c
+    image: ghcr.io/linuxserver/qbittorrent:5.1.0
     container_name: qbittorrent
     restart: unless-stopped
     networks:
@@ -21,20 +21,24 @@ services:
       WEBUI_PORT: 8080
     #?- UMASK_SET=022
     labels:
-      diun.enable: "true"
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:qbittorrent
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+      # https://github.com/qbittorrent/qBittorrent/wiki/Traefik-Reverse-Proxy-for-Web-UI
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.qbittorrent.entrypoints: websecure
       traefik.http.routers.qbittorrent.rule: Host(`${QBITTORRENT_URL_PREFIX:-qbittorrent.}${NETWORK_DOMAIN}`)
       traefik.http.routers.qbittorrent.tls.certresolver: dns-cloudflare
-      # Frontend => Services
+      traefik.http.routers.qbittorrent.middlewares: qbittorrent-headers
+      # Traefik, Services
       traefik.http.routers.qbittorrent.service: qbittorrent
       traefik.http.services.qbittorrent.loadbalancer.server.port: 8080
-      # https://github.com/qbittorrent/qBittorrent/wiki/Traefik-Reverse-Proxy-for-Web-UI
-      # appropriate header changes
+      traefik.http.services.qbittorrent.loadbalancer.passhostheader: false
+      # Traefik, Middlewares
       traefik.http.middlewares.qbittorrent-headers.headers.customrequestheaders.X-Frame-Options: SAMEORIGIN
       traefik.http.middlewares.qbittorrent-headers.headers.customrequestheaders.Referer:
       traefik.http.middlewares.qbittorrent-headers.headers.customrequestheaders.Origin:
-      traefik.http.routers.qbittorrent.middlewares: qbittorrent-headers
-      # loadbalancer to *not* pass the host header
-      traefik.http.services.qbittorrent.loadbalancer.passhostheader: false

@@ -4,7 +4,7 @@ include:
 
 services:
   kavita:
-    image: jvmilazz0/kavita:0.8.7.8@sha256:b9c671586db2a6a688da3cb4b45f1319cca33b01e6e760c8bf3c19d60101bdf2
+    image: jvmilazz0/kavita:0.8.7.8
     container_name: kavita
     restart: unless-stopped
     networks:
@@ -15,12 +15,18 @@ services:
     environment:
       TZ: ${TIMEZONE}
     labels:
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:kavita
+      wud.tag.include: ^\d+\.\d+\.\d+\.\d+$$
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.kavita.entrypoints: websecure
       traefik.http.routers.kavita.rule: Host(`${KAVITA_URL_PREFIX:-kavita.}${NETWORK_DOMAIN}`)
       traefik.http.routers.kavita.tls.certresolver: dns-cloudflare
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.kavita.service: kavita
       traefik.http.services.kavita.loadbalancer.server.port: 5000
   

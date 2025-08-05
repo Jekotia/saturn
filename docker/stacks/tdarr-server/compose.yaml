@@ -5,7 +5,7 @@ include:
 services:
   #-> ghcr.io/haveagitgat/tdarr
   tdarr-server:
-    image: ghcr.io/haveagitgat/tdarr:2.45.01@sha256:69d28aff66318ecc1c9496717c1731fbdbbfb8c0c4664a90bbb36747fbf279fe
+    image: ghcr.io/haveagitgat/tdarr:2.45.01
     container_name: tdarr-server
     restart: unless-stopped
     networks:
@@ -36,13 +36,18 @@ services:
       auth: true
       apiKey: ${API_KEY}
     labels:
-      diun.enable: "true"
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:tdarr
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.tdarr.entrypoints: websecure
       traefik.http.routers.tdarr.rule: Host(`${TDARR_URL_PREFIX:-tdarr.}${NETWORK_DOMAIN}`)
       traefik.http.routers.tdarr.tls.certresolver: dns-cloudflare
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.tdarr.service: tdarr
       traefik.http.services.tdarr.loadbalancer.server.port: 8265
     logging:

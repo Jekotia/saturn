@@ -4,7 +4,7 @@ include:
 
 services:
   lidarr:
-    image: ghcr.io/linuxserver/lidarr:2.12.4.4658-ls45@sha256:71fe6d5702691c6ac8961b9b1042fdea1ff833a49c82c5e165346fa88999a48a
+    image: ghcr.io/linuxserver/lidarr:2.12.4
     container_name: lidarr
     restart: unless-stopped
     networks:
@@ -20,14 +20,19 @@ services:
       TZ: ${TIMEZONE}
       # UMASK_SET: 022 #optional
     labels:
-      diun.enable: "true"
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:lidarr
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.lidarr.entrypoints: websecure
       traefik.http.routers.lidarr.rule: Host(`${LIDARR_URL_PREFIX:-lidarr.}${NETWORK_DOMAIN}`)
       traefik.http.routers.lidarr.tls.certresolver: dns-cloudflare
       traefik.http.routers.lidarr.middlewares: forwardAuth-authentik@file
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.lidarr.service: lidarr
       traefik.http.services.lidarr.loadbalancer.server.port: 8686
 

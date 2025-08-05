@@ -1,6 +1,6 @@
 services:
   romm.app:
-    image: ghcr.io/rommapp/romm:4.0.1@sha256:2f31f792885cd0fc839a590b9645ada846106d4893e5de0be68dc6580b11b5f9
+    image: ghcr.io/rommapp/romm:4.0.1
     container_name: romm.app
     restart: unless-stopped
     environment:
@@ -36,16 +36,22 @@ services:
       - proxy_private
       - romm
     labels:
-      diun.enable: "true"
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:romm
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.romm.entrypoints: websecure
       traefik.http.routers.romm.rule: Host(`${ROMM_URL_PREFIX:-romm.}${NETWORK_DOMAIN}`)
       traefik.http.routers.romm.tls.certresolver: dns-cloudflare
       traefik.http.routers.romm.middlewares: romm_SharedArrayBuffer
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.romm.service: romm
       traefik.http.services.romm.loadbalancer.server.port: 8080
+      # Traefik, Middlewares
       # Headers for MS-DOS/PPSSPP emulation
       traefik.http.middlewares.romm_SharedArrayBuffer.headers.customResponseHeaders.Cross-Origin-Opener-Policy: same-origin
       traefik.http.middlewares.romm_SharedArrayBuffer.headers.customResponseHeaders.Cross-Origin-Embedder-Policy: require-corp

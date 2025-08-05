@@ -3,7 +3,7 @@ include:
 
 services:
   whatsupdocker:
-    image: getwud/wud:8.1.1@sha256:b1cd01c438399c3833a8dbb23b27549979fe9272a05c57f74d27867acbb12298
+    image: getwud/wud:8.1.1
     container_name: whatsupdocker
     restart: always
     # depends_on:
@@ -32,13 +32,19 @@ services:
       - proxy_private
       # - whatsupdocker.socketproxy
     labels:
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:wud
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.whatsupdocker.entrypoints: websecure
       traefik.http.routers.whatsupdocker.rule: Host(`${WHATSUPDOCKER_URL_PREFIX:-wud.}${NETWORK_DOMAIN}`)
       traefik.http.routers.whatsupdocker.tls.certresolver: dns-cloudflare
       traefik.http.routers.whatsupdocker.tls: "true"
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.whatsupdocker.service: whatsupdocker
       traefik.http.services.whatsupdocker.loadbalancer.server.port: 3000
     healthcheck:

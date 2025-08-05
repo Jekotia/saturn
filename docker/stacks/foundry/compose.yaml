@@ -4,7 +4,7 @@ include:
 services:
   foundry:
     container_name: foundry
-    image: ghcr.io/felddy/foundryvtt:13.345.0@sha256:ed6bcd56557cc147bd8a6eceea6f56399183032249cdf959961b042ad2260c72
+    image: ghcr.io/felddy/foundryvtt:13.345.0
     restart: unless-stopped
     environment:
       #FOUNDRY_VERSION=${_HYPERION_FOUNDRY_VERSION}
@@ -26,13 +26,18 @@ services:
     networks:
       - proxy_private
     labels:
-      diun.enable: "true"
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:foundry-virtual-tabletop
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.foundry.entrypoints: websecure
       traefik.http.routers.foundry.rule: Host(`${FOUNDRY_URL_PREFIX:-foundry.}${NETWORK_DOMAIN}`)
       traefik.http.routers.foundry.tls.certresolver: dns-cloudflare
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.foundry.service: foundry
       traefik.http.services.foundry.loadbalancer.server.port: 30000
 volumes:

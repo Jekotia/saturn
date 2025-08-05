@@ -3,7 +3,7 @@ include:
 
 services:
   requestrr:
-    image: thomst08/requestrr:2.1.8@sha256:e1a46220133ae6a92ca3da749b882dcea14279600849cf4c41b4c7c140fde777
+    image: thomst08/requestrr:2.1.8
     container_name: requestrr
     restart: unless-stopped
     networks:
@@ -11,12 +11,17 @@ services:
     volumes:
       - /srv/application_data/requestrr/app/config:/root/config
     labels:
-      diun.enable: "true"
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:requestrr
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.requestrr.entrypoints: websecure
       traefik.http.routers.requestrr.rule: Host(`${REQUESTRR_URL_PREFIX:-requestrr.}${NETWORK_DOMAIN}`)
       traefik.http.routers.requestrr.tls.certresolver: dns-cloudflare
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.requestrr.service: requestrr
       traefik.http.services.requestrr.loadbalancer.server.port: 4545

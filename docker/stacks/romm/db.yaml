@@ -1,7 +1,7 @@
 services:
   romm.db:
     # if you experience issues, try: linuxserver/mariadb:latest
-    image: mariadb:11.5.2@sha256:2d50fe0f77dac919396091e527e5e148a9de690e58f32875f113bef6506a17f5
+    image: mariadb:11.5.2
     container_name: romm.db
     restart: unless-stopped
     environment:
@@ -20,3 +20,9 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    labels:
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:mariadb
+      wud.tag.include: ^\d+\.\d+\.\d+$$

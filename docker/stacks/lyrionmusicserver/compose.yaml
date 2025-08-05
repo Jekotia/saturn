@@ -2,7 +2,7 @@ include:
   - ../../networks/proxy_private.yaml
 services:
   lyrionmusicserver:
-    image: lmscommunity/lyrionmusicserver:9.0.3@sha256:3afacae8c6fc7c0a5a8d3f832ba51b63d2dcfafc33ffee9332e5b29741577b77
+    image: lmscommunity/lyrionmusicserver:9.0.3
     container_name: lyrionmusicserver
     restart: unless-stopped
     volumes:
@@ -43,12 +43,17 @@ services:
     networks:
       - proxy_private
     labels:
-      # diun.enable: "true"
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:lyrion-music-server
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.lyrionmusicserver.entrypoints: websecure
       traefik.http.routers.lyrionmusicserver.rule: Host(`${LYRIONMUSICSERVER_URL_PREFIX:-lms.}${NETWORK_DOMAIN}`)
       traefik.http.routers.lyrionmusicserver.tls.certresolver: dns-cloudflare
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.lyrionmusicserver.service: lyrionmusicserver
       traefik.http.services.lyrionmusicserver.loadbalancer.server.port: 9000
