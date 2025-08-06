@@ -4,7 +4,7 @@ include:
 services:
   foundry:
     container_name: foundry
-    image: ghcr.io/felddy/foundryvtt:13.345.0
+    image: ghcr.io/felddy/foundryvtt:13.346.0
     restart: unless-stopped
     environment:
       #FOUNDRY_VERSION=${_HYPERION_FOUNDRY_VERSION}
@@ -28,6 +28,7 @@ services:
     labels:
       # What's Up Docker
       wud.watch: true
+      wud.link.template: https://github.com/felddy/foundryvtt-docker/releases/tag/v$${major}.$${minor}.$${patch}
       wud.watch.digest: false
       wud.display.icon: sh:foundry-virtual-tabletop
       wud.tag.include: ^\d+\.\d+\.\d+$$
