@@ -3,7 +3,7 @@ include:
 
 services:
   emulator-source-backups:
-    image: gitea/gitea:1.24.0
+    image: gitea/gitea:1.24.4
     container_name: emulator-source-backups
     restart: unless-stopped
     environment:
@@ -25,6 +25,7 @@ services:
     labels:
       # What's Up Docker
       wud.watch: true
+      wud.link.template: https://github.com/go-gitea/gitea/releases/tag/v$${major}.$${minor}.$${patch}
       wud.watch.digest: false
       wud.display.icon: sh:gitea
       wud.tag.include: ^\d+\.\d+\.\d+$$
