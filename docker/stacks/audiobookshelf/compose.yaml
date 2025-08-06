@@ -4,7 +4,7 @@ include:
 
 services:
   audiobookshelf:
-    image: ghcr.io/advplyr/audiobookshelf:2.26.3
+    image: ghcr.io/advplyr/audiobookshelf:2.27.0
     container_name: audiobookshelf
     restart: unless-stopped
     user: 1000:1000
