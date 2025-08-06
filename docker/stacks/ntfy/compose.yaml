@@ -26,7 +26,7 @@ services:
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
-      wud.link.template: https://github.com/go-gitea/gitea/releases/tag/v$${major}.$${minor}.$${patch}
+      wud.link.template: https://github.com/binwiederhier/ntfy/releases/tag/v$${major}.$${minor}.$${patch}
       wud.display.icon: sh:ntfy
       wud.tag.include: ^v\d+\.\d+\.\d+$$
       # Traefik
