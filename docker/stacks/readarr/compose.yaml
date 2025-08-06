@@ -4,7 +4,7 @@ include:
 
 services:
   readarr:
-    image: ghcr.io/linuxserver/readarr:0.4.17-develop
+    image: ghcr.io/linuxserver/readarr:0.4.18-develop
     container_name: readarr
     restart: unless-stopped
     networks:
