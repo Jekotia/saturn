@@ -4,7 +4,7 @@ include:
 
 services:
   radarr:
-    image: ghcr.io/linuxserver/radarr:5.25.0
+    image: ghcr.io/linuxserver/radarr:5.26.2
     container_name: radarr
     restart: unless-stopped
     networks:
