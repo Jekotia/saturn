@@ -4,7 +4,7 @@ include:
 
 services:
   sonarr:
-    image: ghcr.io/linuxserver/sonarr:4.0.14
+    image: ghcr.io/linuxserver/sonarr:4.0.15
     container_name: sonarr
     restart: unless-stopped
     networks:
@@ -28,6 +28,7 @@ services:
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
+      wud.link.template: https://github.com/Sonarr/Sonarr/releases
       wud.display.icon: sh:sonarr
       wud.tag.include: ^\d+\.\d+\.\d+$$
       # Traefik
