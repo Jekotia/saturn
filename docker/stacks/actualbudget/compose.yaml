@@ -3,7 +3,7 @@ include:
 
 services:
   actualbudget:
-    image: ghcr.io/actualbudget/actual:25.7.1
+    image: ghcr.io/actualbudget/actual:25.8.0
     container_name: actualbudget
     restart: unless-stopped
     networks:
@@ -30,6 +30,7 @@ services:
     labels:
       # What's Up Docker
       wud.watch: true
+      wud.link.template: https://actualbudget.org/blog/tags/release
       wud.watch.digest: false
       wud.display.icon: sh:actual-budget
       wud.tag.include: ^\d+\.\d+\.\d+$$
