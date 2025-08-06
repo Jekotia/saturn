@@ -19,6 +19,7 @@ services:
     labels:
       # What's Up Docker
       wud.watch: true
+      wud.link.template: https://github.com/advplyr/audiobookshelf/releases/tag/v$${major}.$${minor}.$${patch}
       wud.watch.digest: false
       wud.display.icon: sh:audiobookshelf
       wud.tag.include: ^\d+\.\d+\.\d+$$
