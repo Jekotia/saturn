@@ -3,7 +3,7 @@ include:
 
 services:
   resilio-sync:
-    image: ghcr.io/linuxserver/resilio-sync:3.0.3
+    image: ghcr.io/linuxserver/resilio-sync:3.1.0
     container_name: resilio-sync
     restart: unless-stopped
     networks:
@@ -21,6 +21,7 @@ services:
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
+      wud.link.template: https://help.resilio.com/hc/en-us/articles/31386579044755-Resilio-Sync-3-0-change-log
       wud.display.icon: sh:resilio-sync
       wud.tag.include: ^\d+\.\d+\.\d+$$
       # Traefik
