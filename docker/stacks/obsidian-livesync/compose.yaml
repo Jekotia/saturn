@@ -5,7 +5,7 @@ services:
   obsidian-livesync:
     tty: true
     stdin_open: true
-    image: couchdb:3.4.3
+    image: couchdb:3.5.0
     container_name: obsidian-livesync
     restart: unless-stopped
     environment:
@@ -20,6 +20,7 @@ services:
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
+      wud.link.template: https://docs.couchdb.org/en/stable/whatsnew/$${major}.$${minor}.html#version-$${major}-$${minor}-$${patch}
       wud.display.icon: sh:couchdb
       wud.tag.include: ^\d+\.\d+\.\d+$$
       # Traefik
