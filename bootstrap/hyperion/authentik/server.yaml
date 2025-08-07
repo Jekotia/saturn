@@ -1,6 +1,6 @@
 services:
   authentik.server:
-    image: ghcr.io/goauthentik/server:2025.6.3
+    image: ghcr.io/goauthentik/server:2025.6.4
     container_name: authentik.server
     restart: always
     command: server
@@ -34,6 +34,7 @@ services:
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
+      wud.link.template: https://github.com/goauthentik/authentik/releases/tag/version%2F$${major}.$${minor}.$${patch}
       wud.display.icon: sh:authentik
       wud.tag.include: ^\d+\.\d+\.\d+$$
       # Traefik
