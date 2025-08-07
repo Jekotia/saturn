@@ -1,6 +1,6 @@
 services:
   komodo.periphery:
-    image: ghcr.io/moghtech/komodo-periphery:1.18.1
+    image: ghcr.io/moghtech/komodo-periphery:1.18.4
     container_name: komodo.periphery
     restart: always
     logging:
@@ -25,5 +25,6 @@ services:
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
+      wud.link.template: https://github.com/moghtech/komodo/releases/tag/v$${major}.$${minor}.$${patch}
       wud.display.icon: sh:komodo
       wud.tag.include: ^\d+\.\d+\.\d+$$
