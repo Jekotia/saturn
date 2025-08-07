@@ -1,6 +1,6 @@
 services:
   paperless.app:
-    image: ghcr.io/paperless-ngx/paperless-ngx:2.16.3
+    image: ghcr.io/paperless-ngx/paperless-ngx:2.17.1
     container_name: paperless.app
     restart: unless-stopped
     user: "1000"
@@ -63,6 +63,7 @@ services:
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
+      wud.link.template: https://github.com/paperless-ngx/paperless-ngx/releases/tag/v$${major}.$${minor}.$${patch}
       wud.display.icon: sh:paperless-ngx
       wud.tag.include: ^\d+\.\d+\.\d+$$
       # Traefik
