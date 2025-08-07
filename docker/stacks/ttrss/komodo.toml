@@ -47,12 +47,12 @@ NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
 # -1 - readonly
 #  0 - default user
 # 10 - admin
-ADMIN_USER_ACCESS_LEVEL=-2
+# ADMIN_USER_ACCESS_LEVEL=-2
 
 # Auto create another user (in addition to built-in admin) unless it already exists.
-AUTO_CREATE_USER=[[TTRSS_ADMIN_USER]]
-AUTO_CREATE_USER_PASS=[[TTRSS_ADMIN_PASSWORD]]
-AUTO_CREATE_USER_ACCESS_LEVEL=10
+# AUTO_CREATE_USER=[[TTRSS_ADMIN_USER]]
+# AUTO_CREATE_USER_PASS=[[TTRSS_ADMIN_PASSWORD]]
+# AUTO_CREATE_USER_ACCESS_LEVEL=10
 
 # Default database credentials.
 TTRSS_DB_USER=ttrss
