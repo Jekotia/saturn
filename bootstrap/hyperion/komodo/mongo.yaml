@@ -1,6 +1,6 @@
 services:
   komodo.mongo:
-    image: mongo:8.0.8-noble
+    image: mongo:8.0.12-noble
     container_name: komodo.mongo
     command: --quiet --wiredTigerCacheSizeGB 0.25
     restart: always
