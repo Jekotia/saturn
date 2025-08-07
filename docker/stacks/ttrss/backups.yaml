@@ -1,6 +1,6 @@
 services:
   backups:
-    image: cthulhoo/ttrss-fpm-pgsql-static:851ddf4b
+    image: cthulhoo/ttrss-fpm-pgsql-static:88806115
     container_name: ttrss.backups
     restart: unless-stopped
     networks:
