@@ -51,7 +51,7 @@ ADMIN_USER_ACCESS_LEVEL=-2
 
 # Auto create another user (in addition to built-in admin) unless it already exists.
 AUTO_CREATE_USER=[[TTRSS_ADMIN_USER]]
-#AUTO_CREATE_USER_PASS=
+AUTO_CREATE_USER_PASS=[[TTRSS_ADMIN_PASSWORD]]
 AUTO_CREATE_USER_ACCESS_LEVEL=10
 
 # Default database credentials.
