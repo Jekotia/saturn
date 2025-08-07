@@ -64,7 +64,7 @@ TTRSS_DB_HOST=ttrss.db
 # See tt-rss/.docker/app/Dockerfile for a complete list.
 
 # You probably shouldn't disable auth_internal unless you know what you're doing.
-TTRSS_PLUGINS=auth_oidc,nginx_xaccel
+TTRSS_PLUGINS=auth_internal,auth_oidc,nginx_xaccel
 # TTRSS_SINGLE_USER_MODE=true
 # TTRSS_SESSION_COOKIE_LIFETIME=2592000
 # TTRSS_FORCE_ARTICLE_PURGE=30
