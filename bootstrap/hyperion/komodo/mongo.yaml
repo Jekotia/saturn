@@ -22,5 +22,6 @@ services:
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
+      wud.link.template: https://www.mongodb.com/docs/manual/release-notes/$${major}.0/#std-label-release-notes-$${major}.0
       wud.display.icon: sh:mongodb
       wud.tag.include: ^\d+\.\d+\.\d+-noble$$
