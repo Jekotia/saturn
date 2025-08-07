@@ -1,7 +1,7 @@
 name: bootstrap
 services:
   komodo.periphery:
-    image: ghcr.io/moghtech/komodo-periphery:1.18.1@sha256:920aac112634d058fda59a816c798cae9acf9fc6a2e5c95f60808a946620ea3d
+    image: ghcr.io/moghtech/komodo-periphery:1.18.4
     container_name: komodo.periphery
     env_file:
       - /mnt/storage/srv/saturn/bootstrap/enceladus/komodo.env
