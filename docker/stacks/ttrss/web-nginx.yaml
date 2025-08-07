@@ -1,6 +1,6 @@
 services:
   web-nginx:
-    image: cthulhoo/ttrss-web-nginx:88806115
+    image: cthulhoo/ttrss-web-nginx:${RELEASE_TAG}
     container_name: ttrss.web-nginx
     restart: unless-stopped
     networks:

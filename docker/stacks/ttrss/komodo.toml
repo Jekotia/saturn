@@ -24,6 +24,8 @@ file_paths = [
   "../../networks/proxy_private.yaml"
 ]
 environment = """
+RELEASE_TAG=88806115
+
 # TTRSS_URL_PREFIX=
 NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
 
