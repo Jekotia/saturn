@@ -1,6 +1,6 @@
 services:
   paperless.db:
-    image: postgres:13.11-alpine
+    image: postgres:13.21-alpine
     container_name: paperless.db
     restart: unless-stopped
     networks:
