@@ -1,0 +1,49 @@
+[[stack]]
+name = "spotizerr"
+tags = ["media-management"]
+[stack.config]
+server = "hyperion"
+links = [
+  "https://spotizerr.jekotia.net",
+  "https://github.com/Xoconoch/spotizerr",
+  "https://hub.docker.com/r/cooldockerizer93/spotizerr"
+]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/spotizerr/"
+file_paths = [
+  "compose.yaml",
+  "app.yaml",
+  "redis.yaml",
+  "../../networks/proxy_private.yaml",
+  "../../volumes/smb-multimedia.yaml"
+]
+environment = """
+TIMEZONE=[[TIMEZONE]]
+
+# SPOTIZERR_URL_PREFIX=
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+
+MULTIMEDIA_HOST=[[MULTIMEDIA_HOST]]
+MULTIMEDIA_USER=[[MULTIMEDIA_USER]]
+MULTIMEDIA_PASS=[[MULTIMEDIA_PASS]]
+
+### Multi-user settings, disabled by default.
+# Enable authentication (i.e. multi-user mode).
+ENABLE_AUTH=false
+
+# Basic Authentication settings.
+# JWT_SECRET=[[SPOTIZERR_JWT_TOKEN]]
+
+# How much a session persists, in hours. 720h = 30 days.
+# JWT_EXPIRATION_HOURS=720
+
+# Default admins creds, please change the password or delete this account after you create your own
+# DEFAULT_ADMIN_USERNAME=[[SPOTIZERR_DEFAULT_ADMIN_USER]]
+# DEFAULT_ADMIN_PASSWORD=[[SPOTIZERR_DEFAULT_ADMIN_PASS]]
+
+# Whether to allow new users to register themselves or leave that only available for admins
+# DISABLE_REGISTRATION=false
+"""

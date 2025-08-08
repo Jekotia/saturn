@@ -1,0 +1,20 @@
+services:
+  spotizerr.redis:
+    image: redis:8.2.0-alpine
+    container_name: spotizerr.redis
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+    networks:
+      - spotizerr
+    command: redis-server --appendonly yes
+    labels:
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:redis
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+
+volumes:
+  redis-data:
+    driver: local

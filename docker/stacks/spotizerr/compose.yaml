@@ -1,0 +1,8 @@
+include:
+  - app.yaml
+  - redis.yaml
+  - ../../networks/proxy_private.yaml
+  - ../../volumes/smb-multimedia.yaml
+
+networks:
+  spotizerr:
