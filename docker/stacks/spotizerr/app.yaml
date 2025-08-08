@@ -4,7 +4,7 @@ services:
     container_name: spotizerr.app
     restart: unless-stopped
     depends_on:
-      - redis
+      - spotizerr.redis
     networks:
       - proxy_private
       - spotizerr
@@ -20,7 +20,7 @@ services:
       UMASK: 0022
       REDIS_HOST: spotizerr.redis
       REDIS_PORT: 6379
-      REDIS_DB: ${REDIS_DB}
+      REDIS_DB: 0
       REDIS_URL: redis://:spotizerr.redis:6379/0
       REDIS_BACKEND: redis://:spotizerr.redis:6379/0
       EXPLICIT_FILTER: false
