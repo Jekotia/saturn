@@ -15,21 +15,13 @@ services:
       - /srv/application_data/spotizerr/app/logs:/app/logs  # <-- Volume for persistent logs
     environment:
       HOST: 0.0.0.0 # Interface to bind to. Unless you know what you're doing, don't change this
-      PUID: 1000
-      PGID: 1000
-      UMASK: 022
-      REDIS_HOST: spotizerr.redis
-      REDIS_PORT: 6379
-      REDIS_DB: 0
-      REDIS_URL: redis://:spotizerr.redis:6379/0
-      REDIS_BACKEND: redis://:spotizerr.redis:6379/0
+      PUID: ${UID:-1000}
+      PGID: ${GID:-1000}
+      # UMASK: "0022"
+      REDIS_URL: redis://spotizerr.redis:6379/0
+      REDIS_BACKEND: redis://spotizerr.redis:6379/0
       EXPLICIT_FILTER: false
-      ENABLE_AUTH: ${ENABLE_AUTH} # Set to true to enable authentication
-      # JWT_SECRET: ${JWT_SECRET} # Set to a random string for production
-      # JWT_EXPIRATION_HOURS: ${JWT_EXPIRATION_HOURS} # Set to 24 for 24 hours
-      # DEFAULT_ADMIN_USERNAME: ${DEFAULT_ADMIN_USERNAME} # Set to admin
-      # DEFAULT_ADMIN_PASSWORD: ${DEFAULT_ADMIN_PASSWORD} # Set to admin123
-      # DISABLE_REGISTRATION: ${DISABLE_REGISTRATION} # Set to true to disable registration
+      ENABLE_AUTH: false
     labels:
       # What's Up Docker
       wud.watch: true
@@ -43,7 +35,7 @@ services:
       traefik.http.routers.spotizerr.entrypoints: websecure
       traefik.http.routers.spotizerr.rule: Host(`${SPOTIZERR_URL_PREFIX:-spotizerr.}${NETWORK_DOMAIN}`)
       traefik.http.routers.spotizerr.tls.certresolver: dns-cloudflare
-      # traefik.http.routers.spotizerr.middlewares: forwardAuth-authentik@file
+      traefik.http.routers.spotizerr.middlewares: forwardAuth-authentik@file
       # Traefik, Services
       traefik.http.routers.spotizerr.service: spotizerr
       traefik.http.services.spotizerr.loadbalancer.server.port: 7171

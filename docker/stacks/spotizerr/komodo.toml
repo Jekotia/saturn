@@ -29,21 +29,4 @@ NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
 MULTIMEDIA_HOST=[[MULTIMEDIA_HOST]]
 MULTIMEDIA_USER=[[MULTIMEDIA_USER]]
 MULTIMEDIA_PASS=[[MULTIMEDIA_PASS]]
-
-### Multi-user settings, disabled by default.
-# Enable authentication (i.e. multi-user mode).
-ENABLE_AUTH=false
-
-# Basic Authentication settings.
-# JWT_SECRET=[[SPOTIZERR_JWT_TOKEN]]
-
-# How much a session persists, in hours. 720h = 30 days.
-# JWT_EXPIRATION_HOURS=720
-
-# Default admins creds, please change the password or delete this account after you create your own
-# DEFAULT_ADMIN_USERNAME=[[SPOTIZERR_DEFAULT_ADMIN_USER]]
-# DEFAULT_ADMIN_PASSWORD=[[SPOTIZERR_DEFAULT_ADMIN_PASS]]
-
-# Whether to allow new users to register themselves or leave that only available for admins
-# DISABLE_REGISTRATION=false
 """
