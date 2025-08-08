@@ -17,7 +17,7 @@ services:
       HOST: 0.0.0.0 # Interface to bind to. Unless you know what you're doing, don't change this
       PUID: 1000
       PGID: 1000
-      UMASK: 0022
+      UMASK: 022
       REDIS_HOST: spotizerr.redis
       REDIS_PORT: 6379
       REDIS_DB: 0
