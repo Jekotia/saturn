@@ -9,9 +9,8 @@ services:
       - proxy_private
       - spotizerr
     volumes:
-      - smb.multimedia:/multimedia
       - /srv/application_data/spotizerr/app/data:/app/data
-      # - /srv/application_data/spotizerr/app/downloads:/app/downloads  # <-- Change this for your music library dir
+      - smb.multimedia:/app/downloads  # <-- Change this for your music library dir
       - /srv/application_data/spotizerr/app/logs:/app/logs  # <-- Volume for persistent logs
     environment:
       HOST: 0.0.0.0 # Interface to bind to. Unless you know what you're doing, don't change this
