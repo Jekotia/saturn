@@ -16,8 +16,6 @@ services:
       wud.watch.digest: false
       wud.display.icon: sh:microsoft-sql-server
       wud.tag.include: ^\d+\.\d+\.\d+$$
-    # networks: !override
-    #   - default
 
   web:
     image: ghcr.io/bitwarden/web:2025.7.2
@@ -25,8 +23,6 @@ services:
       - .env
     volumes:
       - /srv/application_data/bitwarden/web:/etc/bitwarden/web
-    # networks: !override
-    #   - default
     labels:
       # What's Up Docker
       wud.watch: true
@@ -40,8 +36,6 @@ services:
       - .env
     volumes:
       - /srv/application_data/bitwarden/core/attachments:/etc/bitwarden/core/attachments
-    # networks: !override
-    #   - default
     labels:
       # What's Up Docker
       wud.watch: true
@@ -57,8 +51,6 @@ services:
       - /srv/application_data/bitwarden/core:/etc/bitwarden/core
       - /srv/application_data/bitwarden/ca-certificates:/etc/bitwarden/ca-certificates
       - /srv/application_data/bitwarden/logs/api:/etc/bitwarden/logs
-    # networks: !override
-    #   - default
     labels:
       # What's Up Docker
       wud.watch: true
@@ -75,8 +67,6 @@ services:
       - /srv/application_data/bitwarden/core:/etc/bitwarden/core
       - /srv/application_data/bitwarden/ca-certificates:/etc/bitwarden/ca-certificates
       - /srv/application_data/bitwarden/logs/identity:/etc/bitwarden/logs
-    # networks: !override
-    #   - default
     labels:
       # What's Up Docker
       wud.watch: true
@@ -93,8 +83,6 @@ services:
       - /srv/application_data/bitwarden/core:/etc/bitwarden/core
       - /srv/application_data/bitwarden/ca-certificates:/etc/bitwarden/ca-certificates
       - /srv/application_data/bitwarden/logs/sso:/etc/bitwarden/logs
-    # networks: !override
-    #   - default
     labels:
       # What's Up Docker
       wud.watch: true
@@ -110,8 +98,6 @@ services:
       - /srv/application_data/bitwarden/core:/etc/bitwarden/core
       - /srv/application_data/bitwarden/ca-certificates:/etc/bitwarden/ca-certificates
       - /srv/application_data/bitwarden/logs/admin:/etc/bitwarden/logs
-    # networks: !override
-    #   - default
     labels:
       # What's Up Docker
       wud.watch: true
@@ -126,8 +112,6 @@ services:
     volumes:
       - /srv/application_data/bitwarden/ca-certificates:/etc/bitwarden/ca-certificates
       - /srv/application_data/bitwarden/logs/icons:/etc/bitwarden/logs
-    networks: !override
-      - default
     labels:
       # What's Up Docker
       wud.watch: true
@@ -142,8 +126,6 @@ services:
     volumes:
       - /srv/application_data/bitwarden/ca-certificates:/etc/bitwarden/ca-certificates
       - /srv/application_data/bitwarden/logs/notifications:/etc/bitwarden/logs
-    networks: !override
-      - default
     labels:
       # What's Up Docker
       wud.watch: true
@@ -158,8 +140,6 @@ services:
     volumes:
       - /srv/application_data/bitwarden/ca-certificates:/etc/bitwarden/ca-certificates
       - /srv/application_data/bitwarden/logs/events:/etc/bitwarden/logs
-    # networks: !override
-    #   - default
     labels:
       # What's Up Docker
       wud.watch: true
