@@ -1,0 +1,192 @@
+include:
+  - ../../networks/proxy_private.yaml
+
+services:
+  mssql:
+    image: ghcr.io/bitwarden/mssql:2025.7.3
+    env_file: !override
+      - .env
+    volumes:
+      - /srv/application_data/bitwarden/mssql/data:/var/opt/mssql/data
+      - /srv/application_data/bitwarden/logs/mssql:/var/opt/mssql/log
+      - /srv/application_data/bitwarden/mssql/backups:/etc/bitwarden/mssql/backups
+    labels:
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:microsoft-sql-server
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+    networks: !override
+      - default
+
+  web:
+    image: ghcr.io/bitwarden/web:2025.7.2
+    env_file: !override
+      - .env
+    volumes:
+      - /srv/application_data/bitwarden/web:/etc/bitwarden/web
+    networks: !override
+      - default
+    labels:
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:bitwarden
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+
+  attachments:
+    image: ghcr.io/bitwarden/attachments:2025.7.3
+    env_file: !override
+      - .env
+    volumes:
+      - /srv/application_data/bitwarden/core/attachments:/etc/bitwarden/core/attachments
+    networks: !override
+      - default
+    labels:
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:bitwarden
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+
+  api:
+    image: ghcr.io/bitwarden/api:2025.7.3
+    env_file: !override
+      - .env
+    volumes:
+      - /srv/application_data/bitwarden/core:/etc/bitwarden/core
+      - /srv/application_data/bitwarden/ca-certificates:/etc/bitwarden/ca-certificates
+      - /srv/application_data/bitwarden/logs/api:/etc/bitwarden/logs
+    networks: !override
+      - default
+    labels:
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:bitwarden
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+
+  identity:
+    image: ghcr.io/bitwarden/identity:2025.7.3
+    env_file: !override
+      - .env
+    volumes:
+      - /srv/application_data/bitwarden/identity:/etc/bitwarden/identity
+      - /srv/application_data/bitwarden/core:/etc/bitwarden/core
+      - /srv/application_data/bitwarden/ca-certificates:/etc/bitwarden/ca-certificates
+      - /srv/application_data/bitwarden/logs/identity:/etc/bitwarden/logs
+    networks: !override
+      - default
+    labels:
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:bitwarden
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+
+  sso:
+    image: ghcr.io/bitwarden/sso:2025.7.3
+    env_file: !override
+      - .env
+    volumes:
+      - /srv/application_data/bitwarden/identity:/etc/bitwarden/identity
+      - /srv/application_data/bitwarden/core:/etc/bitwarden/core
+      - /srv/application_data/bitwarden/ca-certificates:/etc/bitwarden/ca-certificates
+      - /srv/application_data/bitwarden/logs/sso:/etc/bitwarden/logs
+    networks: !override
+      - default
+    labels:
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:bitwarden
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+
+  admin:
+    image: ghcr.io/bitwarden/admin:2025.7.3
+    env_file: !override
+      - .env
+    volumes:
+      - /srv/application_data/bitwarden/core:/etc/bitwarden/core
+      - /srv/application_data/bitwarden/ca-certificates:/etc/bitwarden/ca-certificates
+      - /srv/application_data/bitwarden/logs/admin:/etc/bitwarden/logs
+    networks: !override
+      - default
+    labels:
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:bitwarden
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+
+  icons:
+    image: ghcr.io/bitwarden/icons:2025.7.3
+    env_file: !override
+      - .env
+    volumes:
+      - /srv/application_data/bitwarden/ca-certificates:/etc/bitwarden/ca-certificates
+      - /srv/application_data/bitwarden/logs/icons:/etc/bitwarden/logs
+    networks: !override
+      - default
+    labels:
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:bitwarden
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+
+  notifications:
+    image: ghcr.io/bitwarden/notifications:2025.7.3
+    env_file: !override
+      - .env
+    volumes:
+      - /srv/application_data/bitwarden/ca-certificates:/etc/bitwarden/ca-certificates
+      - /srv/application_data/bitwarden/logs/notifications:/etc/bitwarden/logs
+    networks: !override
+      - default
+    labels:
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:bitwarden
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+
+  events:
+    image: ghcr.io/bitwarden/events:2025.7.3
+    env_file: !override
+      - .env
+    volumes:
+      - /srv/application_data/bitwarden/ca-certificates:/etc/bitwarden/ca-certificates
+      - /srv/application_data/bitwarden/logs/events:/etc/bitwarden/logs
+    networks: !override
+      - default
+    labels:
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:bitwarden
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+
+  nginx:
+    image: ghcr.io/bitwarden/nginx:2025.7.3
+    ports: !reset []
+    volumes:
+      - /srv/application_data/bitwarden/logs/nginx:/var/log/nginx
+      - /srv/application_data/bitwarden/nginx/conf:/etc/bitwarden/nginx
+      - /srv/application_data/bitwarden/nginx/letsencrypt:/etc/letsencrypt
+      - /srv/application_data/bitwarden/nginx/ssl:/etc/ssl
+    env_file: !override
+      - .env
+    networks: !override
+      - default
+      - proxy_private
+    labels:
+      # Traefik
+      traefik.enable: "true"
+      # Traefik, Router
+      traefik.http.routers.bitwarden_nginx.entrypoints: websecure
+      traefik.http.routers.bitwarden_nginx.rule: Host(`${BITWARDEN_URL_PREFIX:-vault.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.bitwarden_nginx.tls.certresolver: dns-cloudflare
+       # Traefik, Services
+      traefik.http.routers.bitwarden_nginx.service: bitwarden_nginx
+      traefik.http.services.bitwarden_nginx.loadbalancer.server.port: 8080

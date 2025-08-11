@@ -1,0 +1,67 @@
+[[stack]]
+name = "bitwarden"
+tags = ["personal"]
+[stack.config]
+server = "hyperion"
+links = [
+  "https://vault.jekotia.net",
+  "https://bitwarden.com/help/install-on-premise-manual/",
+  "https://github.com/orgs/bitwarden/packages"
+]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/bitwarden/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+TIMEZONE=[[TIMEZONE]]
+
+# BITWARDEN_URL_PREFIX=
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+
+# from global.env
+ASPNETCORE_ENVIRONMENT=Production
+globalSettings__selfHosted=true
+globalSettings__baseServiceUri__vault=http://localhost
+globalSettings__pushRelayBaseUri=https://push.bitwarden.com
+
+# from mssql.env
+ACCEPT_EULA=Y
+MSSQL_PID=Express
+SA_PASSWORD=[[BITWARDEN_MSSQL_PASSWORD]]
+
+# from global.override.env
+globalSettings__baseServiceUri__vault=https://${BITWARDEN_URL_PREFIX:-vault}.[[NETWORK_DOMAIN]]
+globalSettings__baseServiceUri__cloudRegion=[[BITWARDEN_CLOUD_REGION]]
+globalSettings__sqlServer__connectionString="Data Source=tcp:mssql,1433;Initial Catalog=vault;Persist Security Info=False;User ID=sa;Password=[[BITWARDEN_MSSQL_PASSWORD]];Multiple Active Result Sets=False;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True"
+globalSettings__identityServer__certificatePassword=[[BITWARDEN_IDENTITY_CERT_PASSWORD]]
+globalSettings__internalIdentityKey=[[BITWARDEN_INTERNAL_IDENTITY_KEY]]
+globalSettings__oidcIdentityClientKey=[[BITWARDEN_OIDC_IDENTITY_KEY]]
+# globalSettings__duo__aKey=[[BITWARDEN_DUO_AKEY]]
+globalSettings__installation__id=[[BITWARDEN_INSTALLATION_ID]]
+globalSettings__installation__key=[[BITWARDEN_INSTALLATION_KEY]]
+# globalSettings__yubico__clientId=REPLACE
+# globalSettings__yubico__key=REPLACE
+globalSettings__mail__replyToEmail=[[BITWARDEN_MAIL_REPLYTO_EMAIL]]
+globalSettings__mail__smtp__host=[[BITWARDEN_MAIL_SMTP_HOST]]
+globalSettings__mail__smtp__port=[[BITWARDEN_MAIL_SMTP_PORT]]
+globalSettings__mail__smtp__ssl=[[BITWARDEN_MAIL_SMTP_SSL]]
+globalSettings__mail__smtp__username=[[BITWARDEN_MAIL_SMTP_USERNAME]]
+globalSettings__mail__smtp__password=[[BITWARDEN_MAIL_SMTP_PASSWORD]]
+globalSettings__disableUserRegistration=false
+# globalSettings__hibpApiKey=REPLACE
+adminSettings__admins=[[BITWARDEN_ADMIN_EMAILS]]
+
+# from mssql.override.env
+SA_PASSWORD=[[BITWARDEN_MSSQL_PASSWORD]]
+DATABASE=vault
+
+# from uid.env
+LOCAL_UID=[[BITWARDEN_UID]]
+LOCAL_GID=[[BITWARDEN_GID]]
+
+"""
