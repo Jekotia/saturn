@@ -30,7 +30,7 @@ services:
       # Glance
       glance.name: Bytestash
       glance.icon: sh:bytestash
-      glance.url: https://bytestash.jekotia.net
+      glance.url: https://${BYTESTASH_URL_PREFIX:-bytestash.}${NETWORK_DOMAIN}
       glance.description: Code snippets
       glance.category: dev
       # What's Up Docker

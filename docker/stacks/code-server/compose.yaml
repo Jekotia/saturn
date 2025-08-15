@@ -31,7 +31,7 @@ services:
       # Glance
       glance.name: code-server
       glance.icon: sh:vscode
-      glance.url: https://dev.jekotia.net
+      glance.url: https://${CODESERVER_URL_PREFIX:-code-server.}${NETWORK_DOMAIN}
       glance.description: Browser-based IDE
       glance.category: dev
       # Traefik

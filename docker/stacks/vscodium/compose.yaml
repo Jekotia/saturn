@@ -32,7 +32,7 @@ services:
       # Glance
       glance.name: VSCodium
       glance.icon: sh:vscodium
-      glance.url: https://vscodium.jekotia.net
+      glance.url: https://${VSCODIUM_URL_PREFIX:-vscodium.}${NETWORK_DOMAIN}
       glance.description: VSCodium via VNC
       glance.category: dev
       # Traefik
