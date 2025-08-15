@@ -13,7 +13,7 @@ services:
     labels:
       # Glance
       glance.name: Github Pages
-      glance.icon: sh:github
+      glance.icon: sh:github-light
       glance.url: https://${GITHUB_PAGES_URL_PREFIX:-github-pages.}${NETWORK_DOMAIN}
       glance.description: Local test environment for jekotia.net
       glance.category: dev
