@@ -36,6 +36,13 @@ services:
       - immich
       - proxy_private
     labels:
+      # Glance
+      glance.name: Immich
+      glance.icon: sh:immich
+      glance.url: https://${IMMICH_URL_PREFIX:-immich.}${NETWORK_DOMAIN}
+      glance.description: Image library with phone sync
+      glance.category: personal
+      glance.id: immich
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
@@ -69,6 +76,10 @@ services:
     networks:
       - immich
     labels:
+      # Glance
+      glance.name: Machine Learning
+      glance.parent: immich
+      glance.category: personal
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
@@ -84,6 +95,10 @@ services:
     networks:
       - immich
     labels:
+      # Glance
+      glance.name: Redis
+      glance.parent: immich
+      glance.category: personal
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
@@ -113,6 +128,10 @@ services:
     networks:
       - immich
     labels:
+      # Glance
+      glance.name: PostgreSQL
+      glance.parent: immich
+      glance.category: personal
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false

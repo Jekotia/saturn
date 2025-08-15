@@ -60,6 +60,13 @@ services:
             }
           }
     labels:
+      # Glance
+      glance.name: Paperless-NGX
+      glance.icon: sh:paperless-ngx
+      glance.url: https://${PAPERLESS_URL_PREFIX:-paperless-ngx.}${NETWORK_DOMAIN}
+      glance.description: Document management
+      glance.category: personal
+      glance.id: paperless
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false

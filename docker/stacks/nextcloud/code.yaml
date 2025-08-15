@@ -19,11 +19,16 @@ services:
     volumes:
       - /srv/application_data/nextcloud/code/data/etc/coolwsd/coolwsd.xml:/etc/coolwsd/coolwsd.xml
     labels:
+      # Glance
+      glance.name: Collabora Office
+      glance.parent: nextcloud
+      glance.category: personal
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.code-office.entrypoints: websecure
       traefik.http.routers.code-office.rule: Host(`${CODE_OFFICE_URL_PREFIX:-office.}${NETWORK_DOMAIN}`)
       traefik.http.routers.code-office.tls.certresolver: dns-cloudflare
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.code-office.service: code-office
       traefik.http.services.code-office.loadbalancer.server.port: 9980

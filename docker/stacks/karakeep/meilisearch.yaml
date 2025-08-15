@@ -13,3 +13,8 @@ services:
       - karakeep
     volumes:
       - /srv/application_data/karakeep/meilisearch/data:/meili_data
+    labels:
+      # Glance
+      glance.name: Meilisearch
+      glance.parent: karakeep
+      glance.category: personal

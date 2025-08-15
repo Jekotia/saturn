@@ -12,3 +12,8 @@ services:
       - --hide-scrollbars
     networks:
       - karakeep
+    labels:
+      # Glance
+      glance.name: Chrome
+      glance.parent: karakeep
+      glance.category: personal

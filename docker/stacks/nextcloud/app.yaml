@@ -37,16 +37,23 @@ services:
       - office
       - proxy_private
     labels:
-      diun.enable: "true"
+      # Glance
+      glance.name: Nextcloud
+      glance.icon: sh:nextcloud
+      glance.url: https://${NEXTCLOUD_URL_PREFIX:-nextcloud.}${NETWORK_DOMAIN}
+      glance.description: Cloud storage
+      glance.category: personal
+      glance.id: nextcloud
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.nextcloud.entrypoints: websecure
       traefik.http.routers.nextcloud.rule: Host(`${NEXTCLOUD_URL_PREFIX:-nextcloud.}${NETWORK_DOMAIN}`)
       traefik.http.routers.nextcloud.tls.certresolver: dns-cloudflare
-      # Frontend => Services
+      traefik.http.routers.nextcloud.middlewares: nextcloud-dav
+      # Traefik, Services
       traefik.http.routers.nextcloud.service: nextcloud
       traefik.http.services.nextcloud.loadbalancer.server.port: 80
-      # Frontend => dav middlewares
-      traefik.http.routers.nextcloud.middlewares: nextcloud-dav
+      # Traefik, dav middlewares
       traefik.http.middlewares.nextcloud-dav.replacepathregex.regex: ^/.well-known/ca(l|rd)dav
       traefik.http.middlewares.nextcloud-dav.replacepathregex.replacement: /remote.php/dav/

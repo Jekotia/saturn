@@ -16,3 +16,8 @@ services:
       MARIADB_DISABLE_UPGRADE_BACKUP: 1
     networks:
       - nextcloud
+    labels:
+      # Glance
+      glance.name: MariaDB
+      glance.parent: nextcloud
+      glance.category: personal

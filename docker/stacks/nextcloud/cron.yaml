@@ -21,3 +21,8 @@ services:
       - nextcloud.redis
     networks:
       - nextcloud
+    labels:
+      # Glance
+      glance.name: Cron
+      glance.parent: nextcloud
+      glance.category: personal

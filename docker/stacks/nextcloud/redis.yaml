@@ -6,4 +6,9 @@ services:
     restart: always
     networks:
       - nextcloud
+    labels:
+      # Glance
+      glance.name: Redis
+      glance.parent: nextcloud
+      glance.category: personal
  

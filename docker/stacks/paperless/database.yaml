@@ -12,6 +12,10 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-paperless}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     labels:
+      # Glance
+      glance.name: PostgreSQL
+      glance.parent: paperless
+      glance.category: personal
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false

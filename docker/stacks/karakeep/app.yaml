@@ -38,10 +38,17 @@ services:
       # Optional but highly recommended:
       DISABLE_SIGNUPS: true
     labels:
+      # Glance
+      glance.name: Karakeep
+      glance.icon: sh:karakeep
+      glance.url: https://${KARAKEEP_URL_PREFIX:-karakeep.}${NETWORK_DOMAIN}
+      glance.description: Read-it-later with AI summaries & tagging
+      glance.category: personal
+      glance.id: karakeep
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
-      wud.display.icon: sh:karakeep
+      wud.display.icon: sh:karakeep-light
       wud.tag.include: ^\d+\.\d+\.\d+$$
       # Traefik
       traefik.enable: "true"

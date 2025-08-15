@@ -28,6 +28,12 @@ services:
       # See all options and more details at https://actualbudget.github.io/docs/Installing/Configuration
       # !! If you are not using any of these options, remove the 'environment:' tag entirely.
     labels:
+      # Glance
+      glance.name: Actual Budget
+      glance.icon: sh:actualbudget
+      glance.url: https://${ACTUALBUDGET_URL_PREFIX:-actualbudget.}${NETWORK_DOMAIN}
+      glance.description: Budgeting
+      glance.category: personal
       # What's Up Docker
       wud.watch: true
       wud.link.template: https://actualbudget.org/blog/tags/release
