@@ -16,20 +16,22 @@ This document serves as a reference for what authentication, if any, is used for
 | service         | auth        |
 | --------------- | ----------- |
 | komodo agent    | N/A         |
+
 ## hyperion
 | service   | auth        |
 | --------- | ----------- |
 | authentik | self        |
 | komodo    | self        |
 | traefik   | forwardAuth |
-# stacks
 
+# stacks
 | stack                     | auth |
 | ------------------------- | ---- |
 | 13ft                      | none |
 | actualbudget              | OIDC |
 | audiobookshelf            | OIDC |
 | bazarr                    | forwardAuth |
+| bitwarden                 | self |
 | bytestash                 | self |
 | code-server               | forwardAuth |
 | convertx                  | forwardAuth |
@@ -67,6 +69,7 @@ This document serves as a reference for what authentication, if any, is used for
 | romm                      | OIDC |
 | rustdesk                  | N/A |
 | sonarr                    | forwardAuth |
+| spotizerr                 | forwardAuth |
 | status-overview           | none |
 | stirlingpdf               | TODO |
 | tdarr-server              | self |
