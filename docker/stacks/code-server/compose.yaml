@@ -28,13 +28,19 @@ services:
     networks:
       - proxy_private
     labels:
-      # diun.enable: "true"
+      # Glance
+      glance.name: code-server
+      glance.icon: sh:vscode
+      glance.url: https://dev.jekotia.net
+      glance.description: Browser-based IDE
+      glance.category: dev
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.code-server.entrypoints: websecure
       traefik.http.routers.code-server.rule: Host(`${CODESERVER_URL_PREFIX:-code-server.}${NETWORK_DOMAIN}`)
       traefik.http.routers.code-server.tls.certresolver: dns-cloudflare
       traefik.http.routers.code-server.middlewares: forwardAuth-authentik@file
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.code-server.service: code-server
       traefik.http.services.code-server.loadbalancer.server.port: 8443

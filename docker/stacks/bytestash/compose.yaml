@@ -27,6 +27,12 @@ services:
     networks:
       - proxy_private
     labels:
+      # Glance
+      glance.name: Bytestash
+      glance.icon: sh:bytestash
+      glance.url: https://bytestash.jekotia.net
+      glance.description: Code snippets
+      glance.category: dev
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
