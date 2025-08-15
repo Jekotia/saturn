@@ -21,6 +21,10 @@ services:
       - ../.env
     labels:
       komodo.skip: true # Prevent Komodo from stopping with StopAllContainers
+      # Glance
+      glance.parent: authentik
+      glance.name: PostgreSQL
+      glance.category: core
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false

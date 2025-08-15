@@ -12,3 +12,9 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro # Mounted as read-only
     restart: always
+    labels:
+      komodo.skip: true
+      # Glance
+      glance.parent: traefik-hyperion
+      glance.name: Docker Socket Proxy
+      glance.category: core

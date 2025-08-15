@@ -22,6 +22,10 @@ services:
       - /srv/application_data/bootstrap/komodo/periphery/etc:/srv/application_data/bootstrap/komodo/periphery/etc
     labels:
       komodo.skip: true # Prevent Komodo from stopping with StopAllContainers
+      # Glance
+      glance.parent: komodo
+      glance.name: System agent
+      glance.category: core
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false

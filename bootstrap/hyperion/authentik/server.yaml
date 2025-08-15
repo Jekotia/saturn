@@ -31,6 +31,13 @@ services:
         condition: service_healthy
     labels:
       komodo.skip: true # Prevent Komodo from stopping with StopAllContainers
+      # Glance
+      glance.name: Authentik
+      glance.icon: sh:authentik
+      glance.url: https://auth.jekotia.net
+      glance.description: Authentication
+      glance.id: authentik
+      glance.category: core
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
