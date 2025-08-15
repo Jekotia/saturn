@@ -40,7 +40,7 @@ services:
     labels:
       # Glance
       glance.name: Karakeep
-      glance.icon: sh:karakeep
+      glance.icon: sh:karakeep-light
       glance.url: https://${KARAKEEP_URL_PREFIX:-karakeep.}${NETWORK_DOMAIN}
       glance.description: Read-it-later with AI summaries & tagging
       glance.category: personal
