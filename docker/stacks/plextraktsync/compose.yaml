@@ -11,6 +11,11 @@ services:
     volumes:
       - /srv/application_data/plextraktsync/app/config:/app/config
     labels:
+      # Glance
+      glance.name: Plextraktsync
+      glance.icon: sh:python
+      glance.description: Plex playback to Trakt sync
+      glance.category: media-server
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false

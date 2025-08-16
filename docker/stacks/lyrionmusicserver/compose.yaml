@@ -43,6 +43,12 @@ services:
     networks:
       - proxy_private
     labels:
+      # Glance
+      glance.name: Lyrion Music Server
+      glance.icon: sh:lyrion-music-server
+      glance.url: https://${LYRIONMUSICSERVER_URL_PREFIX:-lms.}${NETWORK_DOMAIN}
+      glance.description: Squeezebox music server
+      glance.category: media-server
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false

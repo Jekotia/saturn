@@ -80,6 +80,12 @@ services:
       VERSION: docker
     #?- UMASK_SET=022
     labels:
+      # Glance
+      glance.name: Plex
+      glance.icon: sh:plex
+      glance.url: https://${PLEXMS_URL_PREFIX:-plex.}${NETWORK_DOMAIN}
+      glance.description: Movies & TV show library
+      glance.category: media-server
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false

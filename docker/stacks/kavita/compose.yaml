@@ -15,6 +15,12 @@ services:
     environment:
       TZ: ${TIMEZONE}
     labels:
+      # Glance
+      glance.name: Kavita
+      glance.icon: sh:kavita
+      glance.url: https://${KAVITA_URL_PREFIX:-kavita.}${NETWORK_DOMAIN}
+      glance.description: eBook library
+      glance.category: media-server
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false

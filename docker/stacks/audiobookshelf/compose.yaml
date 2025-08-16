@@ -17,6 +17,12 @@ services:
       - /srv/application_data/audiobookshelf/app/metadata:/metadata
       - /srv/application_data/audiobookshelf/app/config:/config
     labels:
+      # Glance
+      glance.name: Audiobookshelf
+      glance.icon: sh:audiobookshelf
+      glance.url: https://${AUDIOBOOKSHELF_URL_PREFIX:-audiobookshelf.}${NETWORK_DOMAIN}
+      glance.description: Podcast & audiobook library
+      glance.category: media-server
       # What's Up Docker
       wud.watch: true
       wud.link.template: https://github.com/advplyr/audiobookshelf/releases/tag/v$${major}.$${minor}.$${patch}
