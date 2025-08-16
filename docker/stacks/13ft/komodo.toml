@@ -1,6 +1,6 @@
 [[stack]]
 name = "13ft"
-tags = ["utilities"]
+tags = ["tools"]
 [stack.config]
 server = "hyperion"
 links = [

@@ -1,6 +1,6 @@
 [[stack]]
 name = "convertx"
-tags = ["utilities"]
+tags = ["tools"]
 [stack.config]
 server = "hyperion"
 links = [
