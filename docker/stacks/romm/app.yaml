@@ -36,6 +36,13 @@ services:
       - proxy_private
       - romm
     labels:
+      # Glance
+      glance.name: RomM
+      glance.icon: sh:romm
+      glance.url: https://${ROMM_URL_PREFIX:-romm.}${NETWORK_DOMAIN}
+      glance.description: ROM library manager & emulator
+      glance.category: gaming
+      glance.id: romm
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false

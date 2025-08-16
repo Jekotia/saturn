@@ -21,6 +21,10 @@ services:
       timeout: 5s
       retries: 5
     labels:
+      # Glance
+      glance.name: MariaDB
+      glance.parent: romm
+      glance.category: gaming
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
