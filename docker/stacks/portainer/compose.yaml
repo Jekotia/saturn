@@ -15,11 +15,18 @@ services:
     environment:
       TZ: ${TIMEZONE}
     labels:
+      # Glance
+      glance.name: Portainer
+      glance.icon: sh:portainer
+      glance.url: https://${PORTAINER_URL_PREFIX:-portainer.}${NETWORK_DOMAIN}
+      glance.description: Docker resource management
+      glance.category: core
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik,. Router
       traefik.http.routers.portainer.entrypoints: websecure
       traefik.http.routers.portainer.rule: Host(`${PORTAINER_URL_PREFIX:-portainer.}${NETWORK_DOMAIN}`)
       traefik.http.routers.portainer.tls: "true"
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.portainer.service: portainer
       traefik.http.services.portainer.loadbalancer.server.port: 9000

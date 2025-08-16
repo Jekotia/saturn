@@ -23,6 +23,12 @@ services:
         retries: 3
         start_period: 40s
     labels:
+      # Glance
+      glance.name: ntfy
+      glance.icon: sh:ntfy
+      glance.url: https://${NTFY_URL_PREFIX:-ntfy.}${NETWORK_DOMAIN}
+      glance.description: Notifications server
+      glance.category: core
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false

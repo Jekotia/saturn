@@ -12,12 +12,18 @@ services:
     volumes:
       - /srv/repositories/status-overview:/src/site
     labels:
-      # diun.enable: "true"
+      # Glance
+      glance.name: Status Overview
+      glance.icon: sh:ntfy
+      glance.url: https://${STATUS_OVERVIEW_URL_PREFIX:-status-overview.}${NETWORK_DOMAIN}
+      glance.description: ntfy status overview
+      glance.category: core
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.status-overview.entrypoints: websecure
       traefik.http.routers.status-overview.rule: Host(`${STATUS_OVERVIEW_URL_PREFIX:-status-overview.}${NETWORK_DOMAIN}`)
       traefik.http.routers.status-overview.tls.certresolver: dns-cloudflare
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.status-overview.service: status-overview
       traefik.http.services.status-overview.loadbalancer.server.port: 4000

@@ -10,3 +10,8 @@ services:
       - uptime-kuma.dockerproxy
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro # Mounted as read-only
+    labels:
+      # Glance
+      glance.name: Docker Socket Proxy
+      glance.parent: uptime-kuma
+      glance.category: core

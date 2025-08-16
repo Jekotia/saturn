@@ -22,7 +22,7 @@ services:
       # GHCR
       WUD_REGISTRY_GHCR_PRIVATE_USERNAME: ${WUD_REGISTRY_GHCR_PRIVATE_USERNAME}
       WUD_REGISTRY_GHCR_PRIVATE_TOKEN: ${WUD_REGISTRY_GHCR_PRIVATE_TOKEN}
-      # DOCKER hUB
+      # DOCKER HUB
       WUD_REGISTRY_HUB_PUBLIC_LOGIN: ${WUD_REGISTRY_HUB_PUBLIC_LOGIN}
       WUD_REGISTRY_HUB_PUBLIC_TOKEN: ${WUD_REGISTRY_HUB_PUBLIC_TOKEN}
     volumes:
@@ -32,6 +32,13 @@ services:
       - proxy_private
       # - whatsupdocker.socketproxy
     labels:
+      # Glance
+      glance.name: What's Up Docker
+      glance.icon: sh:wud
+      glance.url: https://${WHATSUPDOCKER_URL_PREFIX:-wud.}${NETWORK_DOMAIN}
+      glance.description: Docker image update checker
+      glance.category: core
+      glance.id: whats-up-docker
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
@@ -67,6 +74,8 @@ services:
   #   #   - 2375:2375
   #   volumes:
   #     - /var/run/docker.sock:/var/run/docker.sock:ro # Mounted as read-only
-
-# networks:
-#   whatsupdocker.socketproxy:
+  # labels:
+  #     # Glance
+  #     glance.name: Docker Socket Proxy
+  #     glance.parent: whats-up-docker
+  #     glance.category: core

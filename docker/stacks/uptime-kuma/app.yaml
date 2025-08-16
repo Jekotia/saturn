@@ -9,6 +9,13 @@ services:
     volumes:
       - /srv/application_data/uptime-kuma/app/data:/app/data
     labels:
+      # Glance
+      glance.name: Uptime Kuma
+      glance.icon: sh:uptime-kuma
+      glance.url: https://${UPTIME_KUMA_URL_PREFIX:-uptime.}${NETWORK_DOMAIN}
+      glance.description: Uptime monitor
+      glance.category: core
+      glance.id: uptime-kuma
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false

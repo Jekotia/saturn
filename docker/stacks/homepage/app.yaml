@@ -16,12 +16,20 @@ services:
       PGID: ${GID:-1000}
       HOMEPAGE_ALLOWED_HOSTS: ${HOMEPAGE_URL_PREFIX:-homepage.}${NETWORK_DOMAIN}
     labels:
+      # Glance
+      glance.name: Homepage
+      glance.icon: sh:homepage
+      glance.url: https://${HOMEPAGE_URL_PREFIX:-homepage.}${NETWORK_DOMAIN}
+      glance.description: Homepage
+      glance.category: core
+      glance.id: homepage
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.homepage.entrypoints: websecure
       traefik.http.routers.homepage.rule: Host(`${HOMEPAGE_URL_PREFIX:-homepage.}${NETWORK_DOMAIN}`)
       traefik.http.routers.homepage.tls.certresolver: dns-cloudflare
       traefik.http.routers.homepage.tls: "true"
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.homepage.service: homepage
       traefik.http.services.homepage.loadbalancer.server.port: "3000"

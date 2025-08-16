@@ -10,3 +10,8 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro # Mounted as read-only
     restart: always
+    labels:
+      # Glance
+      glance.name: Docker Socket Proxy
+      glance.parent: homepage
+      glance.category: core
