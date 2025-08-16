@@ -1,6 +1,6 @@
 [[stack]]
 name = "ttrss"
-tags = ["personal"]
+tags = ["general"]
 [stack.config]
 server = "hyperion"
 links = [
