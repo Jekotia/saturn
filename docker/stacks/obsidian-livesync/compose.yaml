@@ -16,7 +16,19 @@ services:
     volumes:
       - /srv/application_data/obsidian-livesync/couchdb/data:/opt/couchdb/data
       - /srv/application_data/obsidian-livesync/couchdb/etc:/opt/couchdb/etc/local.d
+    healthcheck:
+      test: curl --fail -s http://localhost:5984/_up | grep -Eo '\"status\":\"ok\"' || exit 1
+      start_period: 60s
+      interval: 30s
+      timeout: 10s
+      retries: 3
     labels:
+      # Glance
+      glance.name: CouchDB (Obsidian LiveSync)
+      glance.icon: sh:couchdb
+      glance.url: https://${OBSIDIAN_LIVESYNC_URL_PREFIX:-obsidian-livesync.}${NETWORK_DOMAIN}
+      glance.description: Sync database
+      glance.category: personal
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
@@ -25,10 +37,10 @@ services:
       wud.tag.include: ^\d+\.\d+\.\d+$$
       # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.obsidian-livesync.entrypoints: websecure
       traefik.http.routers.obsidian-livesync.rule: Host(`${OBSIDIAN_LIVESYNC_URL_PREFIX:-obsidian-livesync.}${NETWORK_DOMAIN}`)
       traefik.http.routers.obsidian-livesync.tls.certresolver: dns-cloudflare
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.obsidian-livesync.service: obsidian-livesync
       traefik.http.services.obsidian-livesync.loadbalancer.server.port: 5984
