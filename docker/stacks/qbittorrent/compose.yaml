@@ -21,6 +21,12 @@ services:
       WEBUI_PORT: 8080
     #?- UMASK_SET=022
     labels:
+      # Glance
+      glance.name: qBittorrent
+      glance.icon: sh:qbittorrent
+      glance.url: https://${QBITTORRENT_URL_PREFIX:-qbittorrent.}${NETWORK_DOMAIN}
+      glance.description: Torrent client
+      glance.category: media-management
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false

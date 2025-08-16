@@ -24,6 +24,12 @@ services:
       PGID: ${GID:-1000}
       TZ: ${TIMEZONE}
     labels:
+      # Glance
+      glance.name: Radarr
+      glance.icon: sh:radarr
+      glance.url: https://${RADARR_URL_PREFIX:-radarr.}${NETWORK_DOMAIN}
+      glance.description: Movie library management
+      glance.category: media-management
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false

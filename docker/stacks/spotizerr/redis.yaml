@@ -9,6 +9,10 @@ services:
       - spotizerr
     command: redis-server --appendonly yes
     labels:
+      # Glance
+      glance.name: Redis
+      glance.parent: spotizerr
+      glance.category: media-management
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false

@@ -25,6 +25,12 @@ services:
       PGID: ${GID:-1000}
       TZ: ${TIMEZONE}
     labels:
+      # Glance
+      glance.name: Sonarr
+      glance.icon: sh:sonarr
+      glance.url: https://${SONARR_URL_PREFIX:-sonarr.}${NETWORK_DOMAIN}
+      glance.description: TV show library management
+      glance.category: media-management
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false

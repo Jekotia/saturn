@@ -11,6 +11,12 @@ services:
     volumes:
       - /srv/application_data/requestrr/app/config:/root/config
     labels:
+      # Glance
+      glance.name: Requestrr
+      glance.icon: sh:requestrr
+      glance.url: https://${REQUESTRR_URL_PREFIX:-requestrr.}${NETWORK_DOMAIN}
+      glance.description: Discord-based media library requests
+      glance.category: media-management
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false

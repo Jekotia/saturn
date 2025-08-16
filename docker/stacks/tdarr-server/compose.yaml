@@ -36,6 +36,12 @@ services:
       auth: true
       apiKey: ${API_KEY}
     labels:
+      # Glance
+      glance.name: Tdarr
+      glance.icon: sh:tdarr
+      glance.url: https://${TDARR_URL_PREFIX:-tdarr.}${NETWORK_DOMAIN}
+      glance.description: Video media re-encoding
+      glance.category: media-management
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false

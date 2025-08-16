@@ -16,6 +16,12 @@ services:
       TZ: ${TIMEZONE}
       #?- UMASK_SET=022 #optional
     labels:
+      # Glance
+      glance.name: Overseerr
+      glance.icon: sh:Overseerr
+      glance.url: https://${OVERSEERR_URL_PREFIX:-overseerr.}${NETWORK_DOMAIN}
+      glance.description: Web-based media library requests
+      glance.category: media-management
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false

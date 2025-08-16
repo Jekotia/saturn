@@ -22,6 +22,13 @@ services:
       EXPLICIT_FILTER: false
       ENABLE_AUTH: false
     labels:
+      # Glance
+      glance.name: Spotizerr
+      glance.icon: sh:spotizerr
+      glance.url: https://${SPOTIZERR_URL_PREFIX:-spotizerr.}${NETWORK_DOMAIN}
+      glance.description: Music downloader
+      glance.category: media-management
+      glance.id: spotizerr
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
