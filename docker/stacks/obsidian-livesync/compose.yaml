@@ -24,7 +24,7 @@ services:
     #   retries: 3
     labels:
       # Glance
-      glance.name: CouchDB (Obsidian LiveSync)
+      glance.name: Obsidian LiveSync
       glance.icon: sh:couchdb
       glance.url: https://${OBSIDIAN_LIVESYNC_URL_PREFIX:-obsidian-livesync.}${NETWORK_DOMAIN}
       glance.description: Sync database
