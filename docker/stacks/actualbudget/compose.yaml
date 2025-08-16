@@ -30,7 +30,7 @@ services:
     labels:
       # Glance
       glance.name: Actual Budget
-      glance.icon: sh:actualbudget
+      glance.icon: sh:actual-budget
       glance.url: https://${ACTUALBUDGET_URL_PREFIX:-actualbudget.}${NETWORK_DOMAIN}
       glance.description: Budgeting
       glance.category: personal
