@@ -1,6 +1,6 @@
 [[stack]]
 name = "grocy"
-tags = ["general"]
+tags = ["personal"]
 [stack.config]
 server = "hyperion"
 links = [
