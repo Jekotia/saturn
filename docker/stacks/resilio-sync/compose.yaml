@@ -18,6 +18,12 @@ services:
       PGID: ${GID:-1000}
       TZ: ${TIMEZONE}
     labels:
+      # Glance
+      glance.name: Resilio Sync
+      glance.icon: sh:resilio-sync
+      glance.url: https://${RESILIO_SYNC_URL_PREFIX:-resilio-sync.}${NETWORK_DOMAIN}
+      glance.description: File syncronisation tool
+      glance.category: backups
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
