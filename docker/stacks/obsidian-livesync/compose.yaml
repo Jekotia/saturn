@@ -16,12 +16,12 @@ services:
     volumes:
       - /srv/application_data/obsidian-livesync/couchdb/data:/opt/couchdb/data
       - /srv/application_data/obsidian-livesync/couchdb/etc:/opt/couchdb/etc/local.d
-    # healthcheck:
-    #   test: curl --fail -s http://localhost:5984/_up | grep -Eo '\"status\":\"ok\"' || exit 1
-    #   start_period: 60s
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 3
+    healthcheck:
+      test: curl --fail -s http://localhost:5984/_up | grep -Eo '\"status\":\"ok\"' || exit 1
+      start_period: 60s
+      interval: 30s
+      timeout: 10s
+      retries: 3
     labels:
       # Glance
       # glance.name: CouchDB (Obsidian LiveSync)
