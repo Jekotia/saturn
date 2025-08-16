@@ -13,6 +13,10 @@ services:
     depends_on:
       - app
     labels:
+      # Glance
+      glance.name: Nginx
+      glance.parent: ttrss
+      glance.category: general
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false

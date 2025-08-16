@@ -13,6 +13,12 @@ services:
     depends_on:
       - db
     labels:
+      # Glance
+      glance.name: Tiny Tiny RSS
+      glance.icon: sh:tiny-tiny-rss
+      glance.url: https://${TTRSS_URL_PREFIX:-ttrss.}${NETWORK_DOMAIN}
+      glance.description: RSS feed reader
+      glance.category: general
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
