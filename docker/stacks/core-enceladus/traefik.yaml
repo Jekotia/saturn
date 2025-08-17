@@ -96,7 +96,12 @@ services:
       PUID: ${TRAEFIK_UID:-1000}
       PGID: ${TRAEFIK_GID:-1000}
     labels:
-      komodo.skip: # Prevent Komodo from stopping with StopAllContainers
+      # Glance
+      glance.name: Traefik, Enceladus
+      glance.icon: sh:traefik
+      glance.url: https://${TRAEFIK_URL_PREFIX:-traefik.enceladus.}${NETWORK_DOMAIN}
+      glance.description: Reverse-proxy
+      glance.category: core
       ### HTTP Routers
       traefik.enable: "true"
       # Enable the Traefik dashboard

@@ -8,3 +8,9 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /mnt/.ix-apps/docker/volumes:/var/lib/docker/volume
+    labels:
+      # Glance
+      glance.name: Portainer Agent
+      glance.icon: sh:portainer
+      glance.description: Portainer Agent
+      glance.category: core

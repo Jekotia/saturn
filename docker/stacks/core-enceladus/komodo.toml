@@ -1,6 +1,9 @@
 [[stack]]
 name = "core-enceladus"
-tags = ["enceladus"]
+tags = [
+  "core",
+  "enceladus"
+]
 [stack.config]
 server = "enceladus"
 links = [

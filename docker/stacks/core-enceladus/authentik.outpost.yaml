@@ -9,3 +9,9 @@ services:
       AUTHENTIK_INSECURE: "false"  # set to "true" if your Authentik domain uses self-signed certs
     networks:
       - proxy_private
+    labels:
+      # Glance
+      glance.name: Authentik Outpost
+      glance.icon: sh:authentik
+      glance.description: Authentication outpost
+      glance.category: core
