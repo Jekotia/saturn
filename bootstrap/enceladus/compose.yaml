@@ -8,6 +8,11 @@ services:
       - /mnt/storage/srv/saturn/bootstrap/enceladus/komodo.secrets.env
     labels:
       komodo.skip:
+      # Glance
+      glance.name: Komodo Periphery
+      glance.icon: sh:komodo
+      glance.description: Komodo agent
+      glance.category: core
     logging:
       driver: ${COMPOSE_LOGGING_DRIVER:-local}
     networks:
