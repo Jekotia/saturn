@@ -14,6 +14,13 @@ services:
       - 21118/tcp # Web client support
     depends_on:
       - hbbr
+    labels:
+      # Glance
+      glance.name: RustDesk
+      glance.icon: sh:rustdesk
+      glance.description: Remote desktop connection
+      glance.category: tools
+      glance.id: rustdesk
   hbbr:
     image: rustdesk/rustdesk-server:latest
     container_name: hbbr
@@ -25,3 +32,7 @@ services:
     ports:
       - 21117/tcp # Relay services
       - 21119/tcp # Web client support
+    labels:
+      glance.name: Relay
+      glance.parent: rustdesk
+      glance.category: tools

@@ -14,13 +14,19 @@ services:
       ALLOW_UNAUTHENTICATED: true
       AUTO_DELETE_EVERY_N_HOURS: 48
     labels:
-      # diun.enable: "true"
+      # Glance
+      glance.name: ConvertX
+      glance.icon: sh:convertx
+      glance.url: https://${CONVERTX_URL_PREFIX:-convertx.}${NETWORK_DOMAIN}
+      glance.description: File conversion tools
+      glance.category: tools
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.convertx.entrypoints: websecure
       traefik.http.routers.convertx.rule: Host(`${CONVERTX_URL_PREFIX:-convertx.}${NETWORK_DOMAIN}`)
       traefik.http.routers.convertx.tls.certresolver: dns-cloudflare
       traefik.http.routers.convertx.middlewares: forwardAuth-authentik@file
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.convertx.service: convertx
       traefik.http.services.convertx.loadbalancer.server.port: 3000

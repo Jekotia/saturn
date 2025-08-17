@@ -11,3 +11,9 @@ services:
     #     limits:
     #       memory: 512m
     restart: always # Ensures Orb restarts if it stops or on system reboot
+    labels:
+      # Glance
+      glance.name: Orb
+      glance.icon: sh:orb
+      glance.description: Internet connection health monitoring
+      glance.category: tools

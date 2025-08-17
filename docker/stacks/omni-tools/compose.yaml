@@ -9,11 +9,18 @@ services:
     networks:
       - proxy_private
     labels:
+      # Glance
+      glance.name: OmniTools
+      glance.icon: sh:omni-tools
+      glance.url: https://${OMNITOOLS_URL_PREFIX:-omni-tools.}${NETWORK_DOMAIN}
+      glance.description: Varied toolkit
+      glance.category: tools
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.omni-tools.entrypoints: websecure
       traefik.http.routers.omni-tools.rule: Host(`${OMNITOOLS_URL_PREFIX:-omni-tools.}${NETWORK_DOMAIN}`)
       traefik.http.routers.omni-tools.tls.certresolver: dns-cloudflare
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.omni-tools.service: omni-tools
       traefik.http.services.omni-tools.loadbalancer.server.port: 80

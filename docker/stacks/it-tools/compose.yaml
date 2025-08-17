@@ -9,6 +9,12 @@ services:
     networks:
       - proxy_private
     labels:
+      # Glance
+      glance.name: IT Tools
+      glance.icon: sh:it-tools
+      glance.url: https://${ITTOOLS_URL_PREFIX:-it-tools.}${NETWORK_DOMAIN}
+      glance.description: IT tools
+      glance.category: tools
       traefik.enable: "true"
       # Frontend => Router
       traefik.http.routers.it-tools.entrypoints: websecure

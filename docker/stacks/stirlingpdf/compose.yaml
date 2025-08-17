@@ -18,11 +18,18 @@ services:
       - /srv/application_data/stirlingpdf/app/logs:/logs/
       - /srv/application_data/stirlingpdf/app/pipeline:/pipeline/
     labels:
+      # Glance
+      glance.name: Stirling PDF
+      glance.icon: sh:stirling-pdf
+      glance.url: https://${STIRLINGPDF_URL_PREFIX:-stirlingpdf.}${NETWORK_DOMAIN}
+      glance.description: PDF tools
+      glance.category: tools
+      # Traefik
       traefik.enable: "true"
-      # Frontend => Router
+      # Traefik, Router
       traefik.http.routers.stirlingpdf.entrypoints: websecure
       traefik.http.routers.stirlingpdf.rule: Host(`${STIRLINGPDF_URL_PREFIX:-stirlingpdf.}${NETWORK_DOMAIN}`)
       traefik.http.routers.stirlingpdf.tls.certresolver: dns-cloudflare
-      # Frontend => Services
+      # Traefik, Services
       traefik.http.routers.stirlingpdf.service: stirlingpdf
       traefik.http.services.stirlingpdf.loadbalancer.server.port: 8080
