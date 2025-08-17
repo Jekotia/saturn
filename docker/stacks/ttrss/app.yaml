@@ -19,6 +19,7 @@ services:
       glance.url: https://${TTRSS_URL_PREFIX:-ttrss.}${NETWORK_DOMAIN}
       glance.description: RSS feed reader
       glance.category: general
+      glance.id: ttrss
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
