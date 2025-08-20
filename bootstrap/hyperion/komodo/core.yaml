@@ -1,6 +1,6 @@
 services:
   komodo.core:
-    image: ghcr.io/moghtech/komodo-core:1.18.1
+    image: ghcr.io/moghtech/komodo-core:1.19.0
     container_name: komodo.core
     restart: always
     depends_on:
@@ -20,8 +20,7 @@ services:
       KOMODO_DATABASE_USERNAME: ${KOMODO_DB_USERNAME}
       KOMODO_DATABASE_PASSWORD: ${KOMODO_DB_PASSWORD}
     volumes:
-      ## Core cache for repos for latest commit hash / contents
-      - /srv/application_data/bootstrap/komodo/core/repo-cache:/repo-cache
+      - /srv/application_data/bootstrap/komodo/core/backups:/backups
       ## Store sync files on server
       # - /path/to/syncs:/syncs
       ## Optionally mount a custom core.config.toml

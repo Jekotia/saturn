@@ -1,6 +1,6 @@
 services:
   komodo.periphery:
-    image: ghcr.io/moghtech/komodo-periphery:1.18.1
+    image: ghcr.io/moghtech/komodo-periphery:1.19.0
     container_name: komodo.periphery
     restart: always
     logging:
