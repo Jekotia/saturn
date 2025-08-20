@@ -15,6 +15,7 @@ webhook_enabled = false
 run_directory = "docker/stacks/immich/"
 file_paths = [
   "compose.yaml",
+  "compose.override.yaml",
   "../../networks/proxy_private.yaml"
 ]
 environment = """

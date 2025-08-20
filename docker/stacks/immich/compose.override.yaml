@@ -1,0 +1,83 @@
+include:
+  - ../../networks/proxy_private.yaml
+
+name: !reset
+
+services:
+  immich-server:
+    volumes:
+      - server.data.upload.upload:/data/upload
+      - server.data.upload.thumbs:/data/thumbs
+    ports: !reset []
+    networks:
+      - proxy_private
+    labels:
+      # Glance
+      glance.name: Immich
+      glance.icon: sh:immich
+      glance.url: https://${IMMICH_URL_PREFIX:-immich.}${NETWORK_DOMAIN}
+      glance.description: Image library with phone sync
+      glance.category: personal
+      glance.id: immich
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:immich
+      wud.tag.include: ^v\d+\.\d+\.\d+$$
+      # Traefik
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.immich.entrypoints: websecure
+      traefik.http.routers.immich.rule: Host(`${IMMICH_URL_PREFIX:-immich.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.immich.tls.certresolver: dns-cloudflare
+      # Frontend => Services
+      traefik.http.routers.immich.service: immich
+      traefik.http.services.immich.loadbalancer.server.port: 2283
+
+  immich-machine-learning:
+    labels:
+      # Glance
+      glance.name: Machine Learning
+      glance.parent: immich
+      glance.category: personal
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:immich
+      wud.tag.include: ^v\d+\.\d+\.\d+$$
+
+  redis:
+    labels:
+      # Glance
+      glance.name: Redis
+      glance.parent: immich
+      glance.category: personal
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:redis
+      wud.tag.include: ^\d+\.\d+-alpine$$
+
+  database:
+    labels:
+      # Glance
+      glance.name: PostgreSQL
+      glance.parent: immich
+      glance.category: personal
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:postgresql
+      wud.tag.include: ^pg14-v\d+\.\d+\.\d+$$
+
+volumes:
+  server.data.upload.thumbs:
+    driver_opts:
+      type: nfs
+      o: addr=10.0.0.10,nolock,soft,rw
+      device: :/mnt/storage/application_data/immich/server/upload/thumbs
+  server.data.upload.upload:
+    driver_opts:
+      type: nfs
+      o: addr=10.0.0.10,nolock,soft,rw
+      device: :/mnt/storage/application_data/immich/server/upload/upload
