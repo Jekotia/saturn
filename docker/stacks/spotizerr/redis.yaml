@@ -1,13 +1,13 @@
 services:
   spotizerr.redis:
-    image: redis:8.2.0-alpine
+    image: redis:8.2.1-alpine
     container_name: spotizerr.redis
     restart: unless-stopped
     volumes:
       - redis-data:/data
     networks:
       - spotizerr
-    command: redis-server --appendonly yes
+    command: sh -c 'redis-server --appendonly yes'
     labels:
       # Glance
       glance.name: Redis
