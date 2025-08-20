@@ -17,7 +17,8 @@ services:
       wud.watch: true
       wud.watch.digest: false
       wud.display.icon: sh:redis
-      wud.tag.include: ^\d+\.\d+\.\d+$$
+      wud.tag.include: ^\d+\.\d+\.\d+-alpine$$
+
 
 volumes:
   redis-data:
