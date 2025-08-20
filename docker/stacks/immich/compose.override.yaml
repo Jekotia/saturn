@@ -70,6 +70,10 @@ services:
       wud.display.icon: sh:postgresql
       wud.tag.include: ^pg14-v\d+\.\d+\.\d+$$
 
+networks:
+  default:
+    internal: true
+
 volumes:
   server.data.upload.thumbs:
     driver_opts:
