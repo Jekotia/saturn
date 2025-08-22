@@ -1,6 +1,6 @@
 services:
   spotizerr.app:
-    image: cooldockerizer93/spotizerr:3.2.0
+    image: cooldockerizer93/spotizerr:3.2.1
     container_name: spotizerr.app
     restart: unless-stopped
     depends_on:
