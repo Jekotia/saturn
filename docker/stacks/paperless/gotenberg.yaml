@@ -1,6 +1,6 @@
 services:
   paperless.gotenberg:
-    image: gotenberg/gotenberg:8.21
+    image: gotenberg/gotenberg:8.22
     container_name: paperless.gotenberg
     restart: unless-stopped
     networks:
@@ -19,5 +19,6 @@ services:
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
+      wud.link.template: https://github.com/gotenberg/gotenberg/releases/tag/v$${major}.$${minor}.$${patch}
       # wud.display.icon:
       wud.tag.include: ^\d+\.\d+$$

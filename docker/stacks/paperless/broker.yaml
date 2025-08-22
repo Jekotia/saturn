@@ -1,6 +1,6 @@
 services:
   paperless.broker:
-    image: redis:8.2.0-alpine
+    image: redis:8.2.1-alpine
     container_name: paperless.broker
     restart: unless-stopped
     networks:
