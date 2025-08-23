@@ -1,0 +1,36 @@
+include:
+  - ../../networks/proxy_private.yaml
+
+services:
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    restart: always
+    environment:
+      # The below line disables authentication, so that we can smoothly lean on forwardAuth instead
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      PGADMIN_DEFAULT_EMAIL: no-reply@example.com
+      PGADMIN_DEFAULT_PASSWORD: password
+      PGADMIN_DISABLE_POSTFIX: true
+      # Disable master password used for encrypting connection password storage
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
+    volumes:
+      - /srv/application_data/postgres-workbench/pgadmin/data:/var/lib/pgadmin
+    networks:
+      - proxy_private
+      - database
+    labels:
+      traefik.enable: "true"
+      # Frontend => Router
+      traefik.http.routers.pgadmin.entrypoints: websecure
+      traefik.http.routers.pgadmin.rule: Host(`${PGADMIN_URL_PREFIX:-pgadmin.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.pgadmin.tls.certresolver: dns-cloudflare
+      traefik.http.routers.pgadmin.middlewares: forwardAuth-authentik@file
+      # Frontend => Services
+      traefik.http.routers.pgadmin.service: pgadmin
+      traefik.http.services.pgadmin.loadbalancer.server.port: 80
+
+networks:
+  database:
+    name: ${PGADMIN_DATABASE_NETWORK}
+    external: true

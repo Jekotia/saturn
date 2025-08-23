@@ -57,6 +57,7 @@ This document serves as a reference for what authentication, if any, is used for
 | orb                       | N/A |
 | overseerr                 | self |
 | paperless                 | OIDC |
+| pgadmin                   | forwardAuth |
 | plexms                    | self |
 | plextraktsync             | N/A |
 | portainer                 | OIDC |

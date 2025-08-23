@@ -1,0 +1,25 @@
+[[stack]]
+name = "postgres-workbench"
+tags = ["dev"]
+[stack.config]
+server = "hyperion"
+links = [
+  "https://pgadmin.jekotia.net",
+  "https://https://www.pgadmin.org/docs/pgadmin4/latest/container_deployment.html",
+  "https://hub.docker.com/r/dpage/pgadmin4"
+]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/postgres-workbench/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+# PGADMIN_URL_PREFIX=
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+
+PGADMIN_DATABASE_NETWORK=[[POSTGRES_WORKBENCH_DATABASE_NETWORK]]
+"""
