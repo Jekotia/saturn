@@ -1,0 +1,27 @@
+[[stack]]
+name = "urbackup"
+tags = ["backups"]
+[stack.config]
+server = "enceladus"
+links = [
+  "https://urbackup.jekotia.net",
+  "https://www.urbackup.org/administration_manual.html",
+  "https://hub.docker.com/r/uroni/urbackup-server"
+]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/urbackup/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+TZ=[[TIMEZONE]]
+
+# URBACKUP_URL_PREFIX=
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+
+# URBACKUP_IP=
+"""

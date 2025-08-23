@@ -1,0 +1,85 @@
+include:
+  - ../../networks/proxy_private.yaml
+
+services:
+  urbackup:
+    image: uroni/urbackup-server:2.5.x
+    container_name: urbackup
+    restart: unless-stopped
+    networks:
+      - proxy_private
+    ports:
+      # - 35623/udp #UDP broadcasts for discovery
+      - name: UDP broadcasts for discovery
+        target: 35623
+        host_ip: ${URBACKUP_IP:-10.0.0.21}
+        published: 35623
+        protocol: udp
+        mode: host
+      # - 55413/tcp #FastCGI for web interface
+      - name: FastCGI for web interface
+        target: 55413
+        host_ip: ${URBACKUP_IP:-10.0.0.21}
+        published: 55413
+        protocol: tcp
+        mode: host
+      # - 55414/tcp #HTTP web interface
+      # - name: HTTP web interface
+      #   target: 55414
+      #   host_ip: ${URBACKUP_IP:-10.0.0.21}
+      #   published: 55414
+      #   protocol: tcp
+      #   mode: host
+      # - 55415/tcp #Internet clients
+      - name: Internet clients
+        target: 55415
+        host_ip: ${URBACKUP_IP:-10.0.0.21}
+        published: 55415
+        protocol: tcp
+        mode: host
+    volumes:
+      - /mnt/storage/application_data/urbackup/app/backups:/backups
+      - /mnt/storage/application_data/urbackup/app/database:/var/urbackup
+      # Uncomment the next line if you want to bind-mount the www-folder
+      #- /path/to/wwwfolder:/usr/share/urbackup
+    environment:
+      PUID: 101 # Enter the UID of the user who should own the files here
+      PGID: 101  # Enter the GID of the user who should own the files here
+      TZ: ${TIMEZONE} # Enter your timezone
+      # Uncomment the next lines if you want to set the ZFS datasets via ENV variables instead of mounting /etc/urbackup/dataset*
+      #- ZFS_IMAGE=tank/images
+      #- ZFS_FILES=tank/files
+      UMASK: 002
+      UMASK_SET: 002
+    # network_mode: "host"
+    # Uncomment the following two lines if you're using BTRFS support
+    #cap_add:
+    #  - SYS_ADMIN
+    # Uncomment the following two lines if you're using ZFS support
+    #devices:
+    #  - /dev/zfs:/dev/zfs
+    labels:
+      # Glance
+      glance.name: Urbackup
+      glance.icon: sh:urbackup
+      glance.url: https://${URBACKUP_URL_PREFIX:-urbackup.}${NETWORK_DOMAIN}
+      glance.description: Imaging backup server
+      glance.category: backups
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.link.template: https://www.urbackup.org/news.html
+      wud.display.icon: sh:urbackup
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+      # Traefik
+      traefik.enable: "true"
+      # Traefik, Router
+      traefik.http.routers.urbackup.entrypoints: websecure
+      traefik.http.routers.urbackup.rule: Host(`${URBACKUP_URL_PREFIX:-urbackup.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.urbackup.tls.certresolver: dns-cloudflare
+      # traefik.http.routers.urbackup.middlewares: forwardAuth-authentik@file
+      # Traefik, Services
+      traefik.http.routers.urbackup.service: urbackup
+      traefik.http.services.urbackup.loadbalancer.server.port: 55414
+
+
