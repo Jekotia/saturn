@@ -13,7 +13,7 @@ services:
       - /srv/application_data/spotizerr/app/data:/app/data
       - smb.multimedia:/app/downloads  # <-- Change this for your music library dir
       - /srv/application_data/spotizerr/app/logs:/app/logs  # <-- Volume for persistent logs
-      - /srv//srv/application_data/spotizerr/app/cache:/app/.cache
+      - /srv/application_data/spotizerr/app/cache:/app/.cache
     environment:
       HOST: 0.0.0.0 # Interface to bind to. Unless you know what you're doing, don't change this
       # UMASK: "0022"
