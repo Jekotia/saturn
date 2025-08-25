@@ -1,8 +1,9 @@
 services:
   spotizerr.app:
-    image: cooldockerizer93/spotizerr:3.2.1
+    image: cooldockerizer93/spotizerr:3.3.0
     container_name: spotizerr.app
     restart: unless-stopped
+    user: ${UID:-1000}:${GID:-1000}
     depends_on:
       - spotizerr.redis
     networks:
@@ -12,10 +13,9 @@ services:
       - /srv/application_data/spotizerr/app/data:/app/data
       - smb.multimedia:/app/downloads  # <-- Change this for your music library dir
       - /srv/application_data/spotizerr/app/logs:/app/logs  # <-- Volume for persistent logs
+      - /srv//srv/application_data/spotizerr/app/cache:/app/.cache
     environment:
       HOST: 0.0.0.0 # Interface to bind to. Unless you know what you're doing, don't change this
-      PUID: ${UID:-1000}
-      PGID: ${GID:-1000}
       # UMASK: "0022"
       REDIS_URL: redis://spotizerr.redis:6379/0
       REDIS_BACKEND: redis://spotizerr.redis:6379/0
