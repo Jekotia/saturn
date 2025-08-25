@@ -3,7 +3,7 @@ include:
 
 services:
   prowlarr:
-    image: ghcr.io/linuxserver/prowlarr:1.37.0
+    image: ghcr.io/linuxserver/prowlarr:2.0.5
     container_name: prowlarr
     restart: unless-stopped
     networks:
