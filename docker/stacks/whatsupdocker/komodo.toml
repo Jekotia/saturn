@@ -15,6 +15,8 @@ webhook_enabled = false
 run_directory = "docker/stacks/whatsupdocker/"
 file_paths = [
   "compose.yaml",
+  "app.yaml",
+  "socketproxy.yaml",
   "../../networks/proxy_private.yaml"
 ]
 environment = """
