@@ -23,7 +23,6 @@ services:
       WUD_REGISTRY_HUB_PUBLIC_TOKEN: ${WUD_REGISTRY_HUB_PUBLIC_TOKEN}
     volumes:
       - /srv/application_data/whatsupdocker/app/store:/store
-      - /var/run/docker.sock:/var/run/docker.sock:ro # Mounted as read-only
     networks:
       - proxy_private
       - whatsupdocker.socketproxy
