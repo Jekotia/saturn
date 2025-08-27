@@ -1,0 +1,25 @@
+[[stack]]
+name = "mysql-workbench"
+tags = ["dev"]
+[stack.config]
+server = "hyperion"
+links = [
+  "https://phpmyadmin.jekotia.net",
+  "https://https://github.com/phpmyadmin/docker",
+  "https://hub.docker.com/_/phpmyadmin"
+]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/mysql-workbench/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+# PHPMYADMIN_URL_PREFIX=
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]]]
+
+PHPMYADMIN_DATABASE_NETWORK=[[MYSQL_WORKBENCH_DATABASE_NETWORK]]
+"""
