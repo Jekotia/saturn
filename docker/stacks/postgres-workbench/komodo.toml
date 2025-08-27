@@ -5,7 +5,7 @@ tags = ["dev"]
 server = "hyperion"
 links = [
   "https://pgadmin.jekotia.net",
-  "https://https://www.pgadmin.org/docs/pgadmin4/latest/container_deployment.html",
+  "https://www.pgadmin.org/docs/pgadmin4/latest/container_deployment.html",
   "https://hub.docker.com/r/dpage/pgadmin4"
 ]
 git_account = "jekotia"
