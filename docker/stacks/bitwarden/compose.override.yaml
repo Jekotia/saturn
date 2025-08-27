@@ -22,7 +22,7 @@ services:
       wud.tag.include: ^\d+\.\d+\.\d+$$
 
   web:
-    image: ghcr.io/bitwarden/web:2025.8.0
+    image: ghcr.io/bitwarden/web:2025.8.1
     env_file: !override
       - .env
     volumes:
