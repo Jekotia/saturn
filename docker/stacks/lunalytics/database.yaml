@@ -1,0 +1,23 @@
+services:
+  lunalytics.database:
+    image: postgres:17.6-alpine
+    container_name: lunalytics.database
+    restart: unless-stopped
+    networks:
+      - internal
+    volumes:
+      - /srv/application_data/lunalytics/database/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-lunalytics}
+      POSTGRES_USER: ${POSTGRES_USER:-lunalytics}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    labels:
+      # Glance
+      glance.name: PostgreSQL
+      glance.parent: lunalytics
+      glance.category: personal
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:postgresql
+      wud.tag.include: ^\d+\.\d+-alpine$$

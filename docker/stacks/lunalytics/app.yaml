@@ -1,0 +1,36 @@
+services:
+  lunalytics.app:
+    image: ksjaay/lunalytics:0.10.0
+    container_name: lunalytics.app
+    restart: always
+    depends_on:
+      - lunalytics.database
+    networks:
+      - proxy_private
+      - internal
+    volumes:
+      - /srv/application_data/lunalytics/app/data:/app/data
+      - /srv/application_data/lunalytics/app/logs:/app/logs
+    labels:
+      # Glance
+      glance.name: Lunalytics
+      glance.icon: sh:lunalytics
+      glance.url: https://${LUNALYTICS_URL_PREFIX:-lunalytics.}${NETWORK_DOMAIN}
+      glance.description: Uptime monitor
+      glance.category: core
+      glance.id: lunalytics
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.link.template: https://github.com/KSJaay/Lunalytics/releases/tag/$${major}.$${minor}.$${patch}
+      wud.display.icon: sh:lunalytics
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+      # Traefik
+      traefik.enable: "true"
+      # Traefik, Router
+      traefik.http.routers.lunalytics.entrypoints: websecure
+      traefik.http.routers.lunalytics.rule: Host(`${LUNALYTICS_URL_PREFIX:-lunalytics.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.lunalytics.tls.certresolver: dns-cloudflare
+      # Traefik, Services
+      traefik.http.routers.lunalytics.service: lunalytics
+      traefik.http.services.lunalytics.loadbalancer.server.port: "2308"
