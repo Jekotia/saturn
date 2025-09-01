@@ -1,6 +1,6 @@
 services:
   paperless.gotenberg:
-    image: gotenberg/gotenberg:8.22
+    image: gotenberg/gotenberg:8.23
     container_name: paperless.gotenberg
     restart: unless-stopped
     networks:
