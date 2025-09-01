@@ -7,7 +7,7 @@ services:
   #-> https://hub.docker.com/_/traefik/
   traefik:
     container_name: traefik
-    image: traefik:v3.5.0
+    image: traefik:v3.5.1
     restart: always
     depends_on:
       - traefik.dockerproxy
