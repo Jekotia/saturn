@@ -4,7 +4,7 @@ include:
 services:
   foundry:
     container_name: foundry
-    image: ghcr.io/felddy/foundryvtt:13.347.0
+    image: ghcr.io/felddy/foundryvtt:13.348.0
     restart: unless-stopped
     environment:
       #FOUNDRY_VERSION=${_HYPERION_FOUNDRY_VERSION}
