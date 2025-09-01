@@ -5,7 +5,7 @@ include:
 services:
   #-> ghcr.io/haveagitgat/tdarr
   tdarr-server:
-    image: ghcr.io/haveagitgat/tdarr:2.45.01
+    image: ghcr.io/haveagitgat/tdarr:2.46.01
     container_name: tdarr-server
     restart: unless-stopped
     networks:
@@ -45,6 +45,7 @@ services:
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
+      wud.link.template: https://home.tdarr.io/download
       wud.display.icon: sh:tdarr
       wud.tag.include: ^\d+\.\d+\.\d+$$
       # Traefik
