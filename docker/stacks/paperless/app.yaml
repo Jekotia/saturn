@@ -1,6 +1,6 @@
 services:
   paperless.app:
-    image: ghcr.io/paperless-ngx/paperless-ngx:2.18.2
+    image: ghcr.io/paperless-ngx/paperless-ngx:2.18.3
     container_name: paperless.app
     restart: unless-stopped
     user: "1000"
