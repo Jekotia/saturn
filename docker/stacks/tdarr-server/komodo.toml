@@ -1,6 +1,10 @@
 [[stack]]
 name = "tdarr-server"
-tags = ["media-management"]
+tags = [
+  "media-management",
+  "nfs-mounts",
+  "smb-mounts"
+]
 [stack.config]
 server = "hyperion"
 links = [

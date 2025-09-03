@@ -1,6 +1,9 @@
 [[stack]]
 name = "spotizerr"
-tags = ["media-management"]
+tags = [
+  "media-management",
+  "smb-mounts"
+]
 [stack.config]
 server = "hyperion"
 links = [

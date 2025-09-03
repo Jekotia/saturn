@@ -1,6 +1,9 @@
 [[stack]]
 name = "readarr"
-tags = ["media-management"]
+tags = [
+  "media-management",
+  "smb-mounts"
+]
 [stack.config]
 server = "hyperion"
 links = [

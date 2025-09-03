@@ -1,6 +1,9 @@
 [[stack]]
 name = "paperless"
-tags = ["personal"]
+tags = [
+  "personal",
+  "smb-mounts"
+]
 [stack.config]
 server = "hyperion"
 links = [

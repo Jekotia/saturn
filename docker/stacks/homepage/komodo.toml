@@ -1,6 +1,9 @@
 [[stack]]
 name = "homepage"
-tags = ["core"]
+tags = [
+  "core",
+  "smb-mounts"
+]
 [stack.config]
 server = "hyperion"
 links = [

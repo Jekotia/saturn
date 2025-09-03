@@ -1,6 +1,9 @@
 [[stack]]
 name = "radarr"
-tags = ["media-management"]
+tags = [
+  "media-management",
+  "smb-mounts"
+]
 [stack.config]
 server = "hyperion"
 links = [

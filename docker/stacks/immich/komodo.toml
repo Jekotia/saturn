@@ -1,6 +1,9 @@
 [[stack]]
 name = "immich"
-tags = ["personal"]
+tags = [
+  "personal",
+  "nfs-mounts"
+]
 [stack.config]
 server = "hyperion"
 links = [

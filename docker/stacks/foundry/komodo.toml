@@ -1,6 +1,9 @@
 [[stack]]
 name = "foundry"
-tags = ["gaming"]
+tags = [
+  "gaming",
+  "nfs-mounts"
+]
 [stack.config]
 server = "hyperion"
 links = [

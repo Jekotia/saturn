@@ -1,6 +1,9 @@
 [[stack]]
 name = "emulator-source-backups"
-tags = ["backups"]
+tags = [
+  "backups",
+  "nfs-mounts"
+]
 [stack.config]
 server = "hyperion"
 links = [

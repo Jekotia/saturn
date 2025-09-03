@@ -1,6 +1,9 @@
 [[stack]]
 name = "sonarr"
-tags = ["media-management"]
+tags = [
+  "media-management",
+  "smb-mounts"
+]
 [stack.config]
 server = "hyperion"
 links = [

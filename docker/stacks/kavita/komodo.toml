@@ -1,6 +1,9 @@
 [[stack]]
 name = "kavita"
-tags = ["media-server"]
+tags = [
+  "media-server",
+  "smb-mounts"
+]
 [stack.config]
 server = "hyperion"
 links = [
