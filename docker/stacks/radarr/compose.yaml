@@ -4,7 +4,7 @@ include:
 
 services:
   radarr:
-    image: ghcr.io/linuxserver/radarr:5.26.2
+    image: ghcr.io/linuxserver/radarr:5.27.5
     container_name: radarr
     restart: unless-stopped
     networks:
@@ -33,6 +33,7 @@ services:
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
+      wud.link.template: https://github.com/linuxserver/docker-radarr/releases
       wud.display.icon: sh:radarr
       wud.tag.include: ^\d+\.\d+\.\d+$$
       # Traefik
