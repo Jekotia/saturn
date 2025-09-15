@@ -1,0 +1,25 @@
+services:
+  lubelogger.database:
+    image: postgres:17.6-alpine
+    container_name: lubelogger.database
+    restart: unless-stopped
+    networks:
+      - internal
+    volumes:
+      - /srv/application_data/lubelogger/database/data:/var/lib/postgresql/data
+      # - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-lubelogger}
+      POSTGRES_USER: ${POSTGRES_USER:-lubelogger}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    labels:
+      # Glance
+      glance.name: PostgreSQL
+      glance.parent: lubelogger
+      glance.category: personal
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:postgresql
+      wud.tag.include: ^\d+\.\d+-alpine$$

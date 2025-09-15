@@ -1,0 +1,39 @@
+[[stack]]
+name = "lubelogger"
+tags = ["personal"]
+[stack.config]
+server = "hyperion"
+links = [
+  "https://lubelogger.jekotia.net",
+  "https://github.com/hargata/lubelog",
+  "https://github.com/hargata/lubelog/pkgs/container/lubelogger"
+]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/lubelogger/"
+file_paths = [
+  "compose.yaml",
+  "app.yaml",
+  "database.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+# LUBELOGGER_URL_PREFIX=
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+
+# POSTGRES_DB=
+# POSTGRES_USER=
+POSTGRES_PASSWORD=[[LUBELOGGER_POSTGRES_PASSWORD]]
+
+
+MAIL_SMTP_SERVER=[[LUBELOGGER_MAIL_SMTP_SERVER]]
+MAIL_FROM_ADDRESS=[[LUBELOGGER_MAIL_FROM_ADDRESS]]
+MAIL_SMTP_PORT=[[LUBELOGGER_MAIL_SMTP_PORT]]
+MAIL_SMTP_USERNAME=[[LUBELOGGER_MAIL_SMTP_USERNAME]]
+MAIL_SMTP_PASSWORD=[[LUBELOGGER_MAIL_SMTP_PASSWORD]]
+
+OIDC_CLIENT_ID=[[LUBELOGGER_OIDC_CLIENT_ID]]
+OIDC_CLIENT_SECRET=[[LUBELOGGER_OIDC_CLIENT_SECRET]]
+"""

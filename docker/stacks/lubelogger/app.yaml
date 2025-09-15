@@ -1,0 +1,60 @@
+services:
+  lubelogger.app:
+    image: ghcr.io/hargata/lubelogger:v1.5.1
+    container_name: lubelogger.app
+    restart: always
+    depends_on:
+      - lubelogger.database
+    env_file:
+      - .env
+    environment:
+      LC_ALL: en_CA
+      LANG: en_CA
+      POSTGRES_CONNECTION: Host=lubelogger.database:5432;Username=${POSTGRES_USER:-lubelogger};Password=${POSTGRES_PASSWORD};Database=${POSTGRES_DB:-lubelogger};
+      LUBELOGGER_DOMAIN: ${LUBELOGGER_URL_PREFIX:-lubelogger.}${NETWORK_DOMAIN}
+      MailConfig__EmailServer: ${MAIL_SMTP_SERVER:-smtp.gmail.com}
+      MailConfig__EmailFrom: ${MAIL_FROM_ADDRESS}
+      MailConfig__Port: ${MAIL_SMTP_PORT:-587}
+      MailConfig__Username: ${MAIL_SMTP_USERNAME}
+      MailConfig__Password: ${MAIL_SMTP_PASSWORD}
+      OpenIDConfig__Name: Authentik
+      OpenIDConfig__ClientId: ${OIDC_CLIENT_ID}
+      OpenIDConfig__ClientSecret: ${OIDC_CLIENT_SECRET}
+      OpenIDConfig__AuthURL: https://auth.${NETWORK_DOMAIN}/application/o/authorize/
+      OpenIDConfig__TokenURL: https://auth.${NETWORK_DOMAIN}/application/o/token/
+      OpenIDConfig__UserInfoURL: https://auth.${NETWORK_DOMAIN}/application/o/userinfo/
+      OpenIDConfig__RedirectURL: https://${LUBELOGGER_URL_PREFIX:-lubelogger.}${NETWORK_DOMAIN}/Login/RemoteAuth
+      OpenIDConfig__Scope: openid email
+      OpenIDConfig__ValidateState: true
+      OpenIDConfig__UsePKCE: true
+      OpenIDConfig__DisableRegularLogin: false
+      OpenIDConfig__LogOutURL: https://auth.${NETWORK_DOMAIN}/application/o/lubelogger/end-session/
+    networks:
+      - proxy_private
+      - internal
+    volumes:
+      - /srv/application_data/lubelogger/app/data:/App/data
+      - /srv/application_data/lubelogger/app/keys:/root/.aspnet/DataProtection-Keys
+    labels:
+      # Glance
+      glance.name: Lubelogger
+      glance.icon: sh:lubelogger
+      glance.url: https://${LUBELOGGER_URL_PREFIX:-lubelogger.}${NETWORK_DOMAIN}
+      glance.description: Vehicle maintenance tracking
+      glance.category: personal
+      glance.id: lubelogger
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.link.template: https://github.com/hargata/lubelog/releases/tag/v$${major}.$${minor}.$${patch}
+      wud.display.icon: sh:lubelogger
+      wud.tag.include: ^v\d+\.\d+\.\d+$$
+      # Traefik
+      traefik.enable: "true"
+      # Traefik, Router
+      traefik.http.routers.lubelogger.entrypoints: websecure
+      traefik.http.routers.lubelogger.rule: Host(`${LUBELOGGER_URL_PREFIX:-lubelogger.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.lubelogger.tls.certresolver: dns-cloudflare
+      # Traefik, Services
+      traefik.http.routers.lubelogger.service: lubelogger
+      traefik.http.services.lubelogger.loadbalancer.server.port: "8080"
