@@ -3,7 +3,7 @@ include:
 
 services:
   actualbudget:
-    image: ghcr.io/actualbudget/actual:25.8.0
+    image: ghcr.io/actualbudget/actual:25.9.0
     container_name: actualbudget
     restart: unless-stopped
     networks:
