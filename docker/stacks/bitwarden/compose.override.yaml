@@ -3,7 +3,7 @@ include:
 
 services:
   mssql:
-    image: ghcr.io/bitwarden/mssql:2025.8.0
+    image: ghcr.io/bitwarden/mssql:2025.8.1
     env_file: !override
       - .env
     volumes:
@@ -22,7 +22,7 @@ services:
       wud.tag.include: ^\d+\.\d+\.\d+$$
 
   web:
-    image: ghcr.io/bitwarden/web:2025.8.1
+    image: ghcr.io/bitwarden/web:2025.8.3
     env_file: !override
       - .env
     volumes:
@@ -43,7 +43,7 @@ services:
       wud.tag.include: ^\d+\.\d+\.\d+$$
 
   attachments:
-    image: ghcr.io/bitwarden/attachments:2025.8.0
+    image: ghcr.io/bitwarden/attachments:2025.8.1
     env_file: !override
       - .env
     volumes:
@@ -60,7 +60,7 @@ services:
       wud.tag.include: ^\d+\.\d+\.\d+$$
 
   api:
-    image: ghcr.io/bitwarden/api:2025.8.0
+    image: ghcr.io/bitwarden/api:2025.8.1
     env_file: !override
       - .env
     volumes:
@@ -79,7 +79,7 @@ services:
       wud.tag.include: ^\d+\.\d+\.\d+$$
 
   identity:
-    image: ghcr.io/bitwarden/identity:2025.8.0
+    image: ghcr.io/bitwarden/identity:2025.8.1
     env_file: !override
       - .env
     volumes:
@@ -99,7 +99,7 @@ services:
       wud.tag.include: ^\d+\.\d+\.\d+$$
 
   sso:
-    image: ghcr.io/bitwarden/sso:2025.8.0
+    image: ghcr.io/bitwarden/sso:2025.8.1
     env_file: !override
       - .env
     volumes:
@@ -119,7 +119,7 @@ services:
       wud.tag.include: ^\d+\.\d+\.\d+$$
 
   admin:
-    image: ghcr.io/bitwarden/admin:2025.8.0
+    image: ghcr.io/bitwarden/admin:2025.8.1
     env_file: !override
       - .env
     volumes:
@@ -138,7 +138,7 @@ services:
       wud.tag.include: ^\d+\.\d+\.\d+$$
 
   icons:
-    image: ghcr.io/bitwarden/icons:2025.8.0
+    image: ghcr.io/bitwarden/icons:2025.8.1
     env_file: !override
       - .env
     volumes:
@@ -156,7 +156,7 @@ services:
       wud.tag.include: ^\d+\.\d+\.\d+$$
 
   notifications:
-    image: ghcr.io/bitwarden/notifications:2025.8.0
+    image: ghcr.io/bitwarden/notifications:2025.8.1
     env_file: !override
       - .env
     volumes:
@@ -174,7 +174,7 @@ services:
       wud.tag.include: ^\d+\.\d+\.\d+$$
 
   events:
-    image: ghcr.io/bitwarden/events:2025.8.0
+    image: ghcr.io/bitwarden/events:2025.8.1
     env_file: !override
       - .env
     volumes:
@@ -192,7 +192,7 @@ services:
       wud.tag.include: ^\d+\.\d+\.\d+$$
 
   nginx:
-    image: ghcr.io/bitwarden/nginx:2025.8.0
+    image: ghcr.io/bitwarden/nginx:2025.8.1
     ports: !reset []
     volumes:
       - /srv/application_data/bitwarden/logs/nginx:/var/log/nginx
