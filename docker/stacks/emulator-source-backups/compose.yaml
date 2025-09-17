@@ -3,7 +3,7 @@ include:
 
 services:
   emulator-source-backups:
-    image: gitea/gitea:1.24.5
+    image: gitea/gitea:1.24.6
     container_name: emulator-source-backups
     restart: unless-stopped
     environment:
