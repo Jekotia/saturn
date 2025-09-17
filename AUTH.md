@@ -47,6 +47,7 @@ This document serves as a reference for what authentication, if any, is used for
 | karakeep                  | OIDC |
 | kavita                    | self |
 | lidarr                    | forwardAuth |
+| lubelogger                | OIDC |
 | lunalytics                | self |
 | lyrionmusicserver         | none |
 | mylar                     | forwardAuth |
