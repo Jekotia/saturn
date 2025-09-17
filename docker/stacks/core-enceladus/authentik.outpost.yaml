@@ -1,6 +1,6 @@
 services:
   authentik.outpost:
-    image: ghcr.io/goauthentik/proxy:2025.8.1
+    image: ghcr.io/goauthentik/proxy:2025.8.3
     container_name: authentik.outpost
     restart: unless-stopped
     environment:
