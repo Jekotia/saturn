@@ -6,7 +6,7 @@
 services:
   traefik:
     container_name: traefik
-    image: traefik:v2.10@sha256:6341b98aec5ec8969b99e9730f4c5b22cca3103d42b6bbe4b7a3c910758fe565
+    image: traefik:v3.5.2
     restart: always
     depends_on:
       - traefik.dockerproxy
