@@ -1,6 +1,6 @@
 services:
   karakeep.app:
-    image: ghcr.io/karakeep-app/karakeep:0.26.0
+    image: ghcr.io/karakeep-app/karakeep:0.27.1
     container_name: karakeep.app
     restart: unless-stopped
     networks:
@@ -48,6 +48,7 @@ services:
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
+      wud.link.template: https://github.com/karakeep-app/karakeep/releases/tag/v$${major}.$${minor}.$${patch}
       wud.display.icon: sh:karakeep-light
       wud.tag.include: ^\d+\.\d+\.\d+$$
       # Traefik
