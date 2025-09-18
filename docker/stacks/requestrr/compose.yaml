@@ -3,7 +3,7 @@ include:
 
 services:
   requestrr:
-    image: thomst08/requestrr:v2.1.8
+    image: thomst08/requestrr:v2.1.9
     container_name: requestrr
     restart: unless-stopped
     networks:
