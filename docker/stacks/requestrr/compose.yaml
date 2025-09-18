@@ -20,6 +20,7 @@ services:
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
+      wud.link.template: https://github.com/thomst08/requestrr/releases/tag/V$${major}.$${minor}.$${patch}
       wud.display.icon: sh:requestrr
       wud.tag.include: ^v\d+\.\d+\.\d+$$
       # Traefik
