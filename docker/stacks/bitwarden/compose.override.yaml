@@ -56,6 +56,7 @@ services:
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
+      wud.link.template: https://github.com/bitwarden/self-host/releases/tag/v$${major}.$${minor}.$${patch}
       wud.display.icon: sh:bitwarden
       wud.tag.include: ^\d+\.\d+\.\d+$$
 
@@ -75,6 +76,7 @@ services:
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
+      wud.link.template: https://github.com/bitwarden/self-host/releases/tag/v$${major}.$${minor}.$${patch}
       wud.display.icon: sh:bitwarden
       wud.tag.include: ^\d+\.\d+\.\d+$$
 
@@ -95,6 +97,7 @@ services:
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
+      wud.link.template: https://github.com/bitwarden/self-host/releases/tag/v$${major}.$${minor}.$${patch}
       wud.display.icon: sh:bitwarden
       wud.tag.include: ^\d+\.\d+\.\d+$$
 
@@ -115,6 +118,7 @@ services:
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
+      wud.link.template: https://github.com/bitwarden/self-host/releases/tag/v$${major}.$${minor}.$${patch}
       wud.display.icon: sh:bitwarden
       wud.tag.include: ^\d+\.\d+\.\d+$$
 
@@ -134,6 +138,7 @@ services:
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
+      wud.link.template: https://github.com/bitwarden/self-host/releases/tag/v$${major}.$${minor}.$${patch}
       wud.display.icon: sh:bitwarden
       wud.tag.include: ^\d+\.\d+\.\d+$$
 
@@ -152,6 +157,7 @@ services:
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
+      wud.link.template: https://github.com/bitwarden/self-host/releases/tag/v$${major}.$${minor}.$${patch}
       wud.display.icon: sh:bitwarden
       wud.tag.include: ^\d+\.\d+\.\d+$$
 
@@ -170,6 +176,7 @@ services:
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
+      wud.link.template: https://github.com/bitwarden/self-host/releases/tag/v$${major}.$${minor}.$${patch}
       wud.display.icon: sh:bitwarden
       wud.tag.include: ^\d+\.\d+\.\d+$$
 
@@ -188,6 +195,7 @@ services:
       # What's Up Docker
       wud.watch: true
       wud.watch.digest: false
+      wud.link.template: https://github.com/bitwarden/self-host/releases/tag/v$${major}.$${minor}.$${patch}
       wud.display.icon: sh:bitwarden
       wud.tag.include: ^\d+\.\d+\.\d+$$
 
