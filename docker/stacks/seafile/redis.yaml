@@ -1,0 +1,13 @@
+services:
+  seafile.redis:
+    image: ${SEAFILE_REDIS_IMAGE:-redis}
+    container_name: seafile.redis
+    restart: unless-stopped
+    command:
+      - /bin/sh
+      - -c
+      - redis-server --requirepass "$$REDIS_PASSWORD"
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-}
+    networks:
+      - seafile

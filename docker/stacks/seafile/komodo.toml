@@ -1,0 +1,74 @@
+[[stack]]
+name = "seafile"
+tags = [
+  "personal"
+]
+[stack.config]
+server = "enceladus"
+links = [
+  "https://seafile.jekotia.net",
+  "https://manual.seafile.com/latest/setup/setup_pro_by_docker/",
+  "https://hub.docker.com/_/seafile/"
+]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/seafile/"
+file_paths = [
+  "compose.yaml",
+  "database.yaml",
+  "md-server.yaml",
+  "notification-server.yaml",
+  "redis.yaml",
+  "seasearch.yaml",
+  "server.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+# SEAFILE_URL_PREFIX=seafile.
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+
+ENABLE_SEADOC=false
+## Images
+SEAFILE_IMAGE=seafileltd/seafile-pro-mc:13.0-latest
+SEAFILE_DB_IMAGE=mariadb:10.11
+SEAFILE_REDIS_IMAGE=redis
+#SEAFILE_ELASTICSEARCH_IMAGE=elasticsearch:8.15.0
+#SEADOC_IMAGE=seafileltd/sdoc-server:2.0-latest
+NOTIFICATION_SERVER_IMAGE=seafileltd/notification-server:13.0-latest
+SEASEARCH_IMAGE=seafileltd/seasearch:1.0-latest
+MD_IMAGE=seafileltd/seafile-md-server:13.0-latest
+
+# SITE_ROOT=
+JWT_PRIVATE_KEY=[[SEAFILE_JWT_PRIVATE_KEY]]
+TIME_ZONE=[[TIMEZONE]]
+SEAFILE_MYSQL_DB_PASSWORD=[[SEAFILE_MYSQL_DB_PASSWORD]]
+
+# Initial variables
+# (Only valid in first-time startup
+## Database root password, Used to create Seafile users
+INIT_SEAFILE_MYSQL_ROOT_PASSWORD=[[SEAFILE_INIT_MYSQL_ROOT_PASSWORD]]
+
+## Seafile admin user
+INIT_SEAFILE_ADMIN_EMAIL=[[SEAFILE_INIT_ADMIN_EMAIL]]
+INIT_SEAFILE_ADMIN_PASSWORD=[[SEAFILE_INIT_ADMIN_PASSWORD]]
+
+## SeaSearch admin user
+## (valid in enabling SeaSearch and use Seafile admin by default)
+INIT_SS_ADMIN_USER=$INIT_SEAFILE_ADMIN_EMAIL
+INIT_SS_ADMIN_PASSWORD=$INIT_SEAFILE_ADMIN_PASSWORD
+
+# Additional configurations for extensions
+## SeaSearch
+### Local cache
+SS_MAX_OBJ_CACHE_SIZE=10GB
+
+### Log
+SS_LOG_TO_STDOUT=false
+SS_LOG_OUTPUT=true
+SS_LOG_LEVEL=info
+
+## Metadata server
+MD_FILE_COUNT_LIMIT=100000
+"""

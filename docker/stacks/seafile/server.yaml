@@ -1,0 +1,78 @@
+services:
+  seafile.server:
+    image: ${SEAFILE_IMAGE:-seafileltd/seafile-pro-mc:13.0-latest}
+    container_name: seafile.server
+    restart: unless-stopped
+    # ports:
+    #   - "80:80"
+    volumes:
+      - /mnt/storage/application_data/seafile/server/data:/shared
+      #- seafile.server.data.storage:/shared/seafile/seafile-data/storage
+      #- seafile.server.data.storage:/test
+    environment:
+      - INIT_SEAFILE_MYSQL_ROOT_PASSWORD=${INIT_SEAFILE_MYSQL_ROOT_PASSWORD:-}
+      - SEAFILE_MYSQL_DB_HOST=seafile.database
+      - SEAFILE_MYSQL_DB_PORT=3306
+      - SEAFILE_MYSQL_DB_USER=seafile
+      - SEAFILE_MYSQL_DB_PASSWORD=${SEAFILE_MYSQL_DB_PASSWORD:?Variable is not set or empty}
+      - SEAFILE_MYSQL_DB_CCNET_DB_NAME=ccnet_db
+      - SEAFILE_MYSQL_DB_SEAFILE_DB_NAME=seafile_db
+      - SEAFILE_MYSQL_DB_SEAHUB_DB_NAME=seahub_db
+      - TIME_ZONE=${TIME_ZONE}
+      - INIT_SEAFILE_ADMIN_EMAIL=${INIT_SEAFILE_ADMIN_EMAIL}
+      - INIT_SEAFILE_ADMIN_PASSWORD=${INIT_SEAFILE_ADMIN_PASSWORD:-asecret}
+      - SEAFILE_SERVER_HOSTNAME=${SEAFILE_URL_PREFIX:-seafile.}${NETWORK_DOMAIN}
+      - SEAFILE_SERVER_PROTOCOL=http
+      - SITE_ROOT=${SITE_ROOT:-/}
+      - NON_ROOT=true
+      - JWT_PRIVATE_KEY=${JWT_PRIVATE_KEY:?Variable is not set or empty}
+      - SEAFILE_LOG_TO_STDOUT=${SEAFILE_LOG_TO_STDOUT:-false}
+      - ENABLE_GO_FILESERVER=${ENABLE_GO_FILESERVER:-true}
+      - ENABLE_SEADOC=${ENABLE_SEADOC:-true}
+      - SEADOC_SERVER_URL=http://${SEAFILE_URL_PREFIX:-seafile.}${NETWORK_DOMAIN}/sdoc-server
+      - CACHE_PROVIDER=redis
+      - REDIS_HOST=seafile.redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-}
+      - MEMCACHED_HOST=${MEMCACHED_HOST:-memcached}
+      - MEMCACHED_PORT=${MEMCACHED_PORT:-11211}
+      - SEAF_SERVER_STORAGE_TYPE=disk
+      - ENABLE_NOTIFICATION_SERVER=true
+      - INNER_NOTIFICATION_SERVER_URL=http://seafile.notification-server:8083
+      - NOTIFICATION_SERVER_URL=http://${SEAFILE_URL_PREFIX:-seafile.}${NETWORK_DOMAIN}/notification
+      - MD_FILE_COUNT_LIMIT=${MD_FILE_COUNT_LIMIT:-100000}
+    labels:
+      # Glance
+      glance.name: Seafile
+      glance.icon: sh:seafile
+      glance.url: https://${SEAFILE_URL_PREFIX:-seafile.}${NETWORK_DOMAIN}
+      glance.description: Cloud storage
+      glance.category: personal
+      glance.id: seafile
+      # Traefik
+      traefik.enable: "true"
+      # Traefik, Router
+      traefik.http.routers.seafile.entrypoints: websecure
+      traefik.http.routers.seafile.rule: Host(`${SEAFILE_URL_PREFIX:-seafile.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.seafile.tls.certresolver: dns-cloudflare
+      # traefik.http.routers.seafile.middlewares: seafile-dav
+      # Traefik, Services
+      traefik.http.routers.seafile.service: seafile
+      traefik.http.services.seafile.loadbalancer.server.port: 80
+      # Traefik, dav middlewares
+      # traefik.http.middlewares.seafile-dav.replacepathregex.regex: ^/.well-known/ca(l|rd)dav
+      # traefik.http.middlewares.seafile-dav.replacepathregex.replacement: /remote.php/dav/
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:80 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    depends_on:
+      seafile.database:
+        condition: service_healthy
+      seafile.redis:
+        condition: service_started
+    networks:
+      - seafile
+      - proxy_private

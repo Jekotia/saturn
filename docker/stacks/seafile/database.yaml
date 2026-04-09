@@ -1,0 +1,26 @@
+services:
+  seafile.database:
+    image: ${SEAFILE_DB_IMAGE:-mariadb:10.11}
+    container_name: seafile.database
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=${INIT_SEAFILE_MYSQL_ROOT_PASSWORD:-}
+      - MYSQL_LOG_CONSOLE=true
+      - MARIADB_AUTO_UPGRADE=1
+    volumes:
+      - /mnt/storage/application_data/seafile/database/data:/var/lib/mysql
+    networks:
+      - seafile
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "/usr/local/bin/healthcheck.sh",
+          "--connect",
+          "--mariadbupgrade",
+          "--innodb_initialized",
+        ]
+      interval: 20s
+      start_period: 30s
+      timeout: 5s
+      retries: 10

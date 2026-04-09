@@ -1,0 +1,17 @@
+services:
+  seafile.seasearch:
+    image: ${SEASEARCH_IMAGE:-seafileltd/seasearch:1.0-latest}
+    container_name: seafile.seasearch
+    restart: unless-stopped
+    volumes:  
+      - /mnt/storage/application_data/seafile/server/data/seafile/seasearch-data:/opt/seasearch/data  
+    environment: 
+      - SS_FIRST_ADMIN_USER=username
+      - SS_FIRST_ADMIN_PASSWORD=password
+      - SS_MAX_OBJ_CACHE_SIZE=${SS_MAX_OBJ_CACHE_SIZE:-10GB}
+      - SS_STORAGE_TYPE=disk
+      - SS_LOG_TO_STDOUT=${SS_LOG_TO_STDOUT:-false}
+      - SS_LOG_DIR=/opt/seasearch/data/log
+      - SS_LOG_LEVEL=${SS_LOG_LEVEL:-info}
+    networks:
+      - seafile

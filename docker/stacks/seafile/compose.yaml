@@ -1,0 +1,11 @@
+include:
+  - database.yaml
+  - md-server.yaml
+  - notification-server.yaml
+  - redis.yaml
+  - seasearch.yaml
+  - server.yaml
+  - ../../networks/proxy_private.yaml
+
+networks:
+  seafile:
