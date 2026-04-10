@@ -1,7 +1,8 @@
 services:
   komodo.periphery:
-    image: ghcr.io/moghtech/komodo-periphery:1.19.4
+    image: ghcr.io/moghtech/komodo-periphery:2.1.1
     container_name: komodo.periphery
+    init: true
     restart: always
     logging:
       driver: ${COMPOSE_LOGGING_DRIVER:-local}
@@ -20,6 +21,7 @@ services:
       ## or docker will get confused. See https://github.com/moghtech/komodo/discussions/180.
       ## Default: /etc/komodo.
       - /srv/application_data/bootstrap/komodo/periphery/etc:/srv/application_data/bootstrap/komodo/periphery/etc
+      - /srv/application_data/bootstrap/komodo/keys:/config/keys
     labels:
       komodo.skip: true # Prevent Komodo from stopping with StopAllContainers
       # Glance

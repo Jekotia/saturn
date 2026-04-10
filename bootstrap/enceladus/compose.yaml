@@ -1,8 +1,9 @@
 name: bootstrap
 services:
   komodo.periphery:
-    image: ghcr.io/moghtech/komodo-periphery:1.19.4
+    image: ghcr.io/moghtech/komodo-periphery:2.1.1
     container_name: komodo.periphery
+    init: true
     env_file:
       - /mnt/storage/srv/saturn/bootstrap/enceladus/komodo.env
       - /mnt/storage/srv/saturn/bootstrap/enceladus/komodo.secrets.env
@@ -24,6 +25,8 @@ services:
     - /var/run/docker.sock:/var/run/docker.sock
     - /proc:/proc
     - /mnt/storage/application_data/komodo/periphery/data:/mnt/storage/application_data/komodo/periphery/data
+    - /mnt/storage/application_data/komodo/keys:/config/keys
+
 
 networks:
   proxy_private:
