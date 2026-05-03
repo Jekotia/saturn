@@ -22,8 +22,4 @@ environment = """
 NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
 
 TIMEZONE=[TIMEZONE]
-
-#########-> DANGER ZONE <-#########
-UID=[[HYPERION_UID]]
-GID=[[HYPERION_GID]]
 """
