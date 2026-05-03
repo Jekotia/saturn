@@ -1,0 +1,40 @@
+include:
+  - ../../networks/proxy_private.yaml
+
+services:
+  spoolman:
+    image: ghcr.io/donkie/spoolman:0.23.1 # Also available at dockerhub: donkieyo/spoolman:latest
+    container_name: spoolman
+    restart: unless-stopped
+    networks:
+      - proxy_private
+    volumes:
+      - /srv/application_data/spoolman/app/data:/home/app/.local/share/spoolman
+    # ports:
+      # # Map the host machine's port 7912 to the container's port 8000
+      # - "7912:8000"
+    environment:
+      - TZ=${TIMEZONE} # Optional, defaults to UTC
+    labels:
+      # Glance
+      glance.name: Spoolman
+      glance.icon: sh:spoolman
+      glance.url: https://${SPOOLMAN_URL_PREFIX:-spoolman.}${NETWORK_DOMAIN}
+      glance.description: 3D printer filament management
+      glance.category: tools
+      # What's Up Docker
+      wud.watch: true
+      wud.link.template: https://github.com/Donkie/Spoolman/releases/tag/v$${major}.$${minor}.$${patch}
+      wud.watch.digest: false
+      wud.display.icon: sh:spoolman
+      wud.tag.include: ^v\d+\.\d+\.\d+$$
+      # Traefik
+      traefik.enable: "true"
+      # Traefik, Router
+      traefik.http.routers.spoolman.entrypoints: websecure
+      traefik.http.routers.spoolman.rule: Host(`${SPOOLMAN_URL_PREFIX:-spoolman.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.spoolman.tls.certresolver: dns-cloudflare
+      #traefik.http.routers.spoolman.middlewares: forwardAuth-authentik@file
+      # Traefik, Services
+      traefik.http.routers.spoolman.service: spoolman
+      traefik.http.services.spoolman.loadbalancer.server.port: 8000

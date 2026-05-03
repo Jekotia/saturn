@@ -1,0 +1,29 @@
+[[stack]]
+name = "spoolman"
+tags = ["tools"]
+[stack.config]
+server = "hyperion"
+links = [
+  "https://spoolman.jekotia.net",
+  "https://github.com/donkie/Spoolman",
+  "https://github.com/donkie/Spoolman/pkgs/container/spoolman"
+]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/spoolman/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml"
+]
+environment = """
+# SPOOLMAN_URL_PREFIX=
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+
+TIMEZONE=[TIMEZONE]
+
+#########-> DANGER ZONE <-#########
+UID=[[HYPERION_UID]]
+GID=[[HYPERION_GID]]
+"""
