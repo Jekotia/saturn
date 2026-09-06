@@ -1,5 +1,6 @@
 include:
   - ../../networks/proxy_private.yaml
+  - ../../volumes/smb-multimedia.yaml
 
 services:
   cleanuparr:
@@ -9,6 +10,7 @@ services:
     networks:
       - proxy_private
     volumes:
+      - smb.multimedia:/multimedia
       - /srv/application_data/cleanuparr/app/config:/config
     environment:
       PORT: 11011

@@ -1,7 +1,8 @@
 [[stack]]
 name = "cleanuparr"
 tags = [
-  "media-management"
+  "media-management",
+  "smb-mounts"
 ]
 [stack.config]
 server = "hyperion"
@@ -18,6 +19,7 @@ run_directory = "docker/stacks/cleanuparr/"
 file_paths = [
   "compose.yaml",
   "../../networks/proxy_private.yaml",
+  "../../volumes/smb-multimedia.yaml"
 ]
 environment = """
 TIMEZONE=[[TIMEZONE]]
@@ -28,4 +30,8 @@ NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
 
 # UID=
 # GID=
+
+MULTIMEDIA_HOST=[[MULTIMEDIA_HOST]]
+MULTIMEDIA_USER=[[MULTIMEDIA_USER]]
+MULTIMEDIA_PASS=[[MULTIMEDIA_PASS]]
 """
