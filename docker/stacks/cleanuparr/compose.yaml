@@ -34,7 +34,6 @@ services:
       traefik.http.routers.cleanuparr.entrypoints: websecure
       traefik.http.routers.cleanuparr.rule: Host(`${CLEANUPARR_URL_PREFIX:-cleanuparr.}${NETWORK_DOMAIN}`)
       traefik.http.routers.cleanuparr.tls.certresolver: dns-cloudflare
-      traefik.http.routers.cleanuparr.middlewares: forwardAuth-authentik@file
       # Traefik, Services
       traefik.http.routers.cleanuparr.service: cleanuparr
       traefik.http.services.cleanuparr.loadbalancer.server.port: 11011
