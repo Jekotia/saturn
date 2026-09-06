@@ -1,0 +1,31 @@
+[[stack]]
+name = "cleanuparr"
+tags = [
+  "media-management"
+]
+[stack.config]
+server = "hyperion"
+links = [
+  "https://readarr.jekotia.net",
+  "https://github.com/cleanuparr/cleanuparr",
+  "https://github.com/cleanuparr/cleanuparr/pkgs/container/readarr"
+]
+git_account = "jekotia"
+repo = "jekotia/saturn"
+branch = "master"
+webhook_enabled = false
+run_directory = "docker/stacks/cleanuparr/"
+file_paths = [
+  "compose.yaml",
+  "../../networks/proxy_private.yaml",
+]
+environment = """
+TIMEZONE=[[TIMEZONE]]
+
+# BASE_PATH=
+# CLEANUPARR_URL_PREFIX=
+NETWORK_DOMAIN=[[NETWORK_DOMAIN]]
+
+# UID=
+# GID=
+"""

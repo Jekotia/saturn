@@ -1,0 +1,41 @@
+include:
+  - ../../networks/proxy_private.yaml
+
+services:
+  cleanuparr:
+    image: ghcr.io/cleanuparr/cleanuparr:2.10.5
+    container_name: cleanuparr
+    restart: unless-stopped
+    networks:
+      - proxy_private
+    volumes:
+      - /srv/application_data/cleanuparr/app/config:/config
+    environment:
+      PORT: 11011
+      BASE_PATH: ${BASE_PATH}
+      TZ: ${TIMEZONE}
+      PUID: ${UID:-1000}
+      PGID: ${GID:-1000}
+      UMASK: 022
+    labels:
+      # Glance
+      glance.name: Cleanuparr
+      glance.icon: sh:Cleanuparr
+      glance.url: https://${CLEANUPARR_URL_PREFIX:-cleanuparr.}${NETWORK_DOMAIN}
+      glance.description: "*arr queue management"
+      glance.category: media-management
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:cleanuparr
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+      # Traefik
+      traefik.enable: "true"
+      # Traefik, Router
+      traefik.http.routers.cleanuparr.entrypoints: websecure
+      traefik.http.routers.cleanuparr.rule: Host(`${CLEANUPARR_URL_PREFIX:-cleanuparr.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.cleanuparr.tls.certresolver: dns-cloudflare
+      traefik.http.routers.cleanuparr.middlewares: forwardAuth-authentik@file
+      # Traefik, Services
+      traefik.http.routers.cleanuparr.service: cleanuparr
+      traefik.http.services.cleanuparr.loadbalancer.server.port: 11011
