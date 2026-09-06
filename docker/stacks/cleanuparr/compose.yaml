@@ -16,7 +16,6 @@ services:
       TZ: ${TIMEZONE}
       PUID: ${UID:-1000}
       PGID: ${GID:-1000}
-      UMASK: 022
     labels:
       # Glance
       glance.name: Cleanuparr
