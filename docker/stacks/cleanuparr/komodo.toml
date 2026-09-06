@@ -6,9 +6,9 @@ tags = [
 [stack.config]
 server = "hyperion"
 links = [
-  "https://readarr.jekotia.net",
+  "https://cleanuparr.jekotia.net",
   "https://github.com/cleanuparr/cleanuparr",
-  "https://github.com/cleanuparr/cleanuparr/pkgs/container/readarr"
+  "https://github.com/cleanuparr/cleanuparr/pkgs/container/cleanuparr"
 ]
 git_account = "jekotia"
 repo = "jekotia/saturn"
