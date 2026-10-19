@@ -3,7 +3,7 @@ include:
   
 services:
   plexms:
-    image: ghcr.io/linuxserver/plex:version-1.42.1.10060-4e8b05daf
+    image: ghcr.io/linuxserver/plex:version-1.43.4.10903-e5521bd8c
     container_name: plexms
     restart: unless-stopped
     networks:
