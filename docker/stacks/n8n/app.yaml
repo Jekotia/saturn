@@ -31,7 +31,6 @@ services:
       traefik.http.routers.n8n.entrypoints: websecure
       traefik.http.routers.n8n.rule: Host(`${N8N_URL_PREFIX:-n8n.}${NETWORK_DOMAIN}`)
       traefik.http.routers.n8n.tls.certresolver: dns-cloudflare
-      traefik.http.routers.n8n.middlewares: forwardAuth-authentik@file
       # Traefik, Services
       traefik.http.routers.n8n.service: n8n
       traefik.http.services.n8n.loadbalancer.server.port: 5678
