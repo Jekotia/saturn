@@ -1,0 +1,24 @@
+include:
+  - app.yaml
+  - runners.yaml
+  - sandbox-api.yaml
+  - sandbox-certs.yaml
+  - sandbox-runner-1.yaml
+  - searxng.yaml
+  - ../../networks/proxy_private.yaml
+
+# n8n stack definition for get-n8n.sh (https://get.n8n.io).
+# Downloaded at install time; the copy in your install directory is yours to
+# edit. On --upgrade the script only repoints the sandbox image tags below at
+# N8N_SANDBOX_VERSION. To review changes between versions:
+# https://github.com/n8n-io/n8n/commits/master/docker/get-n8n-compose.yml
+# compose-version: 2
+
+# The sandbox service API, runner and sandbox images ship as one release and
+# are only supported together, so a single N8N_SANDBOX_VERSION (from .env)
+# pins all three.
+networks:
+  n8n:
+
+volumes:
+  sandbox-tls:

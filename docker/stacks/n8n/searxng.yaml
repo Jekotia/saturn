@@ -1,0 +1,10 @@
+services:
+  searxng:
+    image: ghcr.io/searxng/searxng:latest
+    environment:
+      SEARXNG_SECRET: ${SEARXNG_SECRET}
+    networks:
+      - n8n
+    volumes:
+      - ./config/searxng-settings.yaml:/etc/searxng/settings.yml:ro
+    # Internal-only: n8n reaches it by service name. Never publish its port.

@@ -1,0 +1,37 @@
+services:
+  n8n:
+    image: ghcr.io/n8n-io/n8n:${N8N_VERSION}
+    restart: unless-stopped
+    depends_on:
+      sandbox-api:
+        condition: service_healthy
+    networks:
+      - proxy_private
+      - n8n
+    # ports:
+    # - '5678:5678' # the only port that should be internet-facing
+    env_file: .env
+    volumes:
+      - /srv/application_data/n8n/app/config:/home/node/.n8n
+    labels:
+      # Glance
+      glance.name: n8n
+      glance.icon: sh:n8n
+      glance.url: https://${N8N_URL_PREFIX:-n8n.}${NETWORK_DOMAIN}
+      glance.description: Automation
+      glance.category: tools
+      # What's Up Docker
+      wud.watch: true
+      wud.watch.digest: false
+      wud.display.icon: sh:n8n
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+      # Traefik
+      traefik.enable: "true"
+      # Traefik, Router
+      traefik.http.routers.n8n.entrypoints: websecure
+      traefik.http.routers.n8n.rule: Host(`${N8N_URL_PREFIX:-n8n.}${NETWORK_DOMAIN}`)
+      traefik.http.routers.n8n.tls.certresolver: dns-cloudflare
+      traefik.http.routers.n8n.middlewares: forwardAuth-authentik@file
+      # Traefik, Services
+      traefik.http.routers.n8n.service: n8n
+      traefik.http.services.n8n.loadbalancer.server.port: 5678

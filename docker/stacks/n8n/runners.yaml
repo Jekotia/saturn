@@ -1,0 +1,13 @@
+services:
+  runners:
+    image: ghcr.io/n8n-io/runners:${N8N_VERSION}
+    depends_on:
+      - n8n
+    environment:
+      N8N_RUNNERS_AUTH_TOKEN: ${N8N_RUNNERS_AUTH_TOKEN}
+      N8N_RUNNERS_TASK_BROKER_URI: http://n8n:5679
+      # Idle runners exit and are relaunched on demand (per the task-runners docs)
+      N8N_RUNNERS_AUTO_SHUTDOWN_TIMEOUT: '15'
+    # Runs user code from Code nodes. Never publish this container's ports.
+    networks:
+      - n8n
